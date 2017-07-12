@@ -3,14 +3,13 @@ essential styles:
 these make the slideshow work
 */
 #slides{
-	position: relative;
-	padding: 10px;
-	margin: 10px;
+	/*position: relative;*/
+	/*padding: 10px;
+	margin: 10px;*/
 	list-style-type: none;
 }
 
 .slide{
-	position: absolute;
 	left: 0px;
 	top: 0px;
 	width: 700px;
