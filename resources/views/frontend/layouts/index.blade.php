@@ -4,17 +4,18 @@
 @include('frontend.components.html_header')
 </head>
 <body>
-	<div class='container'>
-		<div class="row">
-			@include('frontend.components.header')	
+	<header>
+		<div class='container'>
+			@include('frontend.components.header')
 		</div>
-		<div class="row">
-			<!-- @yield('content') -->
-		</div>
-		<div class="row">
-			<!-- @include('frontend.components.footer') -->
-		</div>
-	</div>
+	</header>
+	<div class="border-center"></div>
+	<main class="row">
+		@yield('content')
+	</main>
+	<footer>
+		@include('frontend.components.footer')
+	</footer>	
 	@include('frontend.components.script_footer')
 </body>
 </html>

@@ -18,3 +18,7 @@ Route::get('/', function () {
 Route::get('index', function(){
 	return view('frontend/layouts/index');
 });
+
+Route::get('home', function(){
+	return view('frontend/pages/home');
+});

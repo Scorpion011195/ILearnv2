@@ -1,13 +1,9 @@
-$(document). ready(function(){
-	var slides = $(document).find('.slide');
-	var currentSlide = 0;
-	var timeSlide = 2000;
-	var slideInterval = setInterval(nextSlide,timeSlide);
-
-	function nextSlide(){
-		slides[currentSlide].className = 'slide';
-		currentSlide = (currentSlide+1)%slides.length;
-		slides[currentSlide].className = 'slide showing';
+$(document).ready(function () {
+	if($(window).width() <= '240px'){
+		var height = $('.carousel-inner .item img').height($('.il-logo').height());
+		console.log(height);
 	}
-
+	else{
+		$('.carousel-inner .item img').css('height', '72px');
+	}
 });
