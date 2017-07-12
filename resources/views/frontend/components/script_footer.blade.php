@@ -1,1 +1,0 @@
-<script src="{!! asset('js/slide.js') !!}"></script>
