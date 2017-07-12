@@ -24,7 +24,7 @@
 				<li class="btn btn-primary"><a href=""><span>Cài đặt</span></a></li>
 			</ul>
 		</div>
-		<div id="sub_menu">	
+		<div id="sub_menu">
 		</div>
 	</div>
 </div>

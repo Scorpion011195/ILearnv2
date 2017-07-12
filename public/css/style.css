@@ -40,7 +40,7 @@ body {
 	left:0%;
 	z-index:100;
 	width:80%;
-	
+
 }
 #page_menu ul li {
 	float:left;
@@ -67,7 +67,7 @@ body {
 #page_menu .selected a
 {
 	background-position:0 -31px;
-	
+
 }
 #page_menu a:hover span, #page_menu li:hover span, #page_menu .selected span {
 	background-position:100% -31px;

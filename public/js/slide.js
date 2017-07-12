@@ -1,7 +1,8 @@
 
-var slides = document.querySelectorAll('#slides .slide');
+var slides = $(document).find('#slides .slide');
 var currentSlide = 0;
-var slideInterval = setInterval(nextSlide,2000);
+var timeSlide = 2000;
+var slideInterval = setInterval(nextSlide,timeSlide);
 
 function nextSlide(){
 	slides[currentSlide].className = 'slide';
