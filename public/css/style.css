@@ -17,42 +17,6 @@ body {
 	padding-top: 6%;
 }
 
-/*Tab section*/
-#page_menu {
-	width:100%;
-	margin:0;
-	padding:8px;
-	text-align:left;
-	z-index:100;
-	clear:both;
-}
-
-#page_menu ul {
-	padding:0;
-	list-style:none;
-	color:#FFFFFF;
-	font-weight:bold;
-	position:relative;
-	left:0%;
-	z-index:100;
-	width:80%;
-
-}
-#page_menu ul li {
-	float:left;
-	margin:0;
-	padding:0;
-	display:inline;
-	/*Separate between tab */
-	margin-left:2px;
-}
-#page_menu a {
-	float:left;
-	padding:0 0 0 11px;
-	color:#FFFFFF;
-	text-decoration:none;
-}
-
 .il-header-right-top {
 	float: right;
 }
