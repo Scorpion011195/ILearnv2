@@ -15,7 +15,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.11/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="{!! asset('css/admin/admin.style.css') !!}">
     <!-- iCheck -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.11/css/skins/skin-blue.css">
     <link href="{!! asset('css/style.css') !!}" rel="stylesheet">
@@ -33,16 +33,22 @@
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
-            <p class="login-box-msg">Đăng nhập</p>
+            <h4 class="login-box-msg" style="">Đăng nhập</h4>
+            <br>
+
             @if ($errors->has('errorLogin'))
             <div class="">
                     <p class="alert--fail"><span class="glyphicon glyphicon-warning-sign"></span>   {!! $errors->first('errorLogin') !!}</p>
             </div>
             @endif
             <form action="{{ route('adminPostLogin') }}" method="post">
+
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group {{ $errors->has('username') ? ' has-error' : '' }}">
+             <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-user"></i></div>
                     <input type="text" class="form-control" placeholder="Username" name="username" value="{{ old('username') }}" required minlength="6" maxlength="32">
+            </div>
                     @if ($errors->has('username'))
                         <span class="help-block">
                             <strong>{!! $errors->first('username') !!}</strong>
@@ -51,7 +57,10 @@
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
+                <div class="input-group">
+                 <div class="input-group-addon"><i class="fa fa-key"></i></div>
                     <input type="password" class="form-control" placeholder="Password" name="password" required minlength="6" maxlength="32">
+                </div>
                     @if ($errors->has('password'))
                         <span class="help-block">
                             <strong>{!! $errors->first('password') !!}</strong>
@@ -59,15 +68,12 @@
                     @endif
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
-                <div class="row">
-                    <!-- remember me -->
-                    <div class="col-xs-8">
-                        <!-- <input type="checkbox" name="remember_me"> Remember Me -->
-                    </div>
+                <div class="row" style = "padding-top: 30px">
+                   
                     <!-- remember me -->
                     <!-- /.col -->
-                    <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
+                    <div class="col-xs-12">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat border">Đăng nhập</button>
                     </div>
                     <!-- /.col -->
                 </div>
