@@ -23,10 +23,10 @@ Route::get('index', function(){
 Route::get('/admin', function () {
 	return view('admin.layouts.ilearn');
 });
+
 Route::get('admin/login', 'AdminController@getLogin')->name('adminGetLogin');
 Route::post('admin/login', 'AdminController@postLogin')->name('adminPostLogin');
 
-    // Đăng xuất
-Route::get('logout', 'AdminController@logout')->name('adminLogout');
-
 // END ADMIN
+
+Auth::routes();

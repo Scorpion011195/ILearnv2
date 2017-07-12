@@ -47,7 +47,7 @@
                 <div class="form-group {{ $errors->has('username') ? ' has-error' : '' }}">
              <div class="input-group">
               <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                    <input type="text" class="form-control" placeholder="Username" name="username" value="{{ old('username') }}" required minlength="6" maxlength="32">
+                    <input type="text" class="form-control" placeholder="Username" name="username" value="{{ old('username') }}" required minlength="4" maxlength="32">
             </div>
                     @if ($errors->has('username'))
                         <span class="help-block">

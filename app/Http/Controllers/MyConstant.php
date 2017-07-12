@@ -6,11 +6,7 @@ namespace App\Http\Controllers;
 // Do not remove it!
 class MyConstant
 {
-    const ROLE = ['superadmin'=>'1',
-                  'admin'=>'2',
-                  'editor'=>'3',
-                  'contributor'=>'4',
-                  'user'=>'5'
-                 ];
-}
+	const STATUS_USER = ['Hoạt động'=>1,'Bị khóa'=>0];
 
+	const ROLE_USER = ['superadmin' => 1, 'admin' => 2, 'editor' => 3, 'contributor' => 4, 'user' => 5];
+}
