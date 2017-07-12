@@ -17,3 +17,10 @@ Route::get('/', function () {
 Route::get('index', function(){
 	return view('frontend/layouts/index');
 });
+
+/*=================ADMIN AREA==================*/
+Route::get('/admin', function () {
+    return view('admin.layouts.ilearn');
+});
+
+// END ADMIN
