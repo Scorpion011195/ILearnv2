@@ -4,9 +4,9 @@
 @include('frontend.components.html_header')
 </head>
 <body>
-	<div class='container'>
+	<div class="container">
 		<div class="row">
-			@include('frontend.components.header')	
+			@include('frontend.components.header')
 		</div>
 		<div class="row">
 			<!-- @yield('content') -->

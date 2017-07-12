@@ -4,16 +4,14 @@ these make the slideshow work
 */
 #slides{
 	position: relative;
-	/*padding: 10px;
-	margin: 10px;*/
 	list-style-type: none;
 }
 
 .slide{
-	position: absolute;
 	width: 100%;
-	opacity: 0;
 	height: 72px;
+	background-size: contain;
+	opacity: 0;
 	z-index: 1;
 	-webkit-transition: opacity 1s;
 	-moz-transition: opacity 1s;
@@ -26,21 +24,6 @@ these make the slideshow work
 	z-index: 2;
 }
 
-
-
-/*
-non-essential styles:
-just for appearance; change whatever you want
-*/
-
-/*.slide{
-	font-size: 25px;
-	box-sizing: border-box;
-	background: #333;
-	color: #fff;
-	background-position: left;
-}
-*/
 .slide:nth-of-type(1){
 	background: url('../img/slide.png');
 }
