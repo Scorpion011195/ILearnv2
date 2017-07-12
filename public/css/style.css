@@ -15,42 +15,6 @@ body {
 	padding-right: 0px;
 }
 
-/*Tab section*/
-#page_menu {
-	width:100%;
-	margin:0;
-	padding:8px;
-	text-align:left;
-	z-index:100;
-	clear:both;
-}
-
-#page_menu ul {
-	padding:0;
-	list-style:none;
-	color:#FFFFFF;
-	font-weight:bold;
-	position:relative;
-	left:0%;
-	z-index:100;
-	width:80%;
-
-}
-#page_menu ul li {
-	float:left;
-	margin:0;
-	padding:0;
-	display:inline;
-	/*Separate between tab */
-	margin-left:2px;
-}
-#page_menu a {
-	float:left;
-	padding:0 0 0 11px;
-	color:#FFFFFF;
-	text-decoration:none;
-}
-
 .il-header-right-top {
 	padding-right: 0px;
 	text-align: right;
@@ -61,16 +25,6 @@ body {
 	padding-right: 0px;
 	width: 100%;
 }
-
-#page_menu .selected a
-{
-	background-position:0 -31px;
-
-}
-#page_menu a:hover span, #page_menu li:hover span, #page_menu .selected span {
-	background-position:100% -31px;
-}
-/*End Tab section*/
 
 /*Class reponsive*/
 
