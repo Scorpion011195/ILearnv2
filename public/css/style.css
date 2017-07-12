@@ -1,25 +1,18 @@
 body {
-    background: url(../img/line.png) repeat-x 0 128px;
+	margin-top: 10px;
 }
-#wrapper {
-    margin: 0px auto;
-    width: 948px;
-    padding: 0;
+.container {
+	width: 70%;
 }
-#header #logo {
-	float: left;
-	padding: 15px 0 0 0;
-	margin:0;
-	height: 84px;
+.il-logo {
+	padding-left: 0px;
 }
-#header #header_right {
-	float: right;
-    position: relative;
-    width: 700px;
-    text-align: right;
+.il-logo-md {
+	width: 200px;
+	height: auto;
 }
-#header_right .banner {
-	padding: 10px 0 0 0;
+.il-header {
+	padding-right: 0px;
 }
 
 /*Tab section*/
@@ -31,6 +24,7 @@ body {
 	z-index:100;
 	clear:both;
 }
+
 #page_menu ul {
 	padding:0;
 	list-style:none;
@@ -56,13 +50,17 @@ body {
 	color:#FFFFFF;
 	text-decoration:none;
 }
-#page_menu a span { /*Don't know why with #page_menu ul li a span the display:block; not effect */
-	float:left;
-	display:block;
-	padding:7px 11px 7px 0px;/*place padding here*/
+
+.il-header-right-top {
+	padding-right: 0px;
+	text-align: right;
 }
-/* End IE5-Mac hack */
-#page_menu a:hover, #page_menu li:hover a,
+
+.il-header-right-banner {
+	padding-top: 1%;
+	padding-right: 0px;
+	width: 100%;
+}
 
 #page_menu .selected a
 {
@@ -74,105 +72,77 @@ body {
 }
 /*End Tab section*/
 
-/*Menu section*/
-/*Remove the default css for tab in the menu*/
-#page_menu ul ul a {
-	background:none;
+/*Class reponsive*/
+
+@media screen and (max-width: 1024px){
+	.il-logo-md {
+		width: 160px;
+	}
+	.container {
+		width: 80%;
+	}
+
 }
-#page_menu ul ul li {
-	margin:0;
+
+@media screen and (max-width: 768px){
+    .il-logo-md {
+		width: 150px;
+	}
+	body {
+		font-size: 13px;
+	}
+	.container {
+		width: 80%;
+	}
 }
-/*End of Remove the default css for tab in the menu*/
-/*Start the menu*/
-#page_menu {
-	width:100%;
+
+@media screen and (max-width: 680px){
+    .il-logo-md {
+		width: 110px;
+	}
+	body {
+		font-size: 12px;
+	}
+	.container {
+		width: 80%;
+	}
+	.slide {
+		width: 100%;
+	}
 }
-#page_menu ul {
-	margin:0;
-	padding:0;
-	list-style:none;
+
+@media screen and (max-width: 480px){
+    .il-logo-md {
+		width: 90px;
+	}
+	body {
+		font-size: 9px;
+	}
+	.container {
+		width: 90%;
+	}
+	.slide {
+		width: 100%;
+	}
 }
-#page_menu li {
-	float:left;
-	position:relative;
-	display:inline;
-	top:0;
-}
-#page_menu ul ul li {
-	width:15em;
-	display:block;
-	border-width:1px;
-	border-style:solid;
-	border-color: #45c5e9 #0984a7 #00617d #0984a7;
-	margin:0;
-	padding:3px 2px;
-}
-#page_menu a {
-	color: #FFFFFF !important;
-}
-#page_menu ul ul a {
-	display:block;
-	color:#d8e5d1 !important;
-	margin:0;
-	font-weight:normal;
-}
-#page_menu ul ul a:hover {
-	color:#FFFFFF !important;
-}
-#page_menu ul ul a span
-{
-	background:none;
-}
-/*level 2*/
-	#page_menu ul ul li, #page_menu ul ul li a {
-	background:#0984a7 !important;
-	text-decoration:none;
-}
-/*level 3*/
-	#page_menu ul ul ul li, #page_menu ul ul ul li a {
-	background:#0984a7 !important;
-	text-decoration:none;
-}
-#page_menu ul li {
-	position:relative;
-}
-#page_menu ul ul {
-	position:absolute;
-	top:100%;
-	left:0;
-}
-#page_menu ul ul ul {
-	position:absolute;
-	top:0;
-	left:100%;
-}
-#page_menu ul ul, #page_menu ul li:hover ul ul, #page_menu ul li:hover ul ul ul {
-	display:none;
-}
-#page_menu ul li:hover ul, #page_menu ul ul li:hover ul, #page_menu ul ul ul li:hover ul {
-	display:block;
-}
-/*End the menu*/
-#header #top_menu ul
-{
-	list-style-type:none;
-}
-#header #top_menu a
-{
-	color:#666;
-	font-weight:normal;
-}
-/*End the menu*/
-#footer_menu ul
-{
-	list-style-type:none;
-}
-#footer_menu li
-{
-	display:inline;
-}
+
 #footer_menu a
 {
 	color:#666;
 	font-weight:normal;
+}
+
+@media screen and (max-width: 320px){
+    .il-logo-md {
+		width: 70px;
+	}
+	body {
+		font-size: 7px;
+	}
+	.container {
+		width: 95%;
+	}
+	.slide {
+		width: 100%;
+	}
 }

@@ -10,9 +10,13 @@
     <!-- CSS BOOTSTRAP -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- ILEARN STYLE-->
-    <link href="{!! asset('css/style.css') !!}" rel="stylesheet">
+    <!-- ILEARN STYLE-->   
     <link href="{!! asset('css/slide.css') !!}" rel="stylesheet">
+<<<<<<< HEAD
+=======
+    <link href="{!! asset('css/style.css') !!}" rel="stylesheet">
+
+>>>>>>> f3aef3e6640b11524a346092cbeed18a3682a33f
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.2.1.js"
             integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
