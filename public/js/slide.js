@@ -1,5 +1,4 @@
 $(document). ready(function(){
-
 	var slides = $(document).find('.slide');
 	var currentSlide = 0;
 	var timeSlide = 2000;
