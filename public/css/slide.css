@@ -3,18 +3,17 @@ essential styles:
 these make the slideshow work
 */
 #slides{
-	/*position: relative;*/
+	position: relative;
 	/*padding: 10px;
 	margin: 10px;*/
 	list-style-type: none;
 }
 
 .slide{
-	left: 0px;
-	top: 0px;
-	width: 700px;
-	height: 76px;
+	position: absolute;
+	width: 100%;
 	opacity: 0;
+	height: 72px;
 	z-index: 1;
 	-webkit-transition: opacity 1s;
 	-moz-transition: opacity 1s;
@@ -34,15 +33,14 @@ non-essential styles:
 just for appearance; change whatever you want
 */
 
-.slide{
+/*.slide{
 	font-size: 25px;
-	padding-top: 18px;
-    padding-right: 352px;
 	box-sizing: border-box;
 	background: #333;
 	color: #fff;
+	background-position: left;
 }
-
+*/
 .slide:nth-of-type(1){
 	background: url('../img/slide.png');
 }

@@ -1,14 +1,95 @@
+body {
+	margin-top: 10px;
+}
 .container {
 	width: 70%;
 }
+.il-logo {
+	padding-left: 0px;
+}
 .il-logo-md {
-	width: 217px;
+	width: 200px;
 	height: auto;
-	float: left;
+}
+.il-header {
+	padding-right: 0px;
 }
 .il-header-right-top {
-	float: right;
+	padding-right: 0px;
+	text-align: right;
 }
 .il-header-right-banner {
-	float: right;
+	padding-top: 1%;
+	padding-right: 0px;
+	width: 100%;
+}
+
+/*Class reponsive*/
+
+@media screen and (max-width: 1024px){
+	.il-logo-md {
+		width: 160px;
+	}
+	.container {
+		width: 80%;
+	}
+
+}
+
+@media screen and (max-width: 768px){
+    .il-logo-md {
+		width: 150px;
+	}
+	body {
+		font-size: 13px;
+	}
+	.container {
+		width: 80%;
+	}
+}
+
+@media screen and (max-width: 680px){
+    .il-logo-md {
+		width: 110px;
+	}
+	body {
+		font-size: 12px;
+	}
+	.container {
+		width: 80%;
+	}
+	.slide {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 480px){
+    .il-logo-md {
+		width: 90px;
+	}
+	body {
+		font-size: 9px;
+	}
+	.container {
+		width: 90%;
+	}
+	.slide {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 320px){
+    .il-logo-md {
+		width: 70px;
+	}
+	body {
+		font-size: 7px;
+	}
+	.container {
+		width: 95%;
+	}
+	.slide {
+		width: 100%;
+	}
+
 }
