@@ -89,11 +89,11 @@ body {
     border-bottom: 1px solid #e5e5e5;
     margin-bottom: 30px;
 }
-.form-group {
+/*.form-group {
     margin: 0;
     padding: 0 0 8px;
     border: 0;
-}
+}*/
 .il-login .il-form-login .form-group input {
     height: 45px;
     padding: 0 20px;
@@ -211,9 +211,10 @@ body {
 /*----------------CSS TRANSLATE TEXT-------------*/
 .il-translate-text {
 	padding: 10px 10px;
+	margin: auto;
 }
 .il-translate-title {
-	margin-left: inherit;
+	margin: inherit;
 	border-top: 1px solid #b8dce6 ;
 	border-bottom: 1px solid #b8dce6;
 	background-color: #29aae3;
