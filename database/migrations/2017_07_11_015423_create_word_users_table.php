@@ -14,8 +14,13 @@ class CreateWordUsersTable extends Migration
     public function up()
     {
         Schema::create('word_users', function (Blueprint $table) {
-            $table->integer('id');
-            $table->longText('words')->nullable()->default(null);
+            $table->increments('id');
+            $table->integer('user_id');
+            $table->string('word',50);
+            $table->integer('type_word_id');
+            $table->integer('from_language_id');
+            $table->integer('to_language_id');
+            $table->integer('is_notification');
             $table->timestamps();
         });
     }

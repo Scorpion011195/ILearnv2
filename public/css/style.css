@@ -1,37 +1,43 @@
 body {
-	margin-top: 10px;
+	margin-top: 1%;
+    background: url(../img/line.png) repeat-x 0 140%;
 }
 .container {
 	width: 70%;
 }
 .il-logo {
-	padding-left: 0px;
+	float: left;
+}
+.il-page-menu {
+	padding-left:0%;
 }
 .il-logo-md {
-	width: 200px;
+	width: 90%;
 	height: auto;
 }
 .il-header {
 	padding-right: 0px;
+	padding-top: 6%;
 }
 
 .il-header-right-top {
-	padding-right: 0px;
-	text-align: right;
+	float: right;
 }
 
 .il-header-right-banner {
-	padding-top: 1%;
-	padding-right: 0px;
-	width: 100%;
+	padding-top:20px;
 }
 
 /*Class reponsive*/
+.il-header-right-top ul{
+	float: right;
+}
+.il-header-right-top ul li {
+	list-style: none;
+	float: left;
+}
 
 @media screen and (max-width: 1024px){
-	.il-logo-md {
-		width: 160px;
-	}
 	.container {
 		width: 80%;
 	}
@@ -39,9 +45,6 @@ body {
 }
 
 @media screen and (max-width: 768px){
-    .il-logo-md {
-		width: 150px;
-	}
 	body {
 		font-size: 13px;
 	}
@@ -51,52 +54,28 @@ body {
 }
 
 @media screen and (max-width: 680px){
-    .il-logo-md {
-		width: 110px;
-	}
 	body {
 		font-size: 12px;
 	}
 	.container {
 		width: 80%;
 	}
-	.slide {
-		width: 100%;
-	}
 }
 
 @media screen and (max-width: 480px){
-    .il-logo-md {
-		width: 90px;
-	}
 	body {
 		font-size: 9px;
 	}
 	.container {
 		width: 90%;
 	}
-	.slide {
-		width: 100%;
-	}
-}
-
-#footer_menu a
-{
-	color:#666;
-	font-weight:normal;
 }
 
 @media screen and (max-width: 320px){
-    .il-logo-md {
-		width: 70px;
-	}
 	body {
 		font-size: 7px;
 	}
 	.container {
 		width: 95%;
-	}
-	.slide {
-		width: 100%;
 	}
 }
