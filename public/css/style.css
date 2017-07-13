@@ -1,81 +1,293 @@
+/*----------------CSS HEADER-------------*/
 body {
-	margin-top: 1%;
-    background: url(../img/line.png) repeat-x 0 140%;
+    overflow-x: hidden;
 }
-.container {
-	width: 70%;
+.row.il-top-header{
+    font-size: 14px;
+    text-align: right;
+    padding: 10px 15px;
 }
-.il-logo {
-	float: left;
+.il-top-header a{
+    text-decoration: none;
+    display: inline-block;
 }
-.il-page-menu {
-	padding-left:0%;
+/*----------------CSS MENU-------------*/
+.navbar-default{
+    background: transparent;
+    border: transparent;
 }
-.il-logo-md {
-	width: 90%;
-	height: auto;
+.il-menu{
+    margin: 0;
+    padding: 30px 0 0;
 }
-.il-header {
-	padding-right: 0px;
-	padding-top: 6%;
+.il-menu ul{
+    padding: 0;
+    margin: 0 -2px;
+}
+.il-menu ul li{
+    float: left;
+    list-style: none;
+    padding: 0 2px;
+}
+.il-menu ul li a{
+    display: block;
+    padding: 10px 15px;
+    font-family: initial;
+    background: #0984a7;
+    color: #fff;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    line-height: 10px;
+}
+.il-menu ul li.active a, .il-menu ul li a:hover, .il-menu ul li a:active{
+    background: #ffbd0a;
+    text-decoration: none;
+}
+.carousel-control.right,.carousel-control.left{
+    display: none;
+}
+.border-center{
+    background: #0984a7;
+    padding: 15px 0;
+    width: 100%;
+    position: relative;
+}
+.border-center::after{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    width: 100%;
+    height: 5px;
+    background: #f6fafb;
+}
+/*----------------CSS SEARCH-------------*/
+.il-search {
+    padding: 30px 15px;
+    position: inherit;
+}
+/*----------------CSS LOGIN-------------*/
+.il-login {
+    padding: 30px 15px;
+    position: inherit;
+}
+.il-title-login legend {
+    text-align: center;
+    color: #0984a7;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    border-bottom: none;
+    margin-bottom: -5px;
+}
+.il-title-login span {
+    font-family: 'Arial';
+    font-size: 15px;
+    line-height: 23px;
+    color: #111111;
+    text-align: center;
+    display: block;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 30px;
+}
+/*.form-group {
+    margin: 0;
+    padding: 0 0 8px;
+    border: 0;
+}*/
+.il-login .il-form-login .form-group input {
+    height: 45px;
+    padding: 0 20px;
+    color: #111111;
+    border-color: #ebebeb;
+    border-radius: 0px;
+    box-shadow: none;
+}
+.form-group .form-control {
+    display: block;
+    width: 100%;
+    min-height: 40px;
+    padding: .375rem .75rem;
+    font-size: 1em;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    margin: 0;
+}
+.form-group input, .form-group select {
+    height: 40px;
+}
+.button-50 {
+    font-size: 16px;
+    line-height: 25px;
+    width: 50%;
+}
+.btn-50-blue:hover {
+    background: #fff;
+    color: #13a6ef;
+    border: solid 1px #13a6ef;
+}
+.input-group {
+    padding-top: 15px;
+}
+/*----------------CSS REGISTER-------------*/
+.il-title-register legend {
+    text-align: center;
+    color: #0984a7;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    border-bottom: none;
+    margin-bottom: -5px;
+}
+.il-title-register span {
+    font-family: 'Arial';
+    font-size: 15px;
+    line-height: 23px;
+    color: #111111;
+    text-align: center;
+    display: block;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 30px;
+}
+.il-register {
+    padding: 30px 15px;
+    position: inherit;
+}
+.il-register .il-form-register .form-group input {
+    height: 45px;
+    padding: 0 20px;
+    color: #111111;
+    border-color: #ebebeb;
+    border-radius: 0px;
+    box-shadow: none;
+}
+/*----------------CSS RESULT-------------*/
+.il-result {
+    padding: 10px 15px;
+}
+.il-contents {
+    overflow: hidden;
+}
+.il-explain {
+    float: right;
+}
+.il-explain h5 {
+    color: #0984a7;
+    outline-color: red;
+}
+.il-word {
+    font-size: 18px;
+    height: 22px;
+    float: left;
+}
+.il-word span {
+    font-weight: bold;
+    text-decoration: underline;
+    color: Black;
+}
+.il-spelling {
+    float: left;
+    padding-left: 5px;
+}
+.il-listen {
+    float: left;
+    padding-left: 5px;
+}
+.row .il-word-tile {
+    padding: 10px 15px;
+}
+.il-word-tile .il-category {
+    padding-left: 10px;
+    border-top: 1px solid #2469a2;
+    border-bottom: 1px solid #2469a2;
+    background-color: #b8dce6;
+    font-size: 14px;
+}
+.il-list {
+    padding-top: 10px;
+    line-height: 14px;
+}
+/*----------------CSS TRANSLATE TEXT-------------*/
+.il-translate-text {
+    padding: 10px 10px;
+    margin: auto;
+}
+.il-translate-title {
+    margin: inherit;
+    border-top: 1px solid #b8dce6 ;
+    border-bottom: 1px solid #b8dce6;
+    background-color: #29aae3;
+}
+.il-translate-title span{
+    line-height: 24px;
+    color: White;
+    font-weight: bold;
+    padding-left: 10px;
+    vertical-align: middle;
+}
+.il-translate-content {
+    height: 100px;
+}
+/*----------------CSS FOOTER-------------*/
+footer {
+    padding: 45px 15px;
+}
+.il-footer {
+    text-align: center;
+}
+.il-footer a {
+    text-decoration: none;
+}
+.il-footer a:hover {
+    color: #ffbd0a;
 }
 
-.il-header-right-top {
-	float: right;
+@media screen and (max-width: 240px) {
+    .il-menu {
+        width: 101%;
+        margin: 0;
+        padding: 30px 0px 0px;
+        float: left;
+        position: relative;
+    }
+    .il-menu ul li a {
+        line-height: 8px;
+        font-family: initial;
+        padding: 5px;
+        font-size: 10px;
+        display: block;
+        padding: 10px 6px;
+        background: #0984a7;
+        color: #fff;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+    .item img {
+        height: 45px !important;
+    }
 }
-
-.il-header-right-banner {
-	padding-top:20px;
-}
-
-/*Class reponsive*/
-.il-header-right-top ul{
-	float: right;
-}
-.il-header-right-top ul li {
-	list-style: none;
-	float: left;
-}
-
-@media screen and (max-width: 1024px){
-	.container {
-		width: 80%;
-	}
-
-}
-
-@media screen and (max-width: 768px){
-	body {
-		font-size: 13px;
-	}
-	.container {
-		width: 80%;
-	}
-}
-
-@media screen and (max-width: 680px){
-	body {
-		font-size: 12px;
-	}
-	.container {
-		width: 80%;
-	}
-}
-
-@media screen and (max-width: 480px){
-	body {
-		font-size: 9px;
-	}
-	.container {
-		width: 90%;
-	}
-}
-
-@media screen and (max-width: 320px){
-	body {
-		font-size: 7px;
-	}
-	.container {
-		width: 95%;
-	}
+@media screen and (max-width: 320px) {
+    .il-menu {
+        width: 101%;
+        margin: 0;
+        padding: 30px 0px 0px;
+        float: left;
+        position: relative;
+    }
+    .il-menu ul li a {
+        line-height: 10px;
+        padding: 5px;
+        font-size: 10px;
+        font-family: initial;
+        display: block;
+        padding: 10px 6px;
+        background: #0984a7;
+        color: #fff;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+    .item img {
+        height: 45px !important;
+    }
 }
