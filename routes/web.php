@@ -22,3 +22,15 @@ Route::get('index', function(){
 Route::get('home', function(){
 	return view('frontend/pages/home');
 });
+Route::get('result', function(){
+	return view('frontend/pages/result');
+});
+Route::get('login', function(){
+	return view('frontend/pages/login');
+});
+Route::get('register', function(){
+	return view('frontend/pages/register');
+});
+Route::get('translate', function(){
+	return view('frontend/pages/translate_text');
+});

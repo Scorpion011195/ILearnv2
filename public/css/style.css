@@ -1,4 +1,7 @@
 /*----------------CSS HEADER-------------*/
+body {
+	overflow-x: hidden;
+}
 .row.il-top-header{
 	font-size: 14px;
 	text-align: right;
@@ -29,10 +32,12 @@
 .il-menu ul li a{
     display: block;
     padding: 10px 15px;
+    font-family: initial;
     background: #0984a7;
     color: #fff;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
+    line-height: 10px;
 }
 .il-menu ul li.active a, .il-menu ul li a:hover, .il-menu ul li a:active{
 	background: #ffbd0a;
@@ -57,24 +62,186 @@
 }
 /*----------------CSS SEARCH-------------*/
 .il-search {
-	padding-top: 10%;
+	padding: 30px 15px;
 	position: inherit;
 }
-/*----------------CSS FOOTER-------------*/
-.il-footer {
-	background-color: #0984a7;
-    padding-top: 3px;
-    padding-bottom: 3px;
+/*----------------CSS LOGIN-------------*/
+.il-login {
+	padding: 30px 15px;
+	position: inherit;
+}
+.il-title-login legend {
+	text-align: center;
+    color: #0984a7;
+   	font-weight: bold;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    border-bottom: none;
+    margin-bottom: -5px;
+}
+.il-title-login span {
+	font-family: 'Arial';
+    font-size: 15px;
+    line-height: 23px;
+    color: #111111;
     text-align: center;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    display: block;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 30px;
 }
-.il-footer p {
-    margin: 10px;
-    color: white;
+.form-group {
+    margin: 0;
+    padding: 0 0 8px;
+    border: 0;
 }
+.il-login .il-form-login .form-group input {
+    height: 45px;
+    padding: 0 20px;
+    color: #111111;
+    border-color: #ebebeb;
+    border-radius: 0px;
+    box-shadow: none;
+}
+.form-group .form-control {
+    display: block;
+    width: 100%;
+    min-height: 40px;
+    padding: .375rem .75rem;
+    font-size: 1em;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    margin: 0;
+}
+.form-group input, .form-group select {
+    height: 40px;
+}
+.button-50 {
+    font-size: 16px;
+    line-height: 25px;
+    width: 50%;
+}
+.btn-50-blue:hover {
+    background: #fff;
+    color: #13a6ef;
+    border: solid 1px #13a6ef;
+}
+.input-group {
+	padding-top: 15px;
+}
+/*----------------CSS REGISTER-------------*/
+.il-title-register legend {
+	text-align: center;
+    color: #0984a7;
+   	font-weight: bold;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    border-bottom: none;
+    margin-bottom: -5px;
+}
+.il-title-register span {
+	font-family: 'Arial';
+    font-size: 15px;
+    line-height: 23px;
+    color: #111111;
+    text-align: center;
+    display: block;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 30px;
+}
+.il-register {
+	padding: 30px 15px;
+	position: inherit;
+}
+.il-register .il-form-register .form-group input {
+    height: 45px;
+    padding: 0 20px;
+    color: #111111;
+    border-color: #ebebeb;
+    border-radius: 0px;
+    box-shadow: none;
+}
+/*----------------CSS RESULT-------------*/
+.il-result {
+	padding: 10px 15px;
+}
+.il-contents {
+	overflow: hidden;
+}
+.il-explain {
+	float: right;
+}
+.il-explain h5 {
+	color: #0984a7;
+	outline-color: red;
+}
+.il-word {
+	font-size: 18px;
+	height: 22px;
+	float: left;
+}
+.il-word span {
+	font-weight: bold;
+	text-decoration: underline;
+	color: Black;
+}
+.il-spelling {
+	float: left;
+	padding-left: 5px;
+}
+.il-listen {
+	float: left;
+	padding-left: 5px;
+}
+.row .il-word-tile {
+	padding: 10px 15px;
+}
+.il-word-tile .il-category {
+	padding-left: 10px;
+	border-top: 1px solid #2469a2;
+	border-bottom: 1px solid #2469a2;
+	background-color: #b8dce6;
+	font-size: 14px;
+}
+.il-list {
+	padding-top: 10px;
+	line-height: 14px;
+}
+/*----------------CSS TRANSLATE TEXT-------------*/
+.il-translate-text {
+	padding: 10px 10px;
+}
+.il-translate-title {
+	margin-left: inherit;
+	border-top: 1px solid #b8dce6 ;
+	border-bottom: 1px solid #b8dce6;
+	background-color: #29aae3;
+}
+.il-translate-title span{
+	line-height: 24px;
+	color: White;
+	font-weight: bold;
+	padding-left: 10px;
+	vertical-align: middle;
+}
+.il-translate-content {
+	height: 100px;
+}
+/*----------------CSS FOOTER-------------*/
+footer {
+	padding: 45px 15px;
+}
+.il-footer {
+	text-align: center;
+}
+.il-footer a {
+	text-decoration: none;
+}
+.il-footer a:hover {
+	color: #ffbd0a;
+}
+
 @media screen and (max-width: 240px) {
 	.il-menu {
 	    width: 101%;
@@ -84,9 +251,10 @@
 	    position: relative;
 	}
 	.il-menu ul li a {
-	    line-height: 10px;
+	    line-height: 8px;
+	    font-family: initial;
 	    padding: 5px;
-	    font-size: 12px;
+	    font-size: 10px;
 	    display: block;
 	    padding: 10px 6px;
 	    background: #0984a7;
@@ -109,7 +277,8 @@
 	.il-menu ul li a {
 	    line-height: 10px;
 	    padding: 5px;
-	    font-size: 12px;
+	    font-size: 10px;
+	    font-family: initial;
 	    display: block;
 	    padding: 10px 6px;
 	    background: #0984a7;

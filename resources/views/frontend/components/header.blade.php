@@ -1,6 +1,6 @@
 <div class="row il-top-header">
-	<a href="#"> Đăng nhập</a>|
-	<a href="#">Đăng ký</a>
+	<a href="{{url('login')}}"> Đăng nhập</a> |
+	<a href="{{url('register')}}">Đăng ký</a>
 </div>
 <div class="row il-bottom-header">
 	<div class="col-md-3 col-xs-4 il-logo"><a href="#"><img src="{{ asset('img/logo.png')}}" alt="il-logo" class="img-responsive il-logo"></a></div>
@@ -32,8 +32,8 @@
 </div>
 <nav class="nav navbar-default il-menu">
 	<ul class="clearfix">
-		<li class="active"><a href="#">Từ điển</a></li>
-		<li><a href="#">Dịch văn bản </a></li>
-		<li><a href="#">Từ của tôi</a></li>
+		<li class="active"><a href="{{url('home')}}">Từ điển</a></li>
+		<li><a href="{{url('translate')}}">Dịch văn bản </a></li>
+		<li><a href="{{url('')}}">Từ của tôi</a></li>
 	</ul>
 </nav>
