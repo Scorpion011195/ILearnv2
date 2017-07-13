@@ -48,4 +48,4 @@ Route::post('admin/login', 'AdminController@postLogin')->name('adminPostLogin');
 
 Auth::routes();
 
-
+Route::get('test', 'AdminCrawlerController@testCrawler');
