@@ -50,8 +50,8 @@ Route::group(['prefix' => 'admin'], function () {
    		Route::get('/',function(){
    			return view('admin.layouts.ilearn');
    		});
-        Route::GET('get', 'DictionaryManagementController@getAddWord')->name('adminAdd');
-        Route::POST('/add', 'DictionaryManagementController@adminAdd')->name('addWord');
+        Route::GET('get', 'DictionaryManagementController@return')->name('getAddWord');
+        Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
     });
 });
 // END ADMIN
