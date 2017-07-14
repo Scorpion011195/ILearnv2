@@ -37,16 +37,21 @@ Route::get('translate', function(){
 
 
 /*=================ADMIN AREA==================*/
-Route::group(['middleware' => 'AdminLogin'], function(){
+Route::group(['prefix' => 'admin'], function () {
+    // Đăng nhập
+    Route::get('login', 'AdminController@getLogin')->name('adminGetLogin');
+    Route::post('login', 'AdminController@postLogin')->name('adminPostLogin');
 
-	Route::Get('/admin',function(){
-		return view('admin.layouts.ilearn');
-	});
-	Route::get('admin/login', 'AdminController@getLogin')->name('adminGetLogin');
-	Route::post('admin/login', 'AdminController@postLogin')->name('adminPostLogin');
+    // Đăng xuất
+    Route::get('logout', 'AdminController@logout')->name('adminLogout');
 
-	    // Đăng xuất
-	Route::get('logout', 'AdminController@logout')->name('adminLogout');
+    // Trang chủ
+    Route::group(['middleware' =>'AdminLogin'],function(){
+   		Route::get('/',function(){
+   			return view('admin.layouts.ilearn');
+   		});
+         Route::GET('create', 'DictionaryManagementController@create')->name('adminDictCreate');
+    });
 });
 // END ADMIN
 

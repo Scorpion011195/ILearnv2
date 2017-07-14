@@ -16,3 +16,6 @@ input{
 	 border-left: 3px solid #e74c3c;
       -webkit-transition:0.4s ease;  
 }
+.input-group:hover {
+  background-color: transparent; /* Fix for dropdown-menu item hover background-color */
+}

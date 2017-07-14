@@ -37,7 +37,7 @@
             <br>
 
             @if ($errors->has('errorLogin'))
-            <div class="">
+            <div class="ereLogin" style="color:#dd4b39;">
                     <p class="alert--fail"><span class="glyphicon glyphicon-warning-sign"></span>   {!! $errors->first('errorLogin') !!}</p>
             </div>
             @endif
@@ -47,7 +47,7 @@
                 <div class="form-group {{ $errors->has('username') ? ' has-error' : '' }}">
              <div class="input-group">
               <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                    <input type="text" class="form-control" placeholder="Username" name="username" value="{{ old('username') }}" required minlength="4" maxlength="32">
+                    <input type="text" class="form-control" placeholder="Username" name="username" value="{{ old('username') }}" required maxlength="32" minlength="6">
             </div>
                     @if ($errors->has('username'))
                         <span class="help-block">
@@ -56,12 +56,16 @@
                     @endif
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
-                <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
+                <div class="form-group 
+                @if ($errors->has('password') && !$errors->has('username'))
+                {{ $errors->has('password') ? ' has-error' : '' }} 
+                @endif 
+                ">
                 <div class="input-group">
                  <div class="input-group-addon"><i class="fa fa-key"></i></div>
-                    <input type="password" class="form-control" placeholder="Password" name="password" required minlength="6" maxlength="32">
+                    <input type="password" class="form-control" placeholder="Password" name="password" required maxlength="32" minlength="6">
                 </div>
-                    @if ($errors->has('password'))
+                    @if ($errors->has('password') && !$errors->has('username'))
                         <span class="help-block">
                             <strong>{!! $errors->first('password') !!}</strong>
                         </span>
