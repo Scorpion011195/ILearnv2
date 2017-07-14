@@ -24,11 +24,12 @@ class CreateUsersTable extends Migration
             $table->date('date_of_birth')->nullable()->default(null);
             $table->integer('status');
             $table->integer('role_id');
+            $table->boolean('confirmed')->default(0);
+            $table->string('confirmation_code')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

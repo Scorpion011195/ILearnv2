@@ -32,7 +32,6 @@ body {
 .il-menu ul li a{
     display: block;
     padding: 10px 15px;
-    font-family: initial;
     background: #0984a7;
     color: #fff;
     border-top-left-radius: 12px;
@@ -253,7 +252,6 @@ footer {
     }
     .il-menu ul li a {
         line-height: 8px;
-        font-family: initial;
         padding: 5px;
         font-size: 10px;
         display: block;
@@ -279,7 +277,6 @@ footer {
         line-height: 10px;
         padding: 5px;
         font-size: 10px;
-        font-family: initial;
         display: block;
         padding: 10px 6px;
         background: #0984a7;

@@ -1,6 +1,11 @@
 <div class="row il-top-header">
+	@if(Auth::guest())
 	<a href="{{url('login')}}"> Đăng nhập</a> |
 	<a href="{{url('register')}}">Đăng ký</a>
+	@else
+	<a href="#"> {!! Auth::user()->username !!}</a> |
+	<a href="{{url('logout')}}">Đăng xuất</a>
+	@endif
 </div>
 <div class="row il-bottom-header">
 	<div class="col-md-3 col-xs-4 il-logo"><a href="#"><img src="{{ asset('img/logo.png')}}" alt="il-logo" class="img-responsive il-logo"></a></div>
