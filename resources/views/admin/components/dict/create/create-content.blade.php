@@ -11,7 +11,7 @@
         <p class="alert--fail"><span class="glyphicon glyphicon-warning-sign"></span>   {!! $errors->first('FailedCannotFind') !!}</p>
       </div>
       @endif
-      <form class="form-inline margin--top-none" action="" method="post">
+      <form class="form-inline margin--top-none" action="{{ route('addWord') }}" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="row">
           <div class="col-sm-6">
@@ -58,7 +58,7 @@
           <div class="col-sm-6 {{ $errors->has('_txttu') ? ' has-error' : '' }}">
             <div class="input-group ">
               <span class="input-group-addon"><b>Từ</b></span>
-              <input size="30" id="msg" required maxlength="50" type="text" class="form-control" name="_txttu" placeholder="hello"
+              <input size="30" id="msg" required maxlength="50" type="text" class="form-control" name="fromText" placeholder="hello"
               @if (!$errors->has('_txttu'))
                 value="{!! old('_txttu') !!}"
               @endif >
@@ -70,7 +70,7 @@
           <div class="col-sm-6 {{ ($errors->has('_txtnghia')&&!($errors->has('_txttu'))) ? ' has-error' : '' }}">
             <div class="input-group">
               <span class="input-group-addon" disable><b>Nghĩa</b></span>
-              <input size="30" id="msg" required maxlength="50" type="text" class="form-control" name="_txtnghia" placeholder="xin chào"
+              <input size="30" id="msg" required maxlength="50" type="text" class="form-control" name="toText" placeholder="xin chào"
               @if (!$errors->has('_txttu')&&!$errors->has('_txtnghia'))
                 value="{!! old('_txtnghia') !!}"
               @endif >

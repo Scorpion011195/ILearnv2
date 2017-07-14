@@ -1,10 +1,20 @@
 <?php
 
-namespace App;
+namespace App\models;
 
+use App\Models\typeWord;
+use App\models\language;
 use Illuminate\Database\Eloquent\Model;
 
 class DictionaryManagement extends Model
 {
    protected $table = "dictionarys";
+   protected $primaryKey = "id";
+
+   function typeWord(){
+   	return $this->belongsTo('App\Models\TypeWord','type_word_id','type_word_id');
+   }
+   function language(){
+   	return $this->belongsTo('App\Models\Language','language_id','language_id');
+   }
 }
