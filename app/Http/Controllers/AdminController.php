@@ -23,7 +23,7 @@ class AdminController extends Controller
 	function getLogin()
 	{
         if(Session::has('user')){
-           echo "ok";
+           echo "User has loginer";
         }
         else{
             return view('admin.pages.login');
@@ -36,8 +36,8 @@ class AdminController extends Controller
         $check = ['username'=>$username,'password'=>$password,'status' => MyConstant::STATUS_USER['Hoạt động']];
 
 		if(Auth::attempt($check) &&Auth::user()->id_role!=MyConstant::ROLE_USER['user']){
-
-        	return view('admin.layouts.ilearn');
+             $errors = new MessageBag(['Đăng nhập thành công']);
+        	return redirect('/admin')->withErrors($errors);;
         }else{
 
         	 $errors = new MessageBag(['errorLogin' => '<b>Username</b> hoặc <b>Password</b> không đúng!']);

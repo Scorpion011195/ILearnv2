@@ -37,15 +37,18 @@ Route::get('translate', function(){
 
 
 /*=================ADMIN AREA==================*/
-Route::get('/admin', function () {
-	return view('admin.layouts.ilearn');
+Route::group(['middleware' => 'AdminLogin'], function(){
+
+	Route::Get('/admin',function(){
+		return view('admin.layouts.ilearn');
+	});
+	Route::get('admin/login', 'AdminController@getLogin')->name('adminGetLogin');
+	Route::post('admin/login', 'AdminController@postLogin')->name('adminPostLogin');
+
+	    // Đăng xuất
+	Route::get('logout', 'AdminController@logout')->name('adminLogout');
 });
-
-Route::get('admin/login', 'AdminController@getLogin')->name('adminGetLogin');
-Route::post('admin/login', 'AdminController@postLogin')->name('adminPostLogin');
-
 // END ADMIN
 
-Auth::routes();
 
 Route::get('test', 'AdminCrawlerController@testCrawler');
