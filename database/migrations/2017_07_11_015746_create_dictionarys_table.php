@@ -16,10 +16,11 @@ class CreateDictionarysTable extends Migration
         Schema::create('dictionarys', function (Blueprint $table) {
             $table->increments('id');
             $table->string('word',50);
+            $table->string('pronounce',50)->nullable()->default(null);
             $table->integer('type_word_id');
             $table->integer('language_id');
-            $table->string('listen',150)->nullable()->default(null);;
-            $table->longtext('explain')->nullable()->default(null);;
+            $table->string('listen',150)->nullable()->default(null);
+            $table->longtext('explain')->nullable()->default(null);
             $table->integer('mapping_id');
             $table->timestamps();
         });
