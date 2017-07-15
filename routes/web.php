@@ -48,4 +48,8 @@ Route::post('admin/login', 'AdminController@postLogin')->name('adminPostLogin');
 
 Auth::routes();
 
-Route::get('test', 'AdminCrawlerController@testCrawler');
+Route::get('testCrawler', 'AdminCrawlerController@testCrawler');
+Route::get('testUploadWord', function () {
+    return view('testUploadWord');
+});
+Route::post('testUploadWord', 'AdminCrawlerController@postUploadWords')->name('uploadWords');
