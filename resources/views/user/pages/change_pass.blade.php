@@ -1,12 +1,12 @@
 @extends('user.layouts.profile')
 @section('content')
 <div class="container">
-    <div class="row profile">
-		<div class="col-md-3">
+    <div class="row il-profile">
+		<div class="col-md-3 il-profile-col-md-3">
             <div class="profile-sidebar">
                 <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic">
-                    <img src="../uploads/user/{{ Auth::user()->image }}" class="img-responsive" alt="">
+                    <img src="{{ asset('uploads/images/' . Auth::user()->image) }} " class="img-responsive" alt="" />
                 </div>
                 <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->
@@ -47,7 +47,7 @@
                 <!-- END MENU -->
             </div>
         </div>
-		<div class="col-md-9">
+		<div class="col-md-9 il-profile-col-md-9">
             @if($status = Session::get('status'))
                 <div class="alert alert-info" role="alert">
                     {!! $status !!}
@@ -63,7 +63,7 @@
                     <div class="form-group {{ $errors->has('passwordOld') ? 'has-error' : '' }}">
                         <label class="col-md-3 control-label">Mật khẩu cũ:</label>
                         <div class="col-md-8">
-                            <input class="form-control password" type="password" value="" name="passwordOld" >
+                            <input class="form-control password" type="password" value="" name="passwordOld" required="" minlength="6" maxlength="32">
                             @if ($errors->has('passwordOld'))
                               <span class="help-block">
                                 <strong>{{ $errors->first('passwordOld') }}</strong>
@@ -74,7 +74,7 @@
                     <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                         <label class="col-md-3 control-label">Mật khẩu mới:</label>
                         <div class="col-md-8">
-                            <input class="form-control password" type="password" value="" name="password" >
+                            <input class="form-control password" type="password" value="" name="password" required="" minlength="6" maxlength="32" >
                             @if ($errors->has('password'))
                               <span class="help-block">
                                 <strong>{{ $errors->first('password') }}</strong>
@@ -85,7 +85,7 @@
                     <div class="form-group {{ $errors->has('confirm_password') ? 'has-error' : '' }}">
                         <label class="col-md-3 control-label">Nhập lại mật khẩu:</label>
                         <div class="col-md-8">
-                            <input class="form-control password" type="password" value="" name="confirm_password">
+                            <input class="form-control password" type="password" value="" name="confirm_password" required="" minlength="6" maxlength="32">
                             @if ($errors->has('confirm_password'))
                               <span class="help-block">
                                 <strong>{{ $errors->first('confirm_password') }}</strong>

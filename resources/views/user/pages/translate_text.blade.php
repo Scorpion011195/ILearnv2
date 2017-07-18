@@ -23,7 +23,7 @@
 			      	</select>
 				</div>
 			</div>
-			<div class="row il-translate-content">
+			<div class="row">
 				<div class="col-md-12 col-xs-12 col-sm-12 il-translate-text">
 					<span>Nội dung cần dịch</span>
 					<div class="form-group">
@@ -36,7 +36,7 @@
 					<button type="submit" class="btn btn-warning">Dịch</button>
 				</div>
 			</div>
-			<div class="row il-translate-content">
+			<div class="row">
 				<div class="col-md-12 col-xs-12 col-sm-12 il-translate-text"">
 					<span>Kết quả</span>
 					<div class="form-group">

@@ -26,8 +26,8 @@ class UserProfileRequest extends FormRequest
         $currentDay = date('d-m-Y',strtotime("+1 day"));
         return [
             //
-        	'name' =>'required',
-            'phone'=>'required|numeric|digits_between:9, 11',
+        	'name' =>'max:150',
+            'phone'=>'numeric|digits_between:9, 11',
             'image' => 'mimes:jpeg,jpg,png|max:1000',
             'date_of_birth' =>'date|before:'.$currentDay,
         ];
@@ -36,11 +36,11 @@ class UserProfileRequest extends FormRequest
     public function messages()
     {
         return [
-        'name.required' => 'Bạn chưa nhập thông tin vào trường này',
-        'phone.required' => 'Bạn chưa nhập thông tin vào trường này',
+        'name.max' => 'Tên không quá 50 kí tự',
         'phone.digits_between' => 'Nhập đúng định dạng số điện thoại',
         'date_of_birth.date' =>'Nhập đúng định dạng ngày sinh của bạn',
-        'image.mines' => 'Tệp chưa đúng định dạng',
+        'image.mimes' => 'Tệp chưa đúng định dạng',
+        'image.max' => 'Chọn tệp có có dung lượng nhỏ hơn ',
         'date_of_birth.before' =>'Ngày sinh trước ngày hôm nay',
         ];
     }
