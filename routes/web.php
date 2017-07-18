@@ -36,9 +36,21 @@ Route::get('home', function(){
 Route::get('result', function(){
     return view('user/pages/result');
 });
-Route::get('translate', function(){
-    return view('user/pages/translate_text');
-});
+
+Route::get('translate', 'TranslateController@getTranslateParagraph');
+
+Route::get('translate-paragraph', ['as' => 'translateParagraph', 'uses' => 'TranslateController@translateParagraph']);
+
+// Route::get('profile', ['as' => 'profile', 'uses'=>'UserController@getShowUser']);
+Route::get('profile', function(){
+    return view('user/pages/profile');
+})->middleware('auth');
+
+Route::get('editprofile/{id}', ['as' => 'editprofile/{id}', 'uses' => 'UserController@getEditUser'])->middleware('auth');
+Route::post('editprofile/{id}', ['as' => 'editprofile/{id}', 'uses' => 'UserController@postEditUser'])->middleware('auth');
+//User change password
+Route::get('changePass', ['as' => 'changePass', 'uses' => 'UserController@getChangePass'])->middleware('auth');
+Route::post('changePass', ['as' => 'changePass', 'uses' => 'UserController@postChangePass'])->middleware('auth');
 
 
 /*=================ADMIN AREA==================*/
