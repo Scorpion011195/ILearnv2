@@ -1,4 +1,4 @@
-@extends('frontend.layouts.index')
+@extends('user.layouts.index')
 @section('content')
 	<div class="row il-translate-text">
 		<div class="container">

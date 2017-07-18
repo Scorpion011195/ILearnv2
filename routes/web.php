@@ -15,24 +15,29 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
+Route::get('login', [ 'as' => 'login', 'uses' => 'UserController@getLogin']);
+Route::post('login', [ 'as' => 'login', 'uses' => 'UserController@postLogin']);
+
+Route::get('register', [ 'as' => 'register', 'uses' => 'UserController@getRegister']);
+Route::post('register', [ 'as' => 'register', 'uses' => 'UserController@postRegister']);
+Route::get('logout', ['as'=>'logout', 'uses' => 'UserController@logout']);
+
+Route::get('user/pages/verifyEmail/{confirmationCode}','UserController@confirm'
+)->name('confirm');
+
 Route::get('index', function(){
-	return view('frontend/layouts/index');
+	return view('user/layouts/index');
 });
 
 Route::get('home', function(){
-    return view('frontend/pages/home');
+    return view('user/pages/home');
 });
+
 Route::get('result', function(){
-    return view('frontend/pages/result');
-});
-Route::get('login', function(){
-    return view('frontend/pages/login');
-});
-Route::get('register', function(){
-    return view('frontend/pages/register');
+    return view('user/pages/result');
 });
 Route::get('translate', function(){
-    return view('frontend/pages/translate_text');
+    return view('user/pages/translate_text');
 });
 
 
@@ -46,6 +51,7 @@ Route::post('admin/login', 'AdminController@postLogin')->name('adminPostLogin');
 
 // END ADMIN
 
+
 Auth::routes();
 
 Route::get('testCrawler', 'AdminCrawlerController@testCrawler');
@@ -53,3 +59,4 @@ Route::get('testUploadWord', function () {
     return view('testUploadWord');
 });
 Route::post('testUploadWord', 'AdminCrawlerController@postUploadWords')->name('uploadWords');
+
