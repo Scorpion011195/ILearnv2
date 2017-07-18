@@ -10,4 +10,5 @@ class Dictionary extends Model
     protected $fillable = [
         'id','word', 'pronounce', 'type_word_id','language_id','listen','explain','mapping_id'
     ];
+
 }

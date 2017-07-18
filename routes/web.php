@@ -25,13 +25,16 @@ Route::get('logout', ['as'=>'logout', 'uses' => 'UserController@logout']);
 Route::get('user/pages/verifyEmail/{confirmationCode}','UserController@confirm'
 )->name('confirm');
 
-Route::get('index', function(){
-	return view('user/layouts/index');
-});
+// Route::get('index', function(){
+// 	return view('user/layouts/index');
+// });
 
+// Link for User search Word
+Route::get('search')
 Route::get('home', function(){
     return view('user/pages/home');
 });
+
 Route::get('notify', function(){
     return view('user/pages/notify');
 });
