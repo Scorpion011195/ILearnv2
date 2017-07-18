@@ -11,7 +11,7 @@
         <p class="alert--fail"><span class="glyphicon glyphicon-warning-sign"></span>   {!! $errors->first('FailedCannotFind') !!}</p>
       </div>
       @endif
-      <form class="form-inline margin--top-none" action="{{ route('adminAdd') }}" method="POST">
+      <form class="form-inline margin--top-none" action="{{ route('test') }}" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="row">
           <div class="col-sm-6">

@@ -6,7 +6,7 @@ use App\Models\typeWord;
 use App\models\language;
 use Illuminate\Database\Eloquent\Model;
 
-class DictionaryManagement extends Model
+class Dictionary extends Model
 {
    protected $table = "dictionarys";
    protected $primaryKey = "id";

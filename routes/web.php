@@ -53,6 +53,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::GET('get', 'DictionaryManagementController@return')->name('getAddWord');
         Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
     });
+    Route::GET('test','DictionaryManagementController@test');
 });
 // END ADMIN
 
