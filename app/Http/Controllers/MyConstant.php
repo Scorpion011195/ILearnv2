@@ -21,6 +21,9 @@ class MyConstant
                                         'thán từ' => 5,
                                         'giới từ' => 6,
                                         'phó từ' => 7,
-                                        'chưa xác định' => 8
+                                        'mạo từ' => 8,
+                                        'chưa xác định' => 9
                                        ];
+
+    const LANGUAGE = ['Anh' => 1,'Nhật' => 2, 'Việt' => 3];
 }

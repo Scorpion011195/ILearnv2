@@ -1,6 +1,6 @@
-@extends('frontend.layouts.index')
+@extends('user.layouts.index')
 @section('content')
-	@include('frontend.components.search.search')
+	@include('user.components.search.search')
 	<div class="row il-result">
 		<div class="container">
 			<div class="col-md-9 col-xs-12 col-sm-6 il-contents">

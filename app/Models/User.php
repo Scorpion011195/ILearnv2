@@ -4,6 +4,7 @@ use \App\Http\Requests\RegisterRequest;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\UserRole;
+use App\Models\settingUser;
 
 class User extends Authenticatable
 {
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password',
+        'username', 'email', 'password', 'confirmed',
     ];
 
 
@@ -32,5 +33,10 @@ class User extends Authenticatable
 
     function userRole(){
         return $this->belongsTo('App\Models\UserRole','role_id','role_id');
+    }
+
+    public function settingUser()
+    {
+        return $this->hasOne('settingUser','user_id');
     }
 }
