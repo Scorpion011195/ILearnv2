@@ -16,7 +16,7 @@
               </a>
               <ul class="treeview-menu " id= "list_menu">
                 <li id="_menu-qltd-tt"><a href="{{ route('getAddWord') }}">Thêm từ</a></li>
-                <li id="_menu-qltd-trt"><a href="#">Tra từ</a></li>
+                <li id="_menu-qltd-trt"><a href="{{ route('adminSearch') }}">Tra từ</a></li>
                 <li id="_menu-qltd-tk"><a href="#">Thống kê</a></li>
                 <li id="_menu-qltd-tfscv"><a href="#">Thêm file csv</a></li>
               </ul>

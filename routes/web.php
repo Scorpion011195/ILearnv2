@@ -55,18 +55,14 @@ Route::group(['prefix' => 'admin'], function () {
    		Route::get('/',function(){
    			return view('admin.layouts.ilearn');
    		});
-        Route::GET('get', 'DictionaryManagementController@return')->name('getAddWord');
+    //  add word
+        Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
         Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
+        Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
     });
-    Route::GET('test','DictionaryManagementController@test');
 });
 // END ADMIN
 
-<<<<<<< HEAD
-=======
-
-Auth::routes();
->>>>>>> master
 
 Route::get('testCrawler', 'AdminCrawlerController@testCrawler');
 Route::get('testUploadWord', function () {

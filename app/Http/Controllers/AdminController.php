@@ -35,7 +35,7 @@ class AdminController extends Controller
         $password = $request['password'];
         $check = ['username'=>$username,'password'=>$password,'status' => MyConstant::STATUS_USER['Hoạt động']];
 
-		if(Auth::attempt($check) &&Auth::user()->id_role!=MyConstant::ROLE_USER['user']){
+		if(Auth::attempt($check) && Auth::user()->role_id !=5){
              Session::put('user', Auth::user());
              $errors = new MessageBag(['Đăng nhập thành công']);
         	return view('admin.layouts.ilearn');
