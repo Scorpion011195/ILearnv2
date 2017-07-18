@@ -27,20 +27,20 @@
 				<div class="col-md-12 col-xs-12 col-sm-12 il-translate-text">
 					<span>Nội dung cần dịch</span>
 					<div class="form-group">
-						<textarea name="trans-text" class="col-md-12 col-xs-12 col-sm-12"></textarea>
+						<textarea name="trans-text" class="col-md-12 col-xs-12 col-sm-12 "></textarea>
 					</div>
 				</div>
 			</div>
-			<!-- <div class="row clearfix">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-lg-offset-6 col-md-offset-6 col-sm-offset-4 il-translate-text il-translate-text">
+			<div class="row il-translate-button clearfix">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-lg-offset-6 col-md-offset-6 col-sm-offset-4 il-translate-text">
 					<button type="submit" class="btn btn-warning">Dịch</button>
 				</div>
-			</div> -->
+			</div>
 			<div class="row il-translate-content">
-				<div class="col-md-12 col-xs-12 col-sm-12">
+				<div class="col-md-12 col-xs-12 col-sm-12 il-translate-text"">
 					<span>Kết quả</span>
 					<div class="form-group">
-						<textarea name="trans-text" class="col-md-12 col-xs-12 col-sm-12 il-translate-content"></textarea>
+						<textarea name="trans-text" class="col-md-12 col-xs-12 col-sm-12 il-translate-content il-translate-text"></textarea>
 					</div>
 				</div>
 			</div>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UserProfileRequest;
+use App\Http\Requests\ChangePassRequest;
 use Auth;
 use Mail;
 use Illuminate\Support\Facades\Input;
@@ -14,6 +16,7 @@ use App\Models\User;
 use App\Models\SettingUsers;
 use Validator;
 use Illuminate\Support\MessageBag;
+use App\ModelViews\UserViewModel;
 
 class UserController extends Controller
 {
@@ -42,7 +45,6 @@ class UserController extends Controller
 			    'pass.min' => 'Mật khẩu lớn hơn 6 kí tự',
 			    'pass.max' => 'Mật khẩu nhỏ hơn 32 kí tự',
     		);
-    	$validator = Validator::make($request->all(), $rules, $messages);
     	$validator = Validator::make($request->all(), $rules, $messages);
 
     	if($validator->fails())
@@ -118,5 +120,50 @@ class UserController extends Controller
         $user->confirmation_code = $confirmation_code;
         $user->save();
         return redirect('home')->with('status', 'Chúc mừng bạn đã đăng kí thành công');
+    }
+
+    //Get edit user
+
+    public function getEditUser($id)
+    {
+        $user = User::find($id);
+        return view("user.pages.edit_profile")->with('user', $user);
+    }
+    // Post edit user
+
+    public function postEditUser( UserProfileRequest $request, $id)
+    {
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->date_of_birth = date('Y-m-d',strtotime($request->date_of_birth)); 
+        $user->save();
+
+        return redirect('editprofile/'. $id)->with('status', 'Chỉnh sửa thông tin thành công');
+    }
+    //Get User Change password
+
+    public function getChangePass()
+    {
+        return view('user.pages.change_pass');
+    }
+
+    public function postChangePass( ChangePassRequest $request)
+    {
+        if(Auth::check())
+        {
+            $input = $request->all();
+            $user = Auth()->user();
+
+            if(!\Hash::check($input['passwordOld'], $user->password)){
+                return back()->with('notify', 'Bạn không thể thay đổi mật khẩu');
+            }else{
+                Auth::user()->password = bcrypt(Input::get('password'));
+                Auth::user()->save();
+
+                return back()->with('status', 'Thay đổi mật khẩu thành công');
+            }
+        }
     }
 }

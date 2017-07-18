@@ -3,7 +3,7 @@
 	<a href="{{url('login')}}"> Đăng nhập</a> |
 	<a href="{{url('register')}}">Đăng ký</a>
 	@else
-	<a href="#"> {!! Auth::user()->username !!}</a> |
+	<a href="{{url('profile')}}"> {!! Auth::user()->username !!}</a> |
 	<a href="{{url('logout')}}">Đăng xuất</a>
 	@endif
 </div>
