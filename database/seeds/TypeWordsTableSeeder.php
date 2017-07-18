@@ -19,7 +19,8 @@ class TypeWordsTableSeeder extends Seeder
             ['id'=>5,'name_type_word'=>'Thán từ'],
             ['id'=>6,'name_type_word'=>'Giới từ'],
             ['id'=>7,'name_type_word'=>'Phó từ'],
-            ['id'=>8,'name_type_word'=>'Chưa xác định']
+            ['id'=>8,'name_type_word'=>'Mạo từ'],
+            ['id'=>9,'name_type_word'=>'Chưa xác định']
         ]);
     }
 }

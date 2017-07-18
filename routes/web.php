@@ -60,4 +60,13 @@ Route::get('admin/login', 'AdminController@getLogin')->name('adminGetLogin');
 Route::post('admin/login', 'AdminController@postLogin')->name('adminPostLogin');
 
 // END ADMIN
-Route::get('test', 'AdminCrawlerController@testCrawler');
+
+
+Auth::routes();
+
+Route::get('testCrawler', 'AdminCrawlerController@testCrawler');
+Route::get('testUploadWord', function () {
+    return view('testUploadWord');
+});
+Route::post('testUploadWord', 'AdminCrawlerController@postUploadWords')->name('uploadWords');
+
