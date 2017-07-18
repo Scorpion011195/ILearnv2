@@ -36,9 +36,11 @@ Route::get('home', function(){
 Route::get('result', function(){
     return view('user/pages/result');
 });
-Route::get('translate', function(){
-    return view('user/pages/translate_text');
-});
+
+Route::get('translate', 'TranslateController@getTranslateParagraph');
+
+Route::get('translate-paragraph', ['as' => 'translateParagraph', 'uses' => 'TranslateController@translateParagraph']);
+
 // Route::get('profile', ['as' => 'profile', 'uses'=>'UserController@getShowUser']);
 Route::get('profile', function(){
     return view('user/pages/profile');
