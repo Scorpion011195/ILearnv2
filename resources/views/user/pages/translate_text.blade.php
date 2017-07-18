@@ -9,39 +9,43 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="row">
 				<div class="col-md-12 col-xs-12 col-sm-12 il-translate-text">
-			     	<select class="lagForm " id="sel1">
-				        <option>Tiếng anh</option>
-				        <option>Tiếng nhật</option>
-				        <option>Tiếng Việt</option>
+				    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+			     	<select class="lagForm " id="lang_from">
+			     	    @foreach($listLanguages as $key => $value)
+			     	        <option value="{{ $key }}">Tiếng {{ $value }}</option>
+			     	    @endforeach
 			      	</select>
-			     	<select class="lagTo" id="sel2">
-				        <option>Tiếng anh</option>
-				        <option>Tiếng nhật</option>
-				        <option>Tiếng Việt</option>
+			     	<select class="lagTo" id="lang_to">
+				        @foreach($listLanguages as $key => $value)
+			     	        <option value="{{ $key }}">Tiếng {{ $value }}</option>
+			     	    @endforeach
 			      	</select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12 col-xs-12 col-sm-12 il-translate-text">
 					<span>Nội dung cần dịch</span>
-					<div class="form-group">
-						<textarea name="trans-text" class="col-md-12 col-xs-12 col-sm-12 "></textarea>
-					</div>
+					<textarea rows="10" class="col-md-12 col-xs-12 col-sm-12" id="paragraph_from"></textarea>
+					<div class="error_translate">
+                    </div>
 				</div>
 			</div>
 			<div class="row il-translate-button clearfix">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-lg-offset-6 col-md-offset-6 col-sm-offset-4 il-translate-text">
-					<button type="submit" class="btn btn-warning">Dịch</button>
+					<button id="btn_translate" class="btn btn-warning">Dịch</button>
 				</div>
 			</div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 			<div class="row">
 				<div class="col-md-12 col-xs-12 col-sm-12 il-translate-text"">
-					<span>Kết quả</span>
-					<div class="form-group">
-						<textarea name="trans-text" class="col-md-12 col-xs-12 col-sm-12 il-translate-content il-translate-text"></textarea>
-					</div>
+				    <div class="paragraph_to">
+				    </div>
 				</div>
 			</div>
 		</div>
