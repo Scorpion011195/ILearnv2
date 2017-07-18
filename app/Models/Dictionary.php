@@ -18,9 +18,4 @@ class Dictionary extends Model
    function language(){
    	return $this->belongsTo('App\Models\Language','language_id','language_id');
    }
-    protected $table = "dictionarys";
-    protected $fillable = [
-        'id','word', 'pronounce', 'type_word_id','language_id','listen','explain','mapping_id'
-    ];
-
 }

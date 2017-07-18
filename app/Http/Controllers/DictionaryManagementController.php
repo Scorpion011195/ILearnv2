@@ -92,4 +92,8 @@ class DictionaryManagementController extends Controller
       'Lg'=> $lang, 
     ]);
   }
+  public function upload()
+  {
+    return view('admin.pages.dict.upload');
+  }
 }

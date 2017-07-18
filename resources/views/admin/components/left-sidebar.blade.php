@@ -18,7 +18,7 @@
                 <li id="_menu-qltd-tt"><a href="{{ route('getAddWord') }}">Thêm từ</a></li>
                 <li id="_menu-qltd-trt"><a href="{{ route('adminSearch') }}">Tra từ</a></li>
                 <li id="_menu-qltd-tk"><a href="#">Thống kê</a></li>
-                <li id="_menu-qltd-tfscv"><a href="#">Thêm file csv</a></li>
+                <li id="_menu-qltd-tfscv"><a href="{{route('adminUpload')}}">Thêm file csv</a></li>
               </ul>
             </li>
             <li id="_menu-qltk">
