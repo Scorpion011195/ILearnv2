@@ -51,7 +51,6 @@ Route::post('admin/login', 'AdminController@postLogin')->name('adminPostLogin');
 
 // END ADMIN
 
-
 Auth::routes();
 
 Route::get('testCrawler', 'AdminCrawlerController@testCrawler');
