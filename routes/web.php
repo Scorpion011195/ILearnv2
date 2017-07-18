@@ -32,7 +32,9 @@ Route::get('index', function(){
 Route::get('home', function(){
     return view('user/pages/home');
 });
-
+Route::get('notify', function(){
+    return view('user/pages/notify');
+});
 Route::get('result', function(){
     return view('user/pages/result');
 });
@@ -61,8 +63,6 @@ Route::post('admin/login', 'AdminController@postLogin')->name('adminPostLogin');
 
 // END ADMIN
 
-
-Auth::routes();
 
 Route::get('testCrawler', 'AdminCrawlerController@testCrawler');
 Route::get('testUploadWord', function () {

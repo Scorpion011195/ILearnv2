@@ -11,6 +11,9 @@ body {
     text-decoration: none;
     display: inline-block;
 }
+.panel-default {
+    margin-top: 15px;
+}
 /*----------------CSS MENU-------------*/
 .navbar-default{
     background: transparent;
