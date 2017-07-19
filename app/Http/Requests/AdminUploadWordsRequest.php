@@ -24,7 +24,7 @@ class AdminUploadWordsRequest extends FormRequest
     public function rules()
     {
         return [
-            'fileWordsUpload' => 'required|mimes:txt'
+            'fileWordsUpload' => 'required|mimes:txt|max:10000'
         ];
     }
 
@@ -32,7 +32,8 @@ class AdminUploadWordsRequest extends FormRequest
     {
         return [
             'fileWordsUpload.required' => 'Bạn chưa chọn file!',
-            'fileWordsUpload.mimes' => 'File không đúng định dạng txt!'
+            'fileWordsUpload.mimes' => 'File không đúng định dạng txt!',
+            'fileWordsUpload.max' => 'Dung lượng file không vượt quá 10000kb'
         ];
     }
 }

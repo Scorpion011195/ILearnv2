@@ -1,47 +1,45 @@
-    <div class="panel">
+<div class="panel">
+    <form action="{{ route('adminPostUpload') }}" method="post" enctype="multipart/form-data" id="form_upload">
         <div class="panel-body">
-            {!! Form::open(array('enctype' => 'multipart/form-data', 'files' =>true, 'accept-charset' => 'utf-8')) !!}
             <div class="panel-content">
-            <div class="col-sm-8">
-                <div class="col-xs-6">
-                    <div class="form-group">
-                        <label class="control-label">Upload File</label>
-                        <input id="" type="file" class="form-control">
+                <div class="col-sm-8">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label">Danh sách từ muốn thêm</label>
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="file" name="fileWordsUpload" class="form-control">
+                        </div>
+                        @if ($errors->any())
+                            <div>
+                                <b class="
+                                @if($errors->has('errorSuccess'))
+                                    has--success
+                                @else
+                                    has--error
+                                @endif
+                                " id="_notify"><span class="glyphicon glyphicon-warning-sign"></span>
+                                    @foreach ($errors->all() as $error)
+                                        {!! $error !!}
+                                    @endforeach
+                                </b>
+                            </div>
+                        @endif
                     </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <div class="form-group">
-                        <label class="control-label">Ngôn ngữ</label>
-                       <select name="" class="form-control">
-                           <option value="">Anh - Việt</option>
-                           <option value="">Việt- Nhật</option>
-                           <option value="">Anh - Nhật</option>
-                       </select>
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label">Ngôn ngữ</label>
+                            <select name="codeLanguageVdict" class="form-control">
+                               @foreach($codeLanguageVdict as $key=>$value)
+                                   <option value="{{ $value }}">{{ $key }}</option>
+                               @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
-            </div>
-            @if ($errors->any())
-                <div>
-                    <p class="alert--fail" id="_notify"><span class="glyphicon glyphicon-warning-sign"></span>
-                        @foreach ($errors->all() as $error)
-                            {!! $error !!}
-                        @endforeach
-                    </p>
-                </div>
-            @endif
-            @if(isset($info))
-                <div>
-                    <p class="alert--success" id="_notify"><span class="glyphicon glyphicon-warning-sign"></span>Thêm file thành công!
-                    </p>
-                </div>
-            @endif
         </div>
         <div class="panel-footer">
-          <input type="submit" class=" btn btn-success" value="Tải lên" >
+          <input type="submit" class="btn btn-success btn_upload" value="Tải lên" >
         </div>
-        {!! Form::close() !!}
-
-        
-
-    </div>
+    </form>
+</div>

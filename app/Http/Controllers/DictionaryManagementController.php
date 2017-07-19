@@ -5,7 +5,7 @@ use DB;
 use App\Models\Dictionary;
 use App\Services\DictionaryService;
 use App\Http\Requests\AdminAddWordRequest;
-class DictionaryManagementController extends Controller 
+class DictionaryManagementController extends Controller
 {
   private $dictService;
 
@@ -13,16 +13,18 @@ class DictionaryManagementController extends Controller
   {
       $this->dictService = $dictService;
   }
+
   public function home()
   {
     $lang = DB::table('languages')->get();
     $typeOfWord = DB::table('type_words')->get();
      return view('admin.pages.dict.create')->with
       ([
-        'languages'=> $lang, 
+        'languages'=> $lang,
         'typeWord'=> $typeOfWord
       ]);
   }
+
   public function getAddWord(AdminAddWordRequest $request)
   {
     $lang = DB::table('languages')->get();
@@ -58,7 +60,7 @@ class DictionaryManagementController extends Controller
           $dict->save();
           return view('admin.pages.dict.create')->with
           ([
-          'languages'=> $lang, 
+          'languages'=> $lang,
           'typeWord'=> $typeOfWord,
           'message' => 'Đã thêm thành công'
           ]);
@@ -71,17 +73,18 @@ class DictionaryManagementController extends Controller
       $data = array(
       array('mapping_id'=>$mappingId, 'word'=> $fromText, 'language_id' => $fromLg,'type_word_id' => $typeWord,'pronounce' => $pronoun),
       array('mapping_id'=>$mappingId, 'word'=> $toText, 'language_id' => $toLg,'type_word_id' => $typeWord,'pronounce' => $pronoun),
-      ); 
+      );
       /* $data add dữ liệu vào DB khi có nhiều hơn 1 value ở single collum*/
       DB::table('dictionarys')->insert($data);
       return view('admin.pages.dict.create')->with
         ([
-        'languages'=> $lang, 
+        'languages'=> $lang,
         'typeWord'=> $typeOfWord,
         'message' => 'Đã thêm thành công'
         ]);
     }
   }
+
   public function search()
   {
     $lang = DB::table('languages')->get();
@@ -89,11 +92,13 @@ class DictionaryManagementController extends Controller
     return view('admin.pages.dict.search')->with
     ([
       'typeWord' => $typeOfWord,
-      'Lg'=> $lang, 
+      'Lg'=> $lang,
     ]);
   }
+
   public function upload()
   {
-    return view('admin.pages.dict.upload');
+    $params = ['codeLanguageVdict' => MyConstant::CRAWLER_VDICT_NAME];
+    return view('admin.pages.dict.upload', $params);
   }
 }

@@ -9,3 +9,9 @@ $('li a').blur(function(){
 
 // End LI tag
 /*TiNyMCE*/
+$(document).ready(function(){
+    $(document).on('submit', '#form_upload', function(evt){
+        $('.btn_upload').prop('disabled', true);
+        return true;
+    });
+});

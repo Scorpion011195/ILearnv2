@@ -12,6 +12,10 @@ class Dictionary extends Model
    protected $table = "dictionarys";
    protected $primaryKey = "id";
 
+   protected $fillable = [
+        'word', 'pronounce', 'type_word_id', 'language_id', 'listen', 'explain', 'mapping_id'
+    ];
+
    function typeWord(){
    	return $this->belongsTo('App\Models\TypeWord','type_word_id','type_word_id');
    }

@@ -6,15 +6,21 @@ use App\Http\Requests\AdminUploadWordsRequest;
 use Log;
 use Illuminate\Support\MessageBag;
 use App\Models\Dictionary;
+use App\Services\DictionaryService;
 use DB;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminCrawlerController extends Controller
 {
+    private $dictService;
+
+    public function __construct(DictionaryService $dictService){
+        $this->dictService = $dictService;
+    }
+
     /* Crawler from https://vdict.com/
        $langPairId 1:en-vi, 2:vi-en */
     function crawlerVdict($text, $langPairId){
-        Log::info('Starting Crawler...');
-        Log::info("Word: ".$text);
         // Init a CURL
         $ch = curl_init();
 
@@ -30,28 +36,23 @@ class AdminCrawlerController extends Controller
         // Get pronounce
         $pattern0 = "/<div class=\"pronounce\">(.*?)<\/div>/si";
         preg_match_all($pattern0, $result, $arrPronounce);
-        //dd($arrPronounce); die;
 
         // Choose area get data
         $pattern1 = '/<div class=\"phanloai\">(.*?)<div class=\"relatedWord\">/si';
         preg_match_all($pattern1, $result, $data);
-        //dd($data); die;
 
         // Check isResult
         if(count($data[0])>0){// If isResult=true
             // Get array type word
             $pattern2 = "/<div class=\"phanloai\">(.*?)<\/div>/si";
-            preg_match_all($pattern2, $data[0][0], $arrTypeWord, PREG_OFFSET_CAPTURE);
-            //dd($arrTypeWord); die;
+            preg_match_all($pattern2, $data[0][0], $arrTypeWord);
 
             // Break segment same type word
             $pattern3 = '/<ul class=\"list1\"><li><b>(.*?)<div/si';
             preg_match_all($pattern3, $data[0][0], $segmentWord);
-            //dd($segmentWord); die;
 
             // Count type word
             $lengthArr = count($arrTypeWord[1]);
-            //echo $lengthArr; die;
 
             $arrWordByType = array();
             // Get array word in a array type word
@@ -60,7 +61,6 @@ class AdminCrawlerController extends Controller
                 preg_match_all($pattern4, $segment, $arrWordSameType);
                 array_push($arrWordByType, $arrWordSameType[1]);
             }
-            //dd($arrWordByType); die;
 
             // Close CURL, freedom
             curl_close($ch);
@@ -74,29 +74,9 @@ class AdminCrawlerController extends Controller
             else{
                 array_push($arrAllResult, "");
             }
-            array_push($arrAllResult, $arrTypeWord);
+            array_push($arrAllResult, $arrTypeWord[1]);
             array_push($arrAllResult, $arrWordByType);
             return $arrAllResult;
-
-            // Echo result
-            // for($i=0 ; $i < $lengthArr; $i++) {
-            //     $typeWord = $arrTypeWord[1][$i][0];
-
-            //     if(isset(MyConstant::TYPE_WORD_VIETNAMESE_VDICT[$typeWord])){
-            //         $strTypeWord = MyConstant::TYPE_WORD_VIETNAMESE_VDICT[$typeWord];
-            //     }
-            //     else{
-            //         $strTypeWord = MyConstant::TYPE_WORD_VIETNAMESE_VDICT['chưa xác định'];
-            //     }
-
-            //     //echo $strTypeWord.":";
-            //     Log::info('Type: '.$typeWord);
-            //     if(isset($arrWordByType[$i])){
-            //         for($j=0 ; $j < count($arrWordByType[$i]); $j++){
-            //             Log::info($arrWordByType[$i][$j]);
-            //         }
-            //     }
-            // }
         }
         else{
             Log::warning('Warning: Cannot find this word!');
@@ -109,12 +89,12 @@ class AdminCrawlerController extends Controller
         $file = $request->file('fileWordsUpload');
         $codeLanguageVdict = $request->codeLanguageVdict;
         if($codeLanguageVdict==MyConstant::CRAWLER_VDICT_LANGPAIR['en-vi']){
-            $fromLang = MyConstant::LANGUAGE['Anh'];
-            $toLang = MyConstant::LANGUAGE['Việt'];
+            $fromLangId = MyConstant::LANGUAGE['Anh'];
+            $toLangId = MyConstant::LANGUAGE['Việt'];
         }
         if($codeLanguageVdict==MyConstant::CRAWLER_VDICT_LANGPAIR['vi-en']){
-            $fromLang = MyConstant::LANGUAGE['Việt'];
-            $toLang = MyConstant::LANGUAGE['Anh'];
+            $fromLangId = MyConstant::LANGUAGE['Việt'];
+            $toLangId = MyConstant::LANGUAGE['Anh'];
         }
 
         // Count line of file text
@@ -124,13 +104,15 @@ class AdminCrawlerController extends Controller
           $line = fgets($content, 4096);
           $linecount = $linecount + substr_count($line, PHP_EOL);
         }
-
-        if($linecount>100){
-            //echo "File khong duoc qua 100 dong"; die;
-        }
         fclose($content);
 
-        //echo "File nho hon 100 dong"; die;
+        // If file over maximum
+        if($linecount>100){
+            $errors = new MessageBag(['alertMax' => ' File không được quá 100 dòng!']);
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
+        // If not over maximum
         // Set time execute
         ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 
@@ -142,57 +124,70 @@ class AdminCrawlerController extends Controller
             while(! feof($content)){
                 $word = fgets($content);
 
+                Log::info('===== Start word =====');
+                Log::info("Word: ".$word);
+
                 // Call crawler word
                 $arrAllResult = $this->crawlerVdict($word, $codeLanguageVdict);
                 if($arrAllResult==-1){
-                    DB::rollback();
                     fclose($content);
                     $errors = new MessageBag(['errorUpload' => 'Từ "'.$word.'" không được tìm thấy!']);
                     return redirect()->back()->withInput()->withErrors($errors);
                 }
                 else{
-                    $arrPronounce = $arrAllResult[0];
+                    $strPronounce = $arrAllResult[0];
+                    Log::info('Pronounce: '.$strPronounce);
                     $arrTypeWord = $arrAllResult[1];
                     $arrWordByType = $arrAllResult[2];
 
-                    $lengthArr = count($arrTypeWord[1]);
+                    $lengthArr = count($arrTypeWord);
 
                     for($i=0 ; $i < $lengthArr; $i++) {
-                        $typeWord = $arrTypeWord[1][$i][0];
+                        $typeWord = $arrTypeWord[$i];
+                        Log::info('Type: '.$typeWord);
 
-                        if(isset(MyConstant::TYPE_WORD_VIETNAMESE_VDICT[$typeWord])){
-                            $strTypeWord = MyConstant::TYPE_WORD_VIETNAMESE_VDICT[$typeWord];
+                        if(!isset(MyConstant::TYPE_WORD_VIETNAMESE_VDICT[$typeWord])){
+                            $typeWordId = MyConstant::TYPE_WORD_VIETNAMESE_VDICT['chưa xác định'];
                         }
                         else{
-                            $strTypeWord = MyConstant::TYPE_WORD_VIETNAMESE_VDICT['chưa xác định'];
+                            $typeWordId = MyConstant::TYPE_WORD_VIETNAMESE_VDICT[$typeWord];
                         }
 
-                        Log::info('Type: '.$typeWord);
+                        // Check word existed?
+                        $isWordExisted = $this->dictService->checkWordExist($word, $typeWordId, $fromLangId);
+
+                        // If word existed
+                        if($isWordExisted){
+                            $mappingId = $this->dictService->getMappingId($word, $typeWordId, $fromLangId);
+                        }
+                        else{
+                            $mappingId = $this->dictService->getMaxMappingId();
+
+                            // Add word to DB
+                            $arrAddWord = ['word'=>$word, 'pronounce'=>$strPronounce, 'type_word_id'=>$typeWordId, 'language_id'=>$fromLangId, 'mapping_id'=>$mappingId];
+                            $this->dictService->create($arrAddWord);
+                        }
+
                         if(isset($arrWordByType[$i])){
                             for($j=0 ; $j < count($arrWordByType[$i]); $j++){
-                                Log::info($arrWordByType[$i][$j]);
+                                $mean = $arrWordByType[$i][$j];
+                                Log::info($mean);
+                                // Check mean existed?
+                                $isMeanExisted = $this->dictService->checkWordExist($mean, $typeWordId, $toLangId);
 
-                                // Check word exist
-                                echo "word:".$word."<br>";
-                                echo "pronounce:".$arrPronounce."<br>";
-                                echo "type_word_id:".MyConstant::TYPE_WORD_VIETNAMESE_VDICT[$typeWord]."<br>";
-                                echo "language_id:".$fromLang."<br>"; die;
+                                // If mean not existed
+                                if(!$isMeanExisted){
+                                    // Add mean to DB
+                                    $arrAddMean = ['word'=>$mean, 'type_word_id'=>$typeWordId, 'language_id'=>$toLangId, 'mapping_id'=>$mappingId];
+                                    $this->dictService->create($arrAddMean);
+                                }
                             }
                         }
                     }
-
-
-
-                    // If exist, check mean exist
-                       // If mean exist -> do nothing
-                       // If mean not exist -> get mapping_id of word -> insert mean
-
-                    // If not exist, check mean exist
-                       // If mean exist -> get mapping_id of mean -> insert word
-                       // If mean not exist -> get max mapping_id -> insert word and mean
                 }
-                // Insert words to DB - Log while insert - Transaction
+                Log::info('=====  End word  =====');
             }
+
             DB::commit();
             $success = true;
         } catch (\Exception $e) {
@@ -203,15 +198,12 @@ class AdminCrawlerController extends Controller
         fclose($content);
 
         if ($success) {
-            return view('testUploadWord')->with('info', true);
+            $errors = new MessageBag(['errorSuccess' => 'Upload thành công']);
+            return redirect()->back()->withInput()->withErrors($errors);
         }
         else{
-            return view('testUploadWord')->with('info', false);
+            $errors = new MessageBag(['errorUnsuccess' => 'Upload thất bại!']);
+            return redirect()->back()->withInput()->withErrors($errors);
         }
-    }
-
-    // Check word exist
-    function checkWordExist($word, $typeWord){
-
     }
 }

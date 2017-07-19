@@ -25,5 +25,16 @@ class DictionaryService extends BaseService implements DictionaryRepository
 	    }
     }
 
+    public function getMappingId($word, $typeWordId, $languageId){
+        $result = DB::table('dictionarys')->where('word', '=', $word)->where('type_word_id', '=', $typeWordId)->where('language_id','=', $languageId)->first();
+
+        return $result->mapping_id;
+    }
+
+    public function getMaxMappingId(){
+        $result = DB::table('dictionarys')->max('mapping_id');
+
+        return ++$result;
+    }
 }
 

@@ -15,7 +15,7 @@ class CreateTypeWordsTable extends Migration
     {
         Schema::create('type_words', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name_type_word',50);
+            $table->string('name_type_word',100);
             $table->timestamps();
         });
     }

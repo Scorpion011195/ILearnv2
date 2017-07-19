@@ -64,22 +64,16 @@ Route::group(['prefix' => 'admin'], function () {
 
     // Trang chủ
     Route::group(['middleware' =>'AdminLogin'],function(){
-   		Route::get('/',function(){
-   			return view('admin.layouts.ilearn');
-   		});
+   	Route::get('/',function(){
+   		return view('admin.layouts.ilearn');
+   	});
     //  add word
-        Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
-        Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
-        Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
-        Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
+    Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
+    Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
+    Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
+    Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
+    Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
     });
 });
 // END ADMIN
-
-
-Route::get('testCrawler', 'AdminCrawlerController@testCrawler');
-Route::get('testUploadWord', function () {
-    return view('testUploadWord');
-});
-Route::post('testUploadWord', 'AdminCrawlerController@postUploadWords')->name('uploadWords');
 
