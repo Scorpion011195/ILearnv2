@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
+use Session;
 use App\Models\Dictionary;
 use App\Services\DictionaryService;
 use App\Http\Requests\AdminAddWordRequest;
@@ -48,7 +49,10 @@ class DictionaryManagementController extends Controller
             ]);
         }else
         {
-          $mapping = DB::table('dictionarys')->where('word', $fromText)->value('mapping_id');
+          $mapping = DB::table('dictionarys')->where('word', $fromText)
+                                            ->where('type_word_id',$typeWord)
+                                            ->where('language_id',$fromLg)
+                                            ->value('mapping_id');
           $mappingId = $mapping;
           $dict->word = $toText;
           $dict->type_word_id = $typeWord;
@@ -82,15 +86,48 @@ class DictionaryManagementController extends Controller
         ]);
     }
   }
-  public function search()
+  public function search(request $request)
   {
     $lang = DB::table('languages')->get();
     $typeOfWord = DB::table('type_words')->get();
+
+    $textSeach = $request->searchText;
+    $typeWord = $request->typeWord;
+    $languageFrom = $request->languageFrom;
+    $result = DB::table('dictionarys')->
+                                        where ('word','like','%'.$textSeach.'%')->
+                                        where('type_word_id', '=', $typeWord)->get();
+    $count = count($result);
     return view('admin.pages.dict.search')->with
-    ([
-      'typeWord' => $typeOfWord,
-      'Lg'=> $lang, 
-    ]);
+                                              ([
+                                                'typeWord' => $typeOfWord,
+                                                'Lg'=> $lang,
+                                                'results'=>$result,
+                                                'countTo' =>$count,
+                                              ])->render();
+  }
+  function deleteWord(Request $request)
+  {      // Input
+    $idWord = $request->idWord;
+    $delete = Dictionary::find($idWord);
+    $delete->delete();
+
+    $dataResponse = ["data"=>true];
+    return json_encode($dataResponse);
+  }
+  public function updateWord(Request $request)
+  {
+    $idWord = $request->idWord;
+    $updateWord = $request->updateWord;
+    $updatePronoun = $request->updatePronoun;
+
+    $update = Dictionary::find($idWord);
+    $update->word = $updateWord;
+    $update->pronounce = $updatePronoun;  
+    $update->save();
+    
+    $dataResponse = ["data"=>true];
+    return json_encode($dataResponse);
   }
   public function upload()
   {

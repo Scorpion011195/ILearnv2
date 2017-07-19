@@ -70,7 +70,13 @@ Route::group(['prefix' => 'admin'], function () {
     //  add word
         Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
         Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
+    // Search word
         Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
+    // Delete Word
+        Route::post('delete', 'DictionaryManagementController@deleteWord'); 
+    // Update từ
+        Route::post('update', 'DictionaryManagementController@updateWord'); 
+    // Upload file
         Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
     });
 });
