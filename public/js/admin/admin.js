@@ -6,4 +6,6 @@ $('li a').focus(function(){
 $('li a').blur(function(){
   $(this).closest('li').removeClass('active');
 });
+
 // End LI tag
+/*TiNyMCE*/

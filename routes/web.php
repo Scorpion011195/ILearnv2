@@ -54,17 +54,28 @@ Route::post('changePass', ['as' => 'changePass', 'uses' => 'UserController@postC
 
 
 /*=================ADMIN AREA==================*/
-Route::get('/admin', function () {
-	return view('admin.layouts.ilearn');
+Route::group(['prefix' => 'admin'], function () {
+    // Đăng nhập
+    Route::get('login', 'AdminController@getLogin')->name('adminGetLogin');
+    Route::post('login', 'AdminController@postLogin')->name('adminPostLogin');
+
+    // Đăng xuất
+    Route::get('logout', 'AdminController@logout')->name('adminLogout');
+
+    // Trang chủ
+    Route::group(['middleware' =>'AdminLogin'],function(){
+   		Route::get('/',function(){
+   			return view('admin.layouts.ilearn');
+   		});
+    //  add word
+        Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
+        Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
+        Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
+        Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
+    });
 });
-
-Route::get('admin/login', 'AdminController@getLogin')->name('adminGetLogin');
-Route::post('admin/login', 'AdminController@postLogin')->name('adminPostLogin');
-
 // END ADMIN
 
-
-Auth::routes();
 
 Route::get('testCrawler', 'AdminCrawlerController@testCrawler');
 Route::get('testUploadWord', function () {

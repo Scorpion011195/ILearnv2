@@ -2,48 +2,30 @@
       <div class="panel-body">
           <div class="row">
             <div class="col-sm-12">
-              <form action="{{ route('adminDictSearchWord') }}" class="form-inline margin--top-none" method="get">
+              <form action="" class="form-inline margin--top-none" method="get">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <div class="form-group">
                     <span class="{{ $errors->has('_keytratu') ? ' has-error' : '' }}">
-                    <input class="form-control" type="text" placeholder="Nhập từ" name="_keytratu"
-                    @if(isset($code)&&!$errors->has('_keytratu'))
-                      value="{!! $lastKey !!}"
-                    @else
-                      value="{{ old('_keytratu') }}"
-                    @endif
-                    required maxlength="50"></span>
+                    <input class="form-control" type="text" placeholder="Nhập từ" style = " padding-left: 100px"></span>
                     <select class="form-control" name="_cbloaitutratu">
-                        @foreach($listTypeOfWord as $key=>$value)
-                            <option
-                                @if($key == $idCbTypeWord)
-                                    {!! "selected" !!}
-                                @endif
-                                value="{{ $key }}">{!! $value !!}</option>
-                        @endforeach
+                      @foreach($typeWord as  $value)
+                        <option value="{!!$value->id!!}">{!! $value->name_type_word !!}</option>
+                      @endforeach
                     </select>
                     <div class="input-group ">
-                    <span class="input-group-addon">From</span>
-                    <select class="form-control" name="_cbnguontratu">
-                        @foreach($listLanguage as $language)
-                            <option
-                                @if($language->id_language == $idCbTableFrom)
-                                    {!! "selected" !!}
-                                @endif
-                                value="{!! $language->id_language !!}">{!! $language->language !!}</option>
+                      <span class="input-group-addon">From</span>
+                      <select class="form-control" name="_cbnguontratu">
+                        @foreach($Lg as $value)
+                          <option value="{!!$value->id!!}">{!!$value->name_language!!}</option>}
                         @endforeach
-                    </select>
+                      </select>
                     </div>
                     <div class="input-group ">
                     <span class="input-group-addon">To</span>
                     <select class="form-control" name="_cbdichtratu" id="_table-to">
-                        @foreach($listLanguage as $language)
-                            <option
-                                @if($language->id_language == $idCbTableTo)
-                                    {!! "selected" !!}
-                                @endif
-                                value="{!! $language->id_language !!}">{!! $language->language !!}</option>
-                        @endforeach
+                    @foreach($Lg as $value)
+                          <option value="{!!$value->id!!}">{!!$value->name_language!!}</option>}
+                    @endforeach
                     </select>
                     </div>
                     <button type="submit" class="btn btn-info">
@@ -136,7 +118,7 @@
       @endif
         </div>
     </div>
-@include('backend.components.dict.search.modal-search')
-@include('backend.components.dict.search.modal-success')
+@include('admin.components.dict.search.modal-search')
+@include('admin.components.dict.search.modal-success')
 
 

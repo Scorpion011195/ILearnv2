@@ -24,7 +24,7 @@ class AdminLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'alpha_dash|required|min:6|max:32',
+            'username' => 'required|alpha_dash|min:6|max:32',
             'password' => 'required|min:6|max:32'
         ];
     }
