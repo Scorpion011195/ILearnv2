@@ -28,4 +28,6 @@ class MyConstant
     const LANGUAGE = ['Anh' => 1,'Nhật' => 2, 'Việt' => 3];
 
     const LANGUAGE_TRANSLATE_PARAGRAPH = ['en' => 'Anh','ja' => 'Nhật', 'vi' => 'Việt'];
+
+    const LANGUAGE_FORM_LANGPAIR = ['31' => 3, '13' => 1];
 }

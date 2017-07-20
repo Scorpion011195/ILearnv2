@@ -30,16 +30,17 @@ Route::get('user/pages/verifyEmail/{confirmationCode}','UserController@confirm'
 // });
 
 // Link for User search Word
-Route::get('search')
-Route::get('home', function(){
-    return view('user/pages/home');
-});
+Route::get('home', ['as' => 'home', 'uses' => 'DictionaryController@getSearchDictionary']);
+Route::get('search', ['as' => 'search', 'uses' => 'DictionaryController@postSearchDictionary']);
 
 Route::get('notify', function(){
     return view('user/pages/notify');
 });
 Route::get('result', function(){
     return view('user/pages/result');
+});
+Route::get('history', function(){
+    return view('user/pages/history');
 });
 
 Route::get('translate', 'TranslateController@getTranslateParagraph');

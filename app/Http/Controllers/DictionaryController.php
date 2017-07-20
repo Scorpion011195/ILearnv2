@@ -1,21 +1,104 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Repositories\DictionaryRepository;
 use Illuminate\Http\Request;
 use DB;
-use App\Requests\DictionarySearchRequest;
+use App\Http\Requests\DictionarySearchRequest;
+use App\ModelViews\DictionaryViewModel;
+use App\Models\TypeWord;
+use App\Models\Dictionary;
+use Input;
+use Sessison;
 
 class DictionaryController extends Controller
 {
     //
-    public function getSearchDictionary()
+    public function __construct(DictionaryRepository $lang)
     {
-    	return view('user.pages.home');
+    	$this->lang = $lang;
     }
 
-    public function postSearchDictionary()
+    public function getSearchDictionary()
     {
-    	
+    	$languages = DB::table('languages')->get();
+
+    	return view('user.pages.home')->with(['languages' => $languages]);
+    }
+
+    public function postSearchDictionary(DictionarySearchRequest $request)
+    {   
+
+    	$inputText = $request->input('search');
+    	$wordInfo = $this->lang->findWord($inputText);
+        $languages = DB::table('languages')->get();
+
+        $selfInfo = $this->lang->findWordSeft($inputText);
+
+    	if($wordInfo == false)
+        {
+            return view('user.pages.home')->with([
+                'status' => 'Hệ thống chưa cập nhật từ'. $inputText,
+                'languages' => $languages,
+                'inputText' => $inputText
+                ]);
+        }
+        else 
+            {
+                //Get value inputText to explain input Text
+                $arraySaveSelf = array();
+
+                for($i = 0; $i < count($selfInfo) ; $i++)
+                {
+                    $langSelfView = new DictionaryViewModel;
+
+                    $id = $selfInfo[$i]->id;
+                    $listen = $selfInfo[$i]->listen;
+                    $explain = $selfInfo[$i]->explain;
+                    $pronounce = $selfInfo[$i]->pronounce;
+
+                    $langSelfView->id = $id;
+                    $langSelfView->listen = $listen;
+                    $langSelfView->pronounce = $pronounce;
+
+                    array_push($arraySaveSelf, $langSelfView);
+
+                }
+
+                //Get value for 
+                $arraySaveView = array();
+
+                for($i = 0; $i < count($wordInfo); $i++)
+                {
+                    for($j = 0; $j < count($wordInfo[$i]); $j++)
+                    {
+
+                        $languageView = new DictionaryViewModel;
+
+                        $word = $wordInfo[$i][$j]->word;
+
+                        $id = $wordInfo[$i][$j]->id;
+                        $type_word = $wordInfo[$i][$j]->type_word;
+
+                        // $arrayTypeWOrd = MyConstant::TYPE_WORD_VIETNAMESE_VDICT;
+                        // $arrayTypeWOrd = array_flip($arrayTypeWOrd);
+                        // $TypeWord = $arrayTypeWOrd[$type_word_id];
+
+                        $languageView->id = $id;
+                        $languageView->type_word = $type_word ;
+                        $languageView->word = $word;  
+
+                        array_push($arraySaveView, $languageView);
+                    }
+                }
+            }
+            return view('user.pages.result')->with([
+                'workInfo' => $arraySaveView,
+                'workSelf' => $arraySaveSelf,
+                'inputText' => $inputText,
+                'explain'=> $explain,
+                'languages'=> $languages
+                ]);
+
     }
 }
