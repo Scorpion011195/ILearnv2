@@ -36,26 +36,44 @@ Route::get('home', function(){
 Route::get('result', function(){
     return view('user/pages/result');
 });
-Route::get('translate', function(){
-    return view('user/pages/translate_text');
-});
+
+Route::get('translate', 'TranslateController@getTranslateParagraph');
+
+Route::get('translate-paragraph', ['as' => 'translateParagraph', 'uses' => 'TranslateController@translateParagraph']);
+
+// Route::get('profile', ['as' => 'profile', 'uses'=>'UserController@getShowUser']);
+Route::get('profile', function(){
+    return view('user/pages/profile');
+})->middleware('auth');
+
+Route::get('editprofile/{id}', ['as' => 'editprofile/{id}', 'uses' => 'UserController@getEditUser'])->middleware('auth');
+Route::post('editprofile/{id}', ['as' => 'editprofile/{id}', 'uses' => 'UserController@postEditUser'])->middleware('auth');
+//User change password
+Route::get('changePass', ['as' => 'changePass', 'uses' => 'UserController@getChangePass'])->middleware('auth');
+Route::post('changePass', ['as' => 'changePass', 'uses' => 'UserController@postChangePass'])->middleware('auth');
 
 
 /*=================ADMIN AREA==================*/
-Route::get('/admin', function () {
-	return view('admin.layouts.ilearn');
+Route::group(['prefix' => 'admin'], function () {
+    // Đăng nhập
+    Route::get('login', 'AdminController@getLogin')->name('adminGetLogin');
+    Route::post('login', 'AdminController@postLogin')->name('adminPostLogin');
+
+    // Đăng xuất
+    Route::get('logout', 'AdminController@logout')->name('adminLogout');
+
+    // Trang chủ
+    Route::group(['middleware' =>'AdminLogin'],function(){
+   	Route::get('/',function(){
+   		return view('admin.layouts.ilearn');
+   	});
+    //  add word
+    Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
+    Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
+    Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
+    Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
+    Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
+    });
 });
-
-Route::get('admin/login', 'AdminController@getLogin')->name('adminGetLogin');
-Route::post('admin/login', 'AdminController@postLogin')->name('adminPostLogin');
-
 // END ADMIN
-
-Auth::routes();
-
-Route::get('testCrawler', 'AdminCrawlerController@testCrawler');
-Route::get('testUploadWord', function () {
-    return view('testUploadWord');
-});
-Route::post('testUploadWord', 'AdminCrawlerController@postUploadWords')->name('uploadWords');
 

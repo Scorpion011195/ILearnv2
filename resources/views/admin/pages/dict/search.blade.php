@@ -1,4 +1,4 @@
-@extends('backend.layouts.ilearn')
+@extends('admin.layouts.ilearn')
 
 @section('title')
     Tra từ
@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    @include('backend.components.dict.search.search-content')
+    @include('admin.components.dict.search.search-content')
 @endsection
 
 @section('script')

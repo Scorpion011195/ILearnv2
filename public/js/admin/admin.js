@@ -6,4 +6,12 @@ $('li a').focus(function(){
 $('li a').blur(function(){
   $(this).closest('li').removeClass('active');
 });
+
 // End LI tag
+/*TiNyMCE*/
+$(document).ready(function(){
+    $(document).on('submit', '#form_upload', function(evt){
+        $('.btn_upload').prop('disabled', true);
+        return true;
+    });
+});

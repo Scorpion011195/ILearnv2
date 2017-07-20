@@ -6,4 +6,20 @@ $(document).ready(function () {
 	else{
 		$('.carousel-inner .item img').css('height', '72px');
 	}
+	
+});
+
+//Change password
+$(document).ready(function(){
+	$("#changePassword").change(function()
+	{
+		if($(this).is(":checked"))
+		{
+			$(".password").removeAttr('disabled');
+		}
+		else
+		{
+			$(".password").attr('disabled','');
+		}
+	});
 });

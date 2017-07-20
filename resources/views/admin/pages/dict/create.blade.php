@@ -1,4 +1,4 @@
-@extends('backend.layouts.ilearn')
+@extends('admin.layouts.ilearn')
 
 @section('title')
     Thêm từ
@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    @include('backend.components.dict.create.create-content')
+    @include('admin.components.dict.create.create-content')
 @endsection
 
 
