@@ -26,7 +26,7 @@ class AdminCrawlerController extends Controller
         $ch = curl_init();
 
         // Config for CURL
-        $link = 'https://vdict.com/'.$text.','.$langPairId.',0,0.html';
+        $link = 'https://vdict.com/'.rawurlencode($text).','.$langPairId.',0,0.html';
         curl_setopt($ch, CURLOPT_URL, $link);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
