@@ -1,18 +1,24 @@
-@extends('backend.layouts.ilearn')
+@extends('admin.layouts.ilearn')
 
 @section('title')
     Thông Tin Cá Nhân
 @endsection
 
 @section('content-header')
-    <h1>Thông Tin Cá Nhân</h1>
+
+    <h2><b><center>Thông tin cá nhân</center></b></h2>
+    @if(isset($message))
+<div class="alert alert-success alert-dismissable fade in">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> Cập nhật thông tin thành công!
+  </div>
+@endif
 @endsection
 
 @section('content')
-    @include('backend.components.user.profile.profile-content')
+    @include('admin.components.user.profile.profile-content')
 @endsection
 
 @section('script')
     <script src="{!! asset('js/admin/admin.js') !!}"></script>
-    <script src="{!! asset('js/admin/admin-profile.js') !!}"></script>
 @endsection

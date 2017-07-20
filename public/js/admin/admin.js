@@ -2,7 +2,6 @@
 $(document).ready(function() {
 	$(document).on('change','#_typeWord', function(evt){
 		var typeWord = $("#_typeWord :selected").val();
-		alert(typeWord);
 		var _token = $('input[name=_token]').val();
         $.ajax ({
             url: 'adminSearch',
@@ -55,6 +54,7 @@ $(document).ready(function() {
           ajaxUpdateWord(idWord, updateWord, updatePronoun, _token);
         }
     });
+    // datePicker
     function ajaxDeleteWord(_element, idWord, _token, word){
         $.ajax({
             url:'delete',
@@ -92,3 +92,4 @@ $(document).ready(function() {
         });
     }
 });
+

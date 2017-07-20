@@ -40,7 +40,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="" class="btn btn-default btn-flat">Đổi mật khẩu</a>
+                                    <a href="{{ route('adminProfile') }}" class="btn btn-default btn-flat">Thông tin cá nhân</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{ route('adminLogout') }}" class="btn btn-default btn-flat">Thoát</a>

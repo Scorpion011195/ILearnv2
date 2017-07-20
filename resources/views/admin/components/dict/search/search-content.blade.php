@@ -1,3 +1,8 @@
+  @if(isset($countTo))
+  <div class="{{ $errors->has($countTo) ? ' has-error' : '' }}" style="">
+    <p class="help-block" style="color: red"><span class="glyphicon glyphicon-warning-sign"></span> <strong>Không có từ này trong hệ thống!</strong></p>
+  </div>
+@endif
   <div class="panel">
       <div class="panel-body">
           <div class="row">
@@ -5,8 +10,12 @@
               <form action="{{route('adminSearch')}}" class="form-inline margin--top" method="get">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <div class="form-group">
-                    <span class="{{ $errors->has('_keytratu') ? ' has-error' : '' }}">
-                    <input class="form-control" type="text" placeholder="Nhập từ" name = "searchText" style = " padding-left: 100px"></span>
+                    @if ($errors->has('searchText'))
+                      <div class="{{ $errors->has('textSearch') ? ' has-error' : '' }}" style="">
+                          <p class="help-block" style="color: red"><span class="glyphicon glyphicon-warning-sign"></span> <strong>{!! $errors->first('searchText') !!}</strong></p>
+                      </div>
+                  @endif
+                    <input class="form-control" type="text" placeholder="Nhập từ" name = "searchText" style = " padding-left: 100px" id="textSearch"></span>
                     <select class="form-control" name="typeWord" id="_typeWord">
                       @foreach($typeWord as  $value)
                         <option value="{!!$value->id!!}">{!! $value->name_type_word !!}</option>
@@ -20,15 +29,10 @@
                         @endforeach
                       </select>
                     </div>
-                    <button type="submit" class="btn btn-info">
+                    <button type="submit" class="btn btn-info" id="submitSearch">
                         <span class="glyphicon glyphicon-search"></span>
                     </button>
                   </div>
-                  @if ($errors->has('_keytratu'))
-                      <div class="{{ $errors->has('_keytratu') ? ' has-error' : '' }}">
-                          <p class="help-block"><span class="glyphicon glyphicon-warning-sign"></span>   <strong>{!! $errors->first('_keytratu') !!}</strong></p>
-                      </div>
-                  @endif
               </form>
             </div>
           </div>

@@ -6,6 +6,7 @@ use Session;
 use App\Models\Dictionary;
 use App\Services\DictionaryService;
 use App\Http\Requests\AdminAddWordRequest;
+use App\Http\Requests\AdminSearchWordRequest;
 class DictionaryManagementController extends Controller 
 {
   private $dictService;
@@ -86,7 +87,16 @@ class DictionaryManagementController extends Controller
         ]);
     }
   }
-  public function search(request $request)
+  public function getSearch(){
+    $lang = DB::table('languages')->get();
+    $typeOfWord = DB::table('type_words')->get();
+    return view('admin.pages.dict.search')->with
+                                      ([
+                                        'typeWord' => $typeOfWord,
+                                        'Lg'=> $lang   
+                                      ])->render();
+  }
+  public function search(AdminSearchWordRequest $request)
   {
     $lang = DB::table('languages')->get();
     $typeOfWord = DB::table('type_words')->get();
@@ -94,17 +104,19 @@ class DictionaryManagementController extends Controller
     $textSeach = $request->searchText;
     $typeWord = $request->typeWord;
     $languageFrom = $request->languageFrom;
+
+    if($textSeach == NULL && $typeWord != NULL && $languageFrom != NULL){
+        return view('admin.pages.dict.search')->with
+                                              ([
+                                                'typeWord' => $typeOfWord,
+                                                'Lg'=> $lang   
+                                              ])->render();
+    }
     $result = DB::table('dictionarys')->
                                         where ('word','like','%'.$textSeach.'%')->
                                         where('type_word_id', '=', $typeWord)->get();
     $count = count($result);
-    return view('admin.pages.dict.search')->with
-                                              ([
-                                                'typeWord' => $typeOfWord,
-                                                'Lg'=> $lang,
-                                                'results'=>$result,
-                                                'countTo' =>$count,
-                                              ])->render();
+    return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result,'countTo' =>$count,])->render(); 
   }
   function deleteWord(Request $request)
   {      // Input
