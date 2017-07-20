@@ -2,10 +2,16 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
+use Session;
 use App\Models\Dictionary;
 use App\Services\DictionaryService;
 use App\Http\Requests\AdminAddWordRequest;
+<<<<<<< HEAD
 class DictionaryManagementController extends Controller
+=======
+use App\Http\Requests\AdminSearchWordRequest;
+class DictionaryManagementController extends Controller 
+>>>>>>> 865460e2f42d635fea7be574eef6013e2e299d2f
 {
   private $dictService;
 
@@ -50,7 +56,10 @@ class DictionaryManagementController extends Controller
             ]);
         }else
         {
-          $mapping = DB::table('dictionarys')->where('word', $fromText)->value('mapping_id');
+          $mapping = DB::table('dictionarys')->where('word', $fromText)
+                                            ->where('type_word_id',$typeWord)
+                                            ->where('language_id',$fromLg)
+                                            ->value('mapping_id');
           $mappingId = $mapping;
           $dict->word = $toText;
           $dict->type_word_id = $typeWord;
@@ -84,6 +93,7 @@ class DictionaryManagementController extends Controller
         ]);
     }
   }
+<<<<<<< HEAD
 
   public function search()
   {
@@ -94,6 +104,61 @@ class DictionaryManagementController extends Controller
       'typeWord' => $typeOfWord,
       'Lg'=> $lang,
     ]);
+=======
+  public function getSearch(){
+    $lang = DB::table('languages')->get();
+    $typeOfWord = DB::table('type_words')->get();
+    return view('admin.pages.dict.search')->with
+                                      ([
+                                        'typeWord' => $typeOfWord,
+                                        'Lg'=> $lang   
+                                      ])->render();
+  }
+  public function search(AdminSearchWordRequest $request)
+  {
+    $lang = DB::table('languages')->get();
+    $typeOfWord = DB::table('type_words')->get();
+
+    $textSeach = $request->searchText;
+    $typeWord = $request->typeWord;
+    $languageFrom = $request->languageFrom;
+
+    if($textSeach == NULL && $typeWord != NULL && $languageFrom != NULL){
+        return view('admin.pages.dict.search')->with
+                                              ([
+                                                'typeWord' => $typeOfWord,
+                                                'Lg'=> $lang   
+                                              ])->render();
+    }
+    $result = DB::table('dictionarys')->
+                                        where ('word','like','%'.$textSeach.'%')->
+                                        where('type_word_id', '=', $typeWord)->get();
+    $count = count($result);
+    return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result,'countTo' =>$count,])->render(); 
+  }
+  function deleteWord(Request $request)
+  {      // Input
+    $idWord = $request->idWord;
+    $delete = Dictionary::find($idWord);
+    $delete->delete();
+
+    $dataResponse = ["data"=>true];
+    return json_encode($dataResponse);
+  }
+  public function updateWord(Request $request)
+  {
+    $idWord = $request->idWord;
+    $updateWord = $request->updateWord;
+    $updatePronoun = $request->updatePronoun;
+
+    $update = Dictionary::find($idWord);
+    $update->word = $updateWord;
+    $update->pronounce = $updatePronoun;  
+    $update->save();
+    
+    $dataResponse = ["data"=>true];
+    return json_encode($dataResponse);
+>>>>>>> 865460e2f42d635fea7be574eef6013e2e299d2f
   }
 
   public function upload()

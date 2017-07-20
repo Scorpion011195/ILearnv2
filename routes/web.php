@@ -64,16 +64,54 @@ Route::group(['prefix' => 'admin'], function () {
 
     // Trang chủ
     Route::group(['middleware' =>'AdminLogin'],function(){
-   	Route::get('/',function(){
-   		return view('admin.layouts.ilearn');
-   	});
-    //  add word
-    Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
-    Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
-    Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
-    Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
-    Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
+   		Route::get('/',function(){
+   			return view('admin.layouts.ilearn');
+   		});
+        /*Quản lý từ điển*/
+        Route::group(['prefix' => 'dict','middleware'=>'AdminLogin'], function () {
+        //  add word
+            Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
+            Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
+        // Search word
+            Route::GET('search','DictionaryManagementController@getSearch')->name('adminDisplay');
+            Route::GET('search/result','DictionaryManagementController@search')->name('adminSearch');
+        // Delete Word
+            Route::post('delete', 'DictionaryManagementController@deleteWord'); 
+        // Update từ
+            Route::post('update', 'DictionaryManagementController@updateWord'); 
+        // Upload file
+            Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
+        });
+        // Thông tin cá nhân
+        Route::group(['prefix' => 'profile','middleware'=>'AdminLogin'], function () {
+            Route::get('/', 'AdminController@getProfile')->name('adminProfile');
+
+            Route::post('/', 'AdminController@updateProfile')->name('updateProfile');
+        });
+        /*Quản lý user*/
+        Route::group(['prefix' => 'account','middleware'=>'AdminLogin'], function () {
+        Route::get('get', 'UserManagementController@getAccount')->name('adminUserManagement');
+
+        // Route::post('status', 'UserManagementController@changeStatus');
+
+        // Route::post('role', 'UserManagementController@changeRole');
+
+        // Route::post('delete', 'UserManagementController@deleteUser');
+
+        // Route::get('detail/{id}', 'UserManagementController@getDetailUser')->name('adminGetDetailUser');
+        // Route::post('updateDetail', 'UserManagementController@postDetailUser')->name('adminPostDetailUser');
+
+        // Route::get('search', 'UserManagementController@searchUser')->name('adminSearchUser');
+    });
+
     });
 });
 // END ADMIN
+
+
+Route::get('testCrawler', 'AdminCrawlerController@testCrawler');
+Route::get('testUploadWord', function () {
+    return view('testUploadWord');
+});
+Route::post('testUploadWord', 'AdminCrawlerController@postUploadWords')->name('uploadWords');
 

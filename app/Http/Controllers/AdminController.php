@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Session;
 use DB;
+use Input;
 use App\Services\UserInformationService;
 use App\Models\UserInformation;
 use App\Services\UserService;
@@ -16,6 +17,7 @@ use Illuminate\Support\MessageBag;
 use App\Http\Requests\AdminPersonalInformationRequest;
 use App\Http\Requests\AdminResetPasswordRequest;
 use App\Http\Controllers\DictionaryManagementController;
+use App\Http\Requests\AdminGetProfileRequest;
 
 
 class AdminController extends Controller
@@ -47,24 +49,41 @@ class AdminController extends Controller
     }
     function logout(){
         Auth::logout();
-        Session::forget('user');
+        Session::flush();
+        Session::regenerate();
         return redirect()->route('adminGetLogin');
     }
     function getProfile()
-    {
-        $column = 'id_user';
-        $value = Session::get('user')->id_user;
-
-        $userInformationService = new UserInformationService(new UserInformation);
-        $profile = $userInformationService->getByColumn($column, $value);
-
-        // Check if exist personal information
-        if(!isset($profile)){
-            $userInformationService->create(['id_user' => $value]);
-
-            $profile = $userInformationService->getByColumn($column, $value);
+    {   
+        $id = Auth::user()->id;
+        if($id == null){
+          return redirect()->route('adminGetLogin');
         }
+        else{
+            $UserInfomation = DB::table('users')->where('id',$id)->first();
+            return view('admin.pages.user.profile.profile',['infomation' =>$UserInfomation]);
+        }
+    }
+    function updateProfile(AdminGetProfileRequest $request)
+    {   
 
-        return view('admin.pages.user.profile.profile',['profile'=>$profile]);
+        $UserId = Auth::user()->id;
+        $UserInfomation = User::find($UserId);
+        $nameUser = $request->name;
+        $phoneUser = $request->phone;
+        $addressUser = $request->address;
+        $dobUser = $request->dob;
+        $inputData = Input::all();
+        $password = $inputData['password'];
+
+        $UserInfomation->name =$nameUser;
+        $UserInfomation->phone =$phoneUser;
+        $UserInfomation->address =$addressUser;
+        $UserInfomation->date_of_birth =$dobUser;
+        $UserInfomation->password =bcrypt('$password');
+        $UserInfomation->update();
+        $passwords = $password;
+        $message = "Cập nhật thông tin thành công";
+        return view('admin.pages.user.profile.profile',['infomation' =>$UserInfomation,'message' => $message,'pass' => $passwords]);
     }
 }

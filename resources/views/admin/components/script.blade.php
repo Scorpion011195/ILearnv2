@@ -16,6 +16,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     
     <!-- BOOSTRAP CONFIRM -->
-    <script src="{!! asset('js/bootstrap-confirmation.js') !!}"></script>
     <script src="{!! asset('js/admin/admin.js') !!}"></script>
+     <script src="{!! asset('js/admin/notify.js') !!}"></script>
+      <script src="{!! asset('js/admin/bootstrap-confirmation.min.js') !!}"></script>
     @yield('script')
