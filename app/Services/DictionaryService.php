@@ -15,6 +15,34 @@ class DictionaryService extends BaseService implements DictionaryRepository {
     {
         $this->model = $model;
     }
+
+    public function checkWordExist($word, $typeWord, $languageId)
+    {
+        $result = DB::table('dictionarys')->where('word', '=', $word)->where('type_word', '=', $typeWord)->where('language_id','=', $languageId)->get();
+        $count = $result->count();
+        if($count > 0){
+            return true;
+        }
+        else{
+            // Word doesn't exist in from-table
+            return false;
+        }
+    }
+
+    public function getMappingId($word, $typeWord, $languageId)
+    {
+        $result = DB::table('dictionarys')->where('word', '=', $word)->where('type_word', '=', $typeWord)->where('language_id','=', $languageId)->first();
+
+        return $result->mapping_id;
+    }
+
+    public function getMaxMappingId()
+    {
+        $result = DB::table('dictionarys')->max('mapping_id');
+
+        return ++$result;
+    }
+
     public function findWord($inputText)
 
     {
@@ -67,3 +95,4 @@ class DictionaryService extends BaseService implements DictionaryRepository {
         $langRelate = DB::table('dictionarys')->select('mapping_id', 'language_id');
     }
 }
+

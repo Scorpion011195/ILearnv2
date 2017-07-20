@@ -1,7 +1,9 @@
 <?php
 namespace App\Repositories;
 
-interface DictionaryRepository{
+interface DictionaryRepository extends BaseRepository {
+    
+    public function checkWordExist($word, $typeWordId, $languageId);
 
-    function findWord($inputText);
+     function findWord($inputText);
 }

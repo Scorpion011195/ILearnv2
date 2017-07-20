@@ -1,6 +1,10 @@
 
   <div class="panel">
     <div class="panel-body">
+    @if(isset($message))
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <div class="alert alert-info" role="alert">{!! $message!!}</div>
+    @endif
       @if ($errors->has('Success'))
       <div>
         <p class="alert--success"><span class="glyphicon glyphicon-ok"></span>   {!! $errors->first('Success') !!}</p>
@@ -11,46 +15,40 @@
         <p class="alert--fail"><span class="glyphicon glyphicon-warning-sign"></span>   {!! $errors->first('FailedCannotFind') !!}</p>
       </div>
       @endif
-      <form class="form-inline margin--top-none" action="{{ route('adminDictCreateWord') }}" method="post">
+      <form class="form-inline margin--top-none" action="{{ route('adminAdd') }}" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group">
               <div class="input-group ">
-                <span class="input-group-addon">From</span>
-                <select class="form-control" name="_cbnguon">
-                  @foreach($listLanguage as $language)
-                  <option
-                  @if($language->id_language == $idTableNguon)
-                  {!! "selected" !!}
+                <span class="input-group-addon"><b>From</b></span>
+                <select class="form-control" name="fromLg" >
+                  @if(isset($languages))
+                    @foreach($languages as $language)
+                        <option value="{!! $language->id !!}"> {!! $language->name_language !!} ({!!$language->code_language!!})</option>
+                    @endforeach
                   @endif
-                  value="{!! $language->id_language !!}">{!! $language->language !!}</option>
-                  @endforeach
                 </select>
               </div>
-              <select class="form-control" name="_cbloaitu">
-                @foreach($listTypeOfWord as $key=>$value)
-                <option
-                @if($key == $idLoaiTu)
-                {!! "selected" !!}
+              <select class="form-control" name="typeWord" >
+                @if(isset($typeWord))
+                    @foreach($typeWord as $value)
+                      <option value="{{ $value->id }}">{!! $value->name_type_word !!}</option>
+                    @endforeach
                 @endif
-                value="{{ $key }}">{!! $value !!}</option>
-                @endforeach
-              </select>
+              </select>         
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
               <div class="input-group ">
-                <span class="input-group-addon">To</span>
-                <select class="form-control" name="_cbdich">
-                  @foreach($listLanguage as $language)
-                  <option
-                  @if($language->id_language == $idTableDich)
-                  {!! "selected" !!}
-                  @endif
-                  value="{!! $language->id_language !!}">{!! $language->language !!}</option>
+                <span class="input-group-addon"><b>To</b></span>
+                <select class="form-control" name="toLg">
+                @if(isset($languages))
+                  @foreach($languages as $language)
+                  <option value="{!! $language->id !!}"> {!! $language->name_language !!} ({!!$language->code_language!!})</option>
                   @endforeach
+                @endif
                 </select>
               </div>
               <button type="submit" class="btn btn-info">
@@ -61,58 +59,41 @@
         </div>
         <br>
         <div class="row">
-          <div class="col-sm-6 {{ $errors->has('_txttu') ? ' has-error' : '' }}">
+          <div class="col-sm-6 {{ $errors->has('fromText') ? ' has-error' : '' }}">
             <div class="input-group ">
-              <span class="input-group-addon">Từ</span>
-              <input size="30" id="msg" required maxlength="50" type="text" class="form-control" name="_txttu" placeholder="hello"
-              @if (!$errors->has('_txttu'))
-                value="{!! old('_txttu') !!}"
+              <span class="input-group-addon"><b>Từ</b></span>
+              <input size="36" id="msg" required maxlength="50" type="text" class="form-control" name="fromText" placeholder="hello"
+              @if (!$errors->has('fromText'))
+                value="{!! old('fromText') !!}"
               @endif >
             </div>
-            @if ($errors->has('_txttu'))
-            <span class="glyphicon glyphicon-warning-sign help-block--color-apple-blossom"></span>   <strong class="help-block--color-apple-blossom">{!! $errors->first('_txttu') !!}</strong>
+            @if ($errors->has('fromText'))
+            <span class="glyphicon glyphicon-warning-sign help-block--color-apple-blossom"></span>   <strong class="help-block--color-apple-blossom">{!! $errors->first('fromText') !!}</strong>
             @endif
           </div>
-          <div class="col-sm-6 {{ ($errors->has('_txtnghia')&&!($errors->has('_txttu'))) ? ' has-error' : '' }}">
+          <div class="col-sm-6 {{ ($errors->has('toText')&&!($errors->has('fromText'))) ? ' has-error' : '' }}">
             <div class="input-group">
-              <span class="input-group-addon">Nghĩa</span>
-              <input size="30" id="msg" required maxlength="50" type="text" class="form-control" name="_txtnghia" placeholder="xin chào"
-              @if (!$errors->has('_txttu')&&!$errors->has('_txtnghia'))
-                value="{!! old('_txtnghia') !!}"
+              <span class="input-group-addon" disable><b>Nghĩa</b></span>
+              <input size="30" id="msg" required maxlength="50" type="text" class="form-control" name="toText" placeholder="xin chào"
+              @if (!$errors->has('fromText')&&!$errors->has('toText'))
+                value="{!! old('toText') !!}"
               @endif >
             </div>
-            @if ($errors->has('_txtnghia')&&!($errors->has('_txttu')))
-            <span class="glyphicon glyphicon-warning-sign help-block--color-apple-blossom"></span>   <strong class="help-block--color-apple-blossom">{!! $errors->first('_txtnghia') !!}</strong>
+            @if ($errors->has('toText')&&!($errors->has('fromText')))
+            <span class="glyphicon glyphicon-warning-sign help-block--color-apple-blossom"></span>   <strong class="help-block--color-apple-blossom">{!! $errors->first('toText') !!}</strong>
+            @endif
+          </div>
+            <div class="col-sm-6 {{ ($errors->has('pronoun')&&!($errors->has('fromText'))) ? ' has-error' : '' }}" style ="padding-top: 20px">
+            <div class="input-group">
+              <span class="input-group-addon" disable><b>Phát âm</b></span>
+              <input size="30" id="msg" type="text" class="form-control" name="pronoun" placeholder="heˈlō,həˈlō" >
+            </div>
+            @if ($errors->has('pronoun')&&!($errors->has('fromText')))
+            <span class="glyphicon glyphicon-warning-sign help-block--color-apple-blossom"></span>   <strong class="help-block--color-apple-blossom">{!! $errors->first('pronoun') !!}</strong>
             @endif
           </div>
         </div>
-        <br>
-        <div class="row">
-          <div class="col-sm-6 {{ $errors->has('_tatu') ? ' has-error' : '' }}">
-            <lable ><span class="glyphicon glyphicon-info-sign"></span>  Giải thích</lable>
-            <textarea class="form-control" placeholder="Giải thích" name="_tatu" id="_gtFrom">{!! old('_tatu') !!}</textarea>
-            <script type="text/javascript">CKEDITOR.replace( '_gtFrom',{
-              enterMode: Number(2),
-            }); </script>
-            @if ($errors->has('_tatu'))
-            <div>
-              <p class="help-block"><span class="glyphicon glyphicon-warning-sign"></span>   <strong>{!! $errors->first('_tatu') !!}</strong></p>
-            </div>
-            @endif
-          </div>
-          <div class="col-sm-6 {{ $errors->has('_tanghia') ? ' has-error' : '' }}">
-            <lable ><span class="glyphicon glyphicon-info-sign"></span>  Giải thích</lable>
-            <textarea class="form-control" placeholder="Giải thích" name="_tanghia" id="_gtTo">{!! old('_tanghia') !!}</textarea>
-            <script type="text/javascript">CKEDITOR.replace( '_gtTo',{
-              enterMode: Number(2),
-            }); </script>
-            @if ($errors->has('_tanghia'))
-            <div>
-              <p class="help-block"><span class="glyphicon glyphicon-warning-sign"></span>   <strong>{!! $errors->first('_tanghia') !!}</strong></p>
-            </div>
-            @endif
-          </div>
-        </div>
+        <hr>
       </form>
     </div>
   </div>

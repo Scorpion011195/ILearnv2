@@ -66,4 +66,11 @@
 		</div>
 	</div>
 	<hr>
+	<div class="row">
+	  <div class="container">
+	    <div class="col-md-9 col-xs-12 col-sm-6 il-contents">
+		  <div class="fb-comments" data-href="http://localhost/ilearn/public/result" data-width="500" data-numposts="5"></div>
+		</div>
+	  </div>
+	</div>
 @endsection

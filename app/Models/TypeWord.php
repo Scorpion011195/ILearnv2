@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
 
 class TypeWord extends Model
 {
-    //
+
     protected $table = 'type_words';
     protected $timestamp = False;
 
@@ -15,11 +16,7 @@ class TypeWord extends Model
      protected $fillable = [
         'name_type_word',
     ];
-
-    function dictionary()
-    {
-    	return $this->belongsToMany('Dictionary', 'type_word_id');
-    }
+    
     function language()
     {
     	return $this->belongsTo('Language','language_id');

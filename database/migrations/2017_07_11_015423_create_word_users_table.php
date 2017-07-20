@@ -16,8 +16,8 @@ class CreateWordUsersTable extends Migration
         Schema::create('word_users', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->string('word',50);
-            $table->string('mean',50);
+            $table->string('word',1000);
+            $table->string('mean',1000);
             $table->integer('type_word_id');
             $table->integer('from_language_id');
             $table->integer('to_language_id');

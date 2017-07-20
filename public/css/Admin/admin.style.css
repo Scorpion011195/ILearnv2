@@ -10,9 +10,18 @@
     border-radius:10px;
 	width: 100%;
 	box-shadow: 3px 3px 3px 3px;
-    
+
 }
 input{
 	 border-left: 3px solid #e74c3c;
-      -webkit-transition:0.4s ease;  
+      -webkit-transition:0.4s ease;
+}
+.input-group:hover {
+  background-color: transparent; /* Fix for dropdown-menu item hover background-color */
+}
+.has--error {
+    color: #a94442 !important;
+}
+.has--success {
+    color: #3c8dbc !important;
 }

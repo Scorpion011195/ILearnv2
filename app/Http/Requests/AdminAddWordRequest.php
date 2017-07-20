@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdminUploadWordsRequest extends FormRequest
+class AdminAddWordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,20 @@ class AdminUploadWordsRequest extends FormRequest
     public function rules()
     {
         return [
-            'fileWordsUpload' => 'required|mimes:txt|max:10000'
+            'fromText' => 'required|max:50',
+            'toText' => 'required|max:50',
+            'pronoun' =>'max:50'
         ];
     }
 
     public function messages()
     {
         return [
-            'fileWordsUpload.required' => 'Bạn chưa chọn file!',
-            'fileWordsUpload.mimes' => 'File không đúng định dạng txt!',
-            'fileWordsUpload.max' => 'Dung lượng file không vượt quá 10000kb'
+            'fromText.required' => 'Bạn chưa nhập từ',
+            'fromText.max' => 'Từ phải ít hơn 50 kí tự',
+            'toText.required'  => 'Bạn chưa nhập nghĩa',
+            'toText.max' => 'Nghĩa phải ít hơn 50 kí tự',
+            'pronoun.max' => 'Phát âm phải ít hơn 50 ký tự'
         ];
     }
 }
