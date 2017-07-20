@@ -11,6 +11,9 @@ body {
     text-decoration: none;
     display: inline-block;
 }
+.panel-default {
+    margin-top: 15px;
+}
 /*----------------CSS MENU-------------*/
 .navbar-default{
     background: transparent;
@@ -183,7 +186,7 @@ body {
     color: Black;
 }
 .il-spelling {
-    float: left;
+    float: right;
     padding-left: 5px;
 }
 .il-listen {
@@ -227,6 +230,11 @@ body {
 }
 .il-translate-button {
     text-align: center;
+}
+/*----------------CSS SETTING-------------*/
+.il-modal-set {
+    margin-left: 100px;
+    margin-right: 100px;
 }
 /*----------------CSS FOOTER-------------*/
 footer {
@@ -425,8 +433,12 @@ body {
     .item img {
         height: 45px !important;
     }
+    .il-modal-set {
+    margin-left: 0px;
+    margin-right: 0px;
+    }
 }
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
     .il-menu {
         width: 101%;
         margin: 0;
@@ -447,5 +459,9 @@ body {
     }
     .item img {
         height: 45px !important;
+    }
+    .il-modal-set {
+    margin-left: 0px;
+    margin-right: 0px;
     }
 }

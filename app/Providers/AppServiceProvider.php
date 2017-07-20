@@ -1,9 +1,12 @@
 <?php
-
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use App\Services\BaseService;
+use App\Repositories\BaseRepository;
+use App\Services\DictionaryService;
+use App\Repositories\DictionaryRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        $this->app->singleton(BaseRepository::class, BaseService::class);
+        $this->app->singleton(DictionaryRepository::class, DictionaryService::class);
     }
 }

@@ -16,6 +16,7 @@ class Dictionary extends Model
         'word', 'pronounce', 'type_word', 'language_id', 'listen', 'explain', 'mapping_id'
     ];
 
+
    function language(){
    	return $this->belongsTo('App\Models\Language','language_id','language_id');
    }
