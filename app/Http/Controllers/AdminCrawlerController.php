@@ -26,7 +26,8 @@ class AdminCrawlerController extends Controller
         $ch = curl_init();
 
         // Config for CURL
-        curl_setopt($ch, CURLOPT_URL, 'https://vdict.com/'.rawurlencode($text).','.$langPairId.',0,0.html');
+        $link = 'https://vdict.com/'.rawurlencode($text).','.$langPairId.',0,0.html';
+        curl_setopt($ch, CURLOPT_URL, $link);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6"); // set browser/user agent
@@ -86,15 +87,6 @@ class AdminCrawlerController extends Controller
     }
 
     function postUploadWords(AdminUploadWordsRequest $request){
-        if(Session::has('isUploading')){
-            $errors = new MessageBag(['alertUploading' => ' Dữ liệu đang được cập nhật!']);
-            return redirect()->back()->withInput()->withErrors($errors);
-        }
-        // If no session uploading
-        else{
-            Session::put('isUploading', true);
-        }
-
         // Input
         $file = $request->file('fileWordsUpload');
         $codeLanguageVdict = $request->codeLanguageVdict;
@@ -118,7 +110,7 @@ class AdminCrawlerController extends Controller
 
         // If file over maximum
         if($linecount>100){
-            Session::forget('isUploading');
+
             $errors = new MessageBag(['alertMax' => ' File không được quá 100 dòng!']);
             return redirect()->back()->withInput()->withErrors($errors);
         }
@@ -143,7 +135,6 @@ class AdminCrawlerController extends Controller
                 $arrAllResult = $this->crawlerVdict($word, $codeLanguageVdict);
                 if($arrAllResult==-1){
                     fclose($content);
-                    Session::forget('isUploading');
                     $errors = new MessageBag(['errorUpload' => 'Từ "'.$word.'" không được tìm thấy!']);
                     return redirect()->back()->withInput()->withErrors($errors);
                 }
@@ -158,7 +149,6 @@ class AdminCrawlerController extends Controller
                     for($i=0 ; $i < $lengthArr; $i++) {
                         $typeWord = $arrTypeWord[$i];
                         Log::info('Type: '.$typeWord);
-
                         // Check word existed?
                         $isWordExisted = $this->dictService->checkWordExist($word, $typeWord, $fromLangId);
 
@@ -173,7 +163,6 @@ class AdminCrawlerController extends Controller
                                     Log::info($mean);
                                     // Check mean existed?
                                     $isMeanExisted = $this->dictService->checkWordExist($mean, $typeWord, $toLangId);
-
                                     // If mean not existed
                                     if(!$isMeanExisted){
                                         // Add mean to DB
@@ -198,7 +187,6 @@ class AdminCrawlerController extends Controller
                                     Log::info($mean);
                                     // Check mean existed?
                                     $isMeanExisted = $this->dictService->checkWordExist($mean, $typeWord, $toLangId);
-
                                     // If mean existed
                                     if($isMeanExisted){
                                         $mappingId = $this->dictService->getMappingId($mean, $typeWord, $toLangId);
@@ -234,12 +222,10 @@ class AdminCrawlerController extends Controller
         fclose($content);
 
         if ($success) {
-            Session::forget('isUploading');
             $errors = new MessageBag(['errorSuccess' => 'Upload thành công']);
             return redirect()->back()->withInput()->withErrors($errors);
         }
         else{
-            Session::forget('isUploading');
             $errors = new MessageBag(['errorUnsuccess' => 'Upload thất bại!']);
             return redirect()->back()->withInput()->withErrors($errors);
         }
