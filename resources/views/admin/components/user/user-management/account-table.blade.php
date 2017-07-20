@@ -41,68 +41,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <!-- change key color -->
-                    <?php
-                    function changeColor($str, $key)
-                    {
-                        return str_replace($key, "<span class='font--color-red'>$key</span>", $str);
-                    }
-                    ?>
-                    <!-- /.change key color -->
-                        @foreach($accounts as $ac)
-                        <?php $_idUser = $ac->id_user; ?>
-                        <tr role="row" class="odd text-center">
-                            <td class="_user-id sorting_1" data-id="{{ $_idUser }}">{{ $_idUser }}</td>
-                            <td class="_user-name sorting_1">{!! changeColor($ac->username, $key_username) !!}</td>
-                            <td class="sorting_1">
-                            <!-- comboBox status -->
-                                    <select class="selectpicker choose-status"
-                                    @if( (Auth::user()->id_role != 1))
-                                        {{ "disabled" }}
-                                    @endif>
-                                        @foreach($listStatus as $ls)
-                                          <option
-                                              @if($ac->id_status == $ls->id_status)
-                                                  {{ "selected" }}
-                                              @endif
-                                              value="{{ $ls->id_status }}">{{ $ls->status }}
-                                          </option>
-                                        @endforeach
-                                    </select>
-                             <!-- /.comboBox status -->
-                            </td>
-                            <td class="sorting_1">
-                            <!-- comboBox role -->
-                                    <select class="selectpicker choose-role"
-                                    @if( (Auth::user()->id_role != 1))
-                                        {{ "disabled" }}
-                                    @endif>
-                                        @foreach($listRoles as $lr)
-                                          <option
-                                              @if($ac->id_role == $lr->id_role)
-                                                  {{ "selected" }}
-                                              @endif
-                                              value="{{ $lr->id_role }}">{{ $lr->role }}
-                                          </option>
-                                        @endforeach
-                                    </select>
-                             <!-- /.comboBox role -->
-                            </td>
-                            <td class="sorting_1">
-                            {!! changeColor(date('d-m-Y', strtotime($ac->created_at)), date('d-m-Y', strtotime($key_day))) !!}
-                            </td>
-                            <td class="sorting_1">
-                                <a href="{{ route('adminGetDetailUser',$_idUser) }}" class="_detail-user _tooltip-me" title="Xem thông tin!">
-                                  <span class="glyphicon glyphicon-edit"></span>
-                                </a>
-                                @if((Auth::user()->id_role == 1))
-                                <button class="_delete-user btn__icon btn--color-link _tooltip-me" title="Xóa!" data-toggle="confirmation" data-placement="left">
-                                  <span class="glyphicon glyphicon-trash"></span>
-                                </button>
-                                @endif
-                            </td>
-                        </tr>
-                        @endforeach
+                        
+                        @if(isset($dataSearch))
+                            @foreach($dataSearch as $value)
+                                <tr role="row" class="odd text-center">
+                                    <td class="softing_1"> {{$value->id}}</td>
+                                    <td class="softing_1"> {{$value->username}}</td>
+                                    <td class="softing_1" id ="{{$value->status}}">@if($value->status == 1)Hoạt Động @else Block @endif</td>
+                                    <td class="softing_1"> {{$value->role_id}}</td>
+                                    <td class="softing_1"> {{$value->created_at}}</td>
+                                    <td colspan="" rowspan="" headers=""><i class="fa fa-trash"></i></td>
+                                </tr>
+                            @endforeach
+                        @else
+                            @foreach($dataList as $value)
+                                <tr role="row" class="odd text-center">
+                                    <td class="softing_1"> {{$value->id}}</td>
+                                    <td class="softing_1"> {{$value->username}}</td>
+                                    <td class="softing_1" id ="{{$value->status}}">@if($value->status == 1)Hoạt Động @else Block @endif</td>
+                                    <td class="softing_1"> {{$value->role_id}}</td>
+                                    <td class="softing_1"> {{$value->created_at}}</td>
+                                    <td colspan="" rowspan="" headers=""><i class="fa fa-trash"></i></td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                     </table>
                 </div>
@@ -110,11 +72,9 @@
         </div>
         <div class="row">
             <div class="col-sm-5">
-                <!-- <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Hiển thị {{ $noOfPages }} của {{ $noOfAccounts }} tài khoản -->
-                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Tổng cộng có {{ $noOfAccounts }} tài khoản
+                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Tổng cộng có  tài khoản
                 </div>
             </div>
             <div class="col-sm-7"></div>
         </div>
-{!! $accounts->links() !!}
 
