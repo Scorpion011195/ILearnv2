@@ -1,11 +1,11 @@
 @extends('user.layouts.profile')
 @section('content')
 <div class="container">
-    <div class="row profile">
-		<div class="col-md-3">
+    <div class="row il-profile">
+		<div class="col-md-3 il-profile-col-md-3">
 			<div class="profile-sidebar">
 				<div class="profile-userpic">
-				    <img src="../uploads/user/{{ Auth::user()->image }}" class="img-responsive" alt="">	
+					<img src="{{ asset('uploads/images/' . Auth::user()->image) }} " class="img-responsive" alt="" />
 				</div>
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">
@@ -40,7 +40,7 @@
 				<!-- END MENU -->
 			</div>
 		</div>
-		<div class="col-md-9">
+		<div class="col-md-9 il-profile-col-md-9">
             <div class="profile-content">
 			    <h4 class="heading"><strong>Thông tin</strong> {!! ucfirst (Auth::user()->username) !!} <span></span></h4>
                 <div class="form-group">

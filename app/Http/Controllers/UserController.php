@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Input;
 use DB;
 use Session;
 use Flash;
+use Image;
 use App\Models\User;
 use App\Models\SettingUsers;
 use Validator;
@@ -106,7 +107,7 @@ class UserController extends Controller
                 ->subject('Verify your email address');
         });
 
-        return redirect()->intended('home')->with('status', 'Cảm ơn bạn đã đăng kí tài khoản tại Ilearn. Vui lòng vào Email của bạn để xác nhận đăng kí ');
+        return redirect('home')->with('status', 'Cảm ơn bạn đã đăng kí tài khoản tại Ilearn. Vui lòng vào Email của bạn để xác nhận đăng kí ');
     }
 
     public function confirm($confirmation_code)
@@ -114,7 +115,7 @@ class UserController extends Controller
         $user = User::whereConfirmationCode($confirmation_code)->first();
         if ( ! $user)
         {
-            return redirect('home')->with('status', 'Bạn chưa xác nhận, vui long thử lại');
+            return redirect('home')->with('status', 'Bạn chưa xác nhận, vui lòng thử lại');
         }
         $user->confirmed = 1;
         $user->confirmation_code = $confirmation_code;
@@ -134,13 +135,33 @@ class UserController extends Controller
     public function postEditUser( UserProfileRequest $request, $id)
     {
         $user = User::find($id);
-        $user->name = $request->name;
-        $user->phone = $request->phone;
-        $user->address = $request->address;
-        $user->date_of_birth = date('Y-m-d',strtotime($request->date_of_birth)); 
-        $user->save();
 
-        return redirect('editprofile/'. $id)->with('status', 'Chỉnh sửa thông tin thành công');
+        if($request->hasFile('image'))
+        {
+            $image = $request->file('image');
+            $filename = time() . '.' .$image->getClientOriginalExtension();
+
+            Image::make($image)->resize(960,640)->save(public_path('/uploads/images/' . $filename));
+
+            $user->name = $request->name;
+            $user->phone = $request->phone;
+            $user->image = $filename;
+            $user->address = $request->address;
+            $user->date_of_birth = date('Y-m-d',strtotime($request->date_of_birth)); 
+            $user->save();
+
+            return redirect('editprofile/'. $id)->with('status', 'Chỉnh sửa thông tin thành công');
+        } else {
+            $user->name = $request->name;
+            $user->phone = $request->phone;
+            $user->address = $request->address;
+            $user->date_of_birth = date('Y-m-d',strtotime($request->date_of_birth)); 
+            $user->save();
+
+            return redirect('editprofile/'. $id)->with('status', 'Chỉnh sửa thông tin thành công');
+
+        }  
+        
     }
     //Get User Change password
 
