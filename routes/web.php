@@ -31,7 +31,6 @@ Route::get('search', ['as' => 'search', 'uses' => 'DictionaryController@postSear
 
 Route::get('notify', function(){
     return view('user/pages/notify');
->>>>>>> scr_guest_translate
 });
 Route::get('result', function(){
     return view('user/pages/result');
