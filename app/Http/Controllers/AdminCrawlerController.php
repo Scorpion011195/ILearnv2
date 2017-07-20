@@ -86,16 +86,13 @@ class AdminCrawlerController extends Controller
     }
 
     function postUploadWords(AdminUploadWordsRequest $request){
-        // Check sesion uploading
-        if(!Session::has('isUploading')){
-            // Generate session uploading
-            Session::put('isUploading', true);
+        if(Session::has('isUploading')){
+            $errors = new MessageBag(['alertUploading' => ' Dữ liệu đang được cập nhật!']);
+            return redirect()->back()->withInput()->withErrors($errors);
         }
+        // If no session uploading
         else{
-            if(Session::get('isUploading')){
-                $errors = new MessageBag(['alertUploading' => ' Dữ liệu đang được cập nhật!']);
-                return redirect()->back()->withInput()->withErrors($errors);
-            }
+            Session::put('isUploading', true);
         }
 
         // Input
@@ -121,11 +118,8 @@ class AdminCrawlerController extends Controller
 
         // If file over maximum
         if($linecount>100){
+            Session::forget('isUploading');
             $errors = new MessageBag(['alertMax' => ' File không được quá 100 dòng!']);
-
-            // Session not uploading
-            Session::put('isUploading', false);
-
             return redirect()->back()->withInput()->withErrors($errors);
         }
 
@@ -149,11 +143,8 @@ class AdminCrawlerController extends Controller
                 $arrAllResult = $this->crawlerVdict($word, $codeLanguageVdict);
                 if($arrAllResult==-1){
                     fclose($content);
+                    Session::forget('isUploading');
                     $errors = new MessageBag(['errorUpload' => 'Từ "'.$word.'" không được tìm thấy!']);
-
-                    // Session not uploading
-                    Session::put('isUploading', false);
-
                     return redirect()->back()->withInput()->withErrors($errors);
                 }
                 else{
@@ -243,16 +234,36 @@ class AdminCrawlerController extends Controller
         fclose($content);
 
         if ($success) {
+            Session::forget('isUploading');
             $errors = new MessageBag(['errorSuccess' => 'Upload thành công']);
-            // Session not uploading
-            Session::put('isUploading', false);
             return redirect()->back()->withInput()->withErrors($errors);
         }
         else{
+            Session::forget('isUploading');
             $errors = new MessageBag(['errorUnsuccess' => 'Upload thất bại!']);
-            // Session not uploading
-            Session::put('isUploading', false);
             return redirect()->back()->withInput()->withErrors($errors);
         }
+    }
+
+
+    function testPutSession(){
+        Session::put('putMe', true);
+        echo Session::get('putMe');
+        sleep(10);
+        echo "End put";
+    }
+
+    function testGetSession(){
+        if(Session::has('putMe')){
+            echo "Has session";
+        }
+        else{
+            echo "No session";
+        }
+    }
+
+    function testEndSession(){
+        Session::forget('putMe');
+        echo "Forgot ok!";
     }
 }
