@@ -24,6 +24,7 @@ class CreateDictionarysTable extends Migration
             $table->integer('mapping_id');
             $table->timestamps();
         });
+        DB::statement('ALTER TABLE dictionarys ADD FULLTEXT full(word)');
     }
 
     /**

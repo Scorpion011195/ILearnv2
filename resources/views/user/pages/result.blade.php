@@ -5,46 +5,58 @@
 		<div class="container">
 			<div class="col-md-9 col-xs-12 col-sm-6 il-contents">
 				<div class="row il-content-word">
-					<div class="col-md-4 col-xs-12 col-sm-4">
-						<div class="il-word"><span>Hello</span></div>
-						<div class="il-spelling">[hə'lou]</div>
-						<div class="il-listen"><i class="glyphicon glyphicon-volume-up"></i></div>
+					<div class="col-md-3 col-xs-12 col-sm-3">
+						<div class="il-word"><span>{!! ucfirst($inputText) !!}</span></div>
+						<div class="il-listen"><a href=""><i class="glyphicon glyphicon-volume-up"></a></i></div>
 					</div>
-					<div class="col-md-8 col-xs-12 col-sm-8">
-						<div class="il-explain">
-							<h5>Noun</h5>
-							<span>An utterance of “hello”; a greeting.she was getting polite nods and hellos from people</span>
-							<h5>Verb</h5>
-							<span>An utterance of “hello”; a greeting.she was getting polite nods and hellos from people</span>
-							<h5>Abject</h5>
-							<span>An utterance of “hello”; a greeting.she was getting polite nods and hellos from people</span>
-							<h5>Adv</h5>
-							<span>An utterance of “hello”; a greeting.she was getting polite nods and hellos from people</span>
+					<div class="col-md-9 col-xs-12 col-sm-9">
+						<div class="il-spelling">
+							@if(isset($workSelf))
+								@foreach( $workSelf as $language )
+									<span>{!! $language -> pronounce !!}</span>
+								@endforeach
+							@endif
 						</div>
 					</div>
 				</div>
 				<div class="clearfix"></div>
 				<hr>
 				<div class="row il-word-tile">
-					<div class="il-category">Thán từ</div>
-					<ul class="il-list">
-						<li><b>Xin chào</b></li>
-					</ul>
-					<ul class="il-list">
-						<li><b>Này, này</b></li>
-					</ul>
-					<div class="il-category clearfix">Danh từ</div>
-					<ul class="il-list">
-						<li><b>Tiếng chào</b></li>
-					</ul>
-					<ul class="il-list">
-						<li><b>Câu chào</b></li>
-					</ul>
+					@if(isset($workInfo))
+						<?php $type_word = '' ?>
+						@foreach( $workInfo as $language)
+							@if(!($type_word == $language->type_word))
+								<?php $type_word = $language->type_word ?>
+								<div class="il-category">{{ $language->type_word}}</div>
+								@if(!Auth::guest())
+									<ul class="il-list">
+										<span class="glyphicon glyphicon-plus _push-his _tooltip-me" id="_id{!! $language -> id!!}"></span>&nbsp;<b>{!! $language->word!!}</b>
+									</ul>
+								@endif
+								@if(Auth::guest())
+									<ul class="il-list">
+										<li><b>{!! $language->word!!}</b></li>
+									</ul>
+								@endif
+							@else
+								@if(!Auth::guest())
+									<ul class="il-list">
+										<span class="glyphicon glyphicon-plus _push-his _tooltip-me" id="_id{!! $language -> id!!}"></span>&nbsp;<b>{!! $language->word!!}</b>
+									</ul>
+								@endif
+								@if(Auth::guest())
+									<ul class="il-list">
+										<li><b>{!! $language->word!!}</b></li>
+									</ul>
+								@endif
+							@endif
+						@endforeach
+					@endif
 				</div>
 			</div>
 			<div class="col-md-3 col-xs-12 col-sm-6 sidebar-offcanvas" id="sidebar">
 				<div class="list-group il-sidebar">
-					<a href="" title="" class="list-group-item active">Từ có liên quan</a>
+					<a href="" title="" class="list-group-item active">Từ gợi ý</a>
 					<a href="" class="list-group-item">Từ 1</a>
 					<a href="" class="list-group-item">Từ 1</a>
 					<a href="" class="list-group-item">Từ 1</a>

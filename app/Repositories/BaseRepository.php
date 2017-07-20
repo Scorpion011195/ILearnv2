@@ -1,13 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: silverhawk
- * Date: 08/06/2017
- * Time: 08:28
- */
+
 namespace App\Repositories;
 
 interface BaseRepository {
+
     public function getAll();
 
     public function getById($id);

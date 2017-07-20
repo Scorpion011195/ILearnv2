@@ -5,4 +5,5 @@ interface DictionaryRepository extends BaseRepository {
     
     public function checkWordExist($word, $typeWordId, $languageId);
 
+     function findWord($inputText);
 }

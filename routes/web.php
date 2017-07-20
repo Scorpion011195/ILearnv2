@@ -20,15 +20,26 @@ Route::post('register', [ 'as' => 'register', 'uses' => 'UserController@postRegi
 Route::get('logout', ['as'=>'logout', 'uses' => 'UserController@logout']);
 Route::get('user/pages/verifyEmail/{confirmationCode}','UserController@confirm'
 )->name('confirm');
-Route::get('index', function(){
-    return view('user/layouts/index');
-});
-Route::get('home', function(){
-    return view('user/pages/home');
+
+// Route::get('index', function(){
+// 	return view('user/layouts/index');
+// });
+
+// Link for User search Word
+Route::get('home', ['as' => 'home', 'uses' => 'DictionaryController@getSearchDictionary']);
+Route::get('search', ['as' => 'search', 'uses' => 'DictionaryController@postSearchDictionary']);
+
+Route::get('notify', function(){
+    return view('user/pages/notify');
 });
 Route::get('result', function(){
     return view('user/pages/result');
 });
+
+Route::get('history', function(){
+    return view('user/pages/history');
+});
+
 Route::get('translate', 'TranslateController@getTranslateParagraph');
 Route::get('translate-paragraph', ['as' => 'translateParagraph', 'uses' => 'TranslateController@translateParagraph']);
 // Route::get('profile', ['as' => 'profile', 'uses'=>'UserController@getShowUser']);
