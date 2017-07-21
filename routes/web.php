@@ -113,7 +113,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::GET('testPutSession', 'AdminCrawlerController@testPutSession');
     Route::GET('testGetSession', 'AdminCrawlerController@testGetSession');
     Route::GET('testEndSession', 'AdminCrawlerController@testEndSession');
-    });
 });
+        });
+    });
 // END ADMIN
 
