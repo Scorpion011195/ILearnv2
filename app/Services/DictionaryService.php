@@ -74,9 +74,10 @@ class DictionaryService extends BaseService implements DictionaryRepository {
     	}
 
        $arrResultSearch = array();
+
        array_push($arrResultSearch, $valueLang);
        array_push($arrResultSearch, $lagMapping);
-
+       
         return $arrResultSearch; 
     }
 
