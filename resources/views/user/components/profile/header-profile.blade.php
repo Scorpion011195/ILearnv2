@@ -16,7 +16,7 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{!! Auth::user()->username !!}<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="{{url('profile')}}">Thông tin tài khoản</a></li>
+              <li><a href="{{url('home')}}">Trở về trang chủ</a></li>
               <li class="divider"></li>
               <li><a href="{{ url('logout')}}">Thoát</a></li>
             </ul>

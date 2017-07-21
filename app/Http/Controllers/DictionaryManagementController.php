@@ -6,8 +6,13 @@ use Session;
 use App\Models\Dictionary;
 use App\Services\DictionaryService;
 use App\Http\Requests\AdminAddWordRequest;
+<<<<<<< HEAD
 use App\Http\Requests\AdminSearchWordRequest;
 class DictionaryManagementController extends Controller 
+=======
+
+class DictionaryManagementController extends Controller
+>>>>>>> master
 {
   private $dictService;
 
@@ -96,9 +101,10 @@ class DictionaryManagementController extends Controller
     return view('admin.pages.dict.search')->with
                                       ([
                                         'typeWord' => $typeOfWord,
-                                        'Lg'=> $lang   
+                                        'Lg'=> $lang
                                       ])->render();
   }
+
   public function search(AdminSearchWordRequest $request)
   {
     $lang = DB::table('languages')->get();
@@ -112,15 +118,16 @@ class DictionaryManagementController extends Controller
         return view('admin.pages.dict.search')->with
                                               ([
                                                 'typeWord' => $typeOfWord,
-                                                'Lg'=> $lang   
+                                                'Lg'=> $lang
                                               ])->render();
     }
     $result = DB::table('dictionarys')->
                                         where ('word','like','%'.$textSeach.'%')->
                                         where('type_word_id', '=', $typeWord)->get();
     $count = count($result);
-    return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result,'countTo' =>$count,])->render(); 
+    return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result,'countTo' =>$count,])->render();
   }
+
   function deleteWord(Request $request)
   {      // Input
     $idWord = $request->idWord;
@@ -130,6 +137,7 @@ class DictionaryManagementController extends Controller
     $dataResponse = ["data"=>true];
     return json_encode($dataResponse);
   }
+
   public function updateWord(Request $request)
   {
     $idWord = $request->idWord;
@@ -138,9 +146,9 @@ class DictionaryManagementController extends Controller
 
     $update = Dictionary::find($idWord);
     $update->word = $updateWord;
-    $update->pronounce = $updatePronoun;  
+    $update->pronounce = $updatePronoun;
     $update->save();
-    
+
     $dataResponse = ["data"=>true];
     return json_encode($dataResponse);
   }

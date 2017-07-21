@@ -18,7 +18,8 @@ class CreateWordUsersTable extends Migration
             $table->integer('user_id');
             $table->string('word',1000);
             $table->string('mean',1000);
-            $table->integer('type_word_id');
+            $table->string('type_word', 1000);
+            $table->string('lang_pair_name', 100);
             $table->integer('from_language_id');
             $table->integer('to_language_id');
             $table->integer('is_notification');

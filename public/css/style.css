@@ -231,10 +231,22 @@ body {
 .il-translate-button {
     text-align: center;
 }
+#list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
 /*----------------CSS SETTING-------------*/
 .il-modal-set {
     margin-left: 100px;
     margin-right: 100px;
+}
+/*----------------CSS HISTORY-------------*/
+.il-history {
+    padding-bottom: 10px;
 }
 /*----------------CSS FOOTER-------------*/
 footer {
@@ -409,6 +421,31 @@ body {
   padding: 20px;
   background: #fff;
   min-height: 460px;
+}
+/*CSS ERORS*/
+.il-alert {
+    padding-left: 0px;
+    color: red;
+    font-size: 14px;
+}
+.il-alert-result {
+    font-size: 20px;
+    color: #0984a7;
+    font-weight: bold;
+}
+.alert--fail {
+    color: red;
+    padding-top: 5px;
+}
+td tr a {
+    text-decoration: none;
+}
+.il-caption {
+    padding-left: 10px;
+    padding-top: 0px; 
+    padding-bottom: 0px;
+    color: #777;
+    text-align: left;
 }
 
 @media screen and (max-width: 240px) {
