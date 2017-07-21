@@ -9,8 +9,6 @@ use App\Http\Controllers\MyConstant;
 
 class DictionaryService extends BaseService implements DictionaryRepository {
 
-    
-
 	public function __construct(Dictionary $model)
     {
         $this->model = $model;
@@ -44,9 +42,7 @@ class DictionaryService extends BaseService implements DictionaryRepository {
     }
 
     public function findWord($inputText)
-
     {
-        
         $valueLang = Input::get('lagFrom');
         $fromLanguage = MyConstant::LANGUAGE_FORM_LANGPAIR[$valueLang];
     	$lagInfor = DB::table('dictionarys')->select('mapping_id', 'language_id')->where('word', '=', $inputText)->where('language_id', '=', $fromLanguage)->get();
@@ -59,7 +55,7 @@ class DictionaryService extends BaseService implements DictionaryRepository {
     		{
     			return false;
     		}
-    		else 
+    		else
     		{
     			//Get Word
                 switch ($valueLang) {
@@ -70,9 +66,9 @@ class DictionaryService extends BaseService implements DictionaryRepository {
                     case 13:
                         $lagResult = DB::table('dictionarys')->select('id', 'word', 'pronounce','listen', 'explain', 'type_word','mapping_id','language_id')->where('mapping_id', '=', $lagInfor[$i]->mapping_id)->where('language_id', '=', MyConstant::LANGUAGE['Việt'])->orderby('word','asc')->get();
                     array_push($lagMapping, $lagResult);
-                    break;  
+                    break;
                     default;
-                    break;              
+                    break;
                     }
     		}
     	}
@@ -93,6 +89,15 @@ class DictionaryService extends BaseService implements DictionaryRepository {
         $fromLanguage = MyConstant::LANGUAGE_FORM_LANGPAIR[$valueLang];
 
         $langRelate = DB::table('dictionarys')->select('mapping_id', 'language_id');
+    }
+
+    public function getIsUpload(){
+        $result = DB::table('is_upload_dictionarys')->find(1);
+        return $result->is_upload;
+    }
+
+    public function setIsUpload($isUpload){
+        DB::table('is_upload_dictionarys')->where('id', 1)->update(['is_upload' => $isUpload]);
     }
 }
 

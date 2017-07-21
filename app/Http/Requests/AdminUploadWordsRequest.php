@@ -32,7 +32,7 @@ class AdminUploadWordsRequest extends FormRequest
     {
         return [
             'fileWordsUpload.required' => 'Bạn chưa chọn file!',
-            'fileWordsUpload.mimes' => 'File không đúng định dạng txt!',
+            'fileWordsUpload.mimes' => 'File không đúng định dạng txt, csv!',
             'fileWordsUpload.max' => 'Dung lượng file không vượt quá 10000kb'
         ];
     }
