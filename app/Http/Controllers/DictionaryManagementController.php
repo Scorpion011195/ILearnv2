@@ -148,7 +148,6 @@ class DictionaryManagementController extends Controller
     return json_encode($dataResponse);
   }
 
-  }
   public function upload()
   {
     $params = ['codeLanguageVdict' => MyConstant::CRAWLER_VDICT_NAME];
