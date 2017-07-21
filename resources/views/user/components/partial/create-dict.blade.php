@@ -10,6 +10,9 @@
                     <div class="row il-history">
                         <div class="col-sm-6">
                             <select class="form-control" id ="selectFromLg">
+                                @foreach($language as languages)
+                                    
+                                @endforeach
                                 <option value="" selected>Viet
                                 </option>
                             </select>

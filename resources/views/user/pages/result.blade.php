@@ -63,7 +63,7 @@
 					<a href="" title="" class="list-group-item active">Từ gợi ý</a>
 					@if(isset($workRelate))
 						@foreach($workRelate as $language)
-							<a href="" title="" class="list-group-item"> {!! $language->word !!}</a>
+							<a id="btnSearch" href="javascript:void(0);" class="list-group-item"> {!! $language->word !!}</a>
 						@endforeach
 					@endif
 				</div>

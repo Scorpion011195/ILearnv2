@@ -45,10 +45,26 @@ class DictionaryController extends Controller
                 $languageRelateView = new DictionaryViewModel;
 
                 $word = $langInfoRelated[$i]->word;
+                $strTemp = null;
+                $isGet = true;
+                for($j = 0; $j < strlen($word); $j++) 
+                {
+                    if ($word[$j] == '(') {
+                        $isGet = false;
+                    }
+                    else if ($word[$j] == ')') {
+                        $isGet = true;
+                        continue;
+                    }
+                    if ($isGet == true) {
+                        $strTemp = $strTemp.$word[$j];
+                    }
+                    
+                }
                 $id = $langInfoRelated[$i]->id;
 
                 $languageRelateView->id = $id;
-                $languageRelateView->word = $word;  
+                $languageRelateView->word = $strTemp;  
 
                 array_push($arraySaveRelate, $languageRelateView);
             }

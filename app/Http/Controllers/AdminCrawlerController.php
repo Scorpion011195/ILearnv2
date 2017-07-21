@@ -1,22 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Marketplace
-Gist
- @trangle972501
- Sign out
- Watch 0
-  Star 0
-  Fork 0 Scorpion011195/ILearnv2
- Code  Issues 0  Pull requests 0  Projects 1  Wiki Insights 
-Branch: master Find file Copy pathILearnv2/app/Http/Controllers/AdminCrawlerController.php
-05e08d2  17 hours ago
-@Scorpion011195 Scorpion011195 no message
-1 contributor
-RawBlameHistory     
-256 lines (218 sloc)  9.8 KB
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
