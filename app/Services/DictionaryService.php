@@ -87,8 +87,12 @@ class DictionaryService extends BaseService implements DictionaryRepository {
     {
         $valueLang = Input::get('lagFrom');
         $fromLanguage = MyConstant::LANGUAGE_FORM_LANGPAIR[$valueLang];
+        return DB::table('dictionarys')->where('word', 'LIKE', '%' .$inputText[0].'%')->take(10)->get();
 
-        $langRelate = DB::table('dictionarys')->select('mapping_id', 'language_id');
+         // return DB::table('dictionarys')->whereRaw('MATCH(word) AGAINST(?)', array($inputText))->orderby('word','asc')->get();
+
+        // $langRelate = DB::table('dictionarys')->whereRaw("MATCH(word) AGAINST(? IN BOOLEAN MODE)", array($inputText))->orderby('word','asc')->get();
+
     }
 
     public function getIsUpload(){

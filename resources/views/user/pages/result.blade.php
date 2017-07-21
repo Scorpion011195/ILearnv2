@@ -12,8 +12,12 @@
 					<div class="col-md-9 col-xs-12 col-sm-9">
 						<div class="il-spelling">
 							@if(isset($workSelf))
+							<?php $pronounce = '' ?>
 								@foreach( $workSelf as $language )
+								@if(!($pronounce == $language->pronounce))
+									<?php $pronounce = $language->pronounce ?>
 									<span>{!! $language -> pronounce !!}</span>
+								@endif
 								@endforeach
 							@endif
 						</div>
@@ -57,15 +61,17 @@
 			<div class="col-md-3 col-xs-12 col-sm-6 sidebar-offcanvas" id="sidebar">
 				<div class="list-group il-sidebar">
 					<a href="" title="" class="list-group-item active">Từ gợi ý</a>
-					<a href="" class="list-group-item">Từ 1</a>
-					<a href="" class="list-group-item">Từ 1</a>
-					<a href="" class="list-group-item">Từ 1</a>
-					<a href="" class="list-group-item">Từ 1</a>
+					@if(isset($workRelate))
+						@foreach($workRelate as $language)
+							<a id="btnSearch" href="javascript:void(0);" class="list-group-item"> {!! $language->word !!}</a>
+						@endforeach
+					@endif
 				</div>
 			</div>
 		</div>
 	</div>
 	<hr>
+	<!-- facebook cmt -->
 	<div class="row">
 	  <div class="container">
 	    <div class="col-md-9 col-xs-12 col-sm-6 il-contents">
@@ -73,4 +79,5 @@
 		</div>
 	  </div>
 	</div>
+	<!-- /.facebook cmt -->
 @endsection

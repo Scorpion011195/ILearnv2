@@ -22,4 +22,15 @@ $(document).ready(function(){
 			$(".password").attr('disabled','');
 		}
 	});
+
+
+	$("#btnSearch").click(function()
+	{
+		var val = $(this).text();
+		$("#txtSearch").val(val);
+		$("#frmSearch").submit();
+	});
+
+
 });
+

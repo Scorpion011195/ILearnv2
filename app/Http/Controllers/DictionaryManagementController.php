@@ -146,6 +146,7 @@ class DictionaryManagementController extends Controller
 
     $dataResponse = ["data"=>true];
     return json_encode($dataResponse);
+  }
 
   }
   public function upload()

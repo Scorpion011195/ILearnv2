@@ -35,16 +35,52 @@ class DictionaryController extends Controller
 
         $selfInfo = $this->lang->findWordSeft($inputText);
 
+        $langInfoRelated = $this->lang->findWordRelated($inputText);
+
+        //Get value with word which related with inputText
+            $arraySaveRelate = array();
+
+            for($i = 0; $i < count($langInfoRelated); $i++)
+            {
+                $languageRelateView = new DictionaryViewModel;
+
+                $word = $langInfoRelated[$i]->word;
+                $strTemp = null;
+                $isGet = true;
+                for($j = 0; $j < strlen($word); $j++) 
+                {
+                    if ($word[$j] == '(') {
+                        $isGet = false;
+                    }
+                    else if ($word[$j] == ')') {
+                        $isGet = true;
+                        continue;
+                    }
+                    if ($isGet == true) {
+                        $strTemp = $strTemp.$word[$j];
+                    }
+                    
+                }
+                $id = $langInfoRelated[$i]->id;
+
+                $languageRelateView->id = $id;
+                $languageRelateView->word = $strTemp;  
+
+                array_push($arraySaveRelate, $languageRelateView);
+            }
+
     	if($wordInfo == false)
         {
             return view('user.pages.home')->with([
-                'status' => 'Hệ thống chưa cập nhật từ'. $inputText,
+                'status' => 'Không tìm thấy từ:',
                 'languages' => $languages,
-                'inputText' => $inputText
+                'inputText' => $inputText,
+                'workRelate' => $arraySaveRelate,
                 ]);
         }
         else 
             {
+
                 //Get value inputText to explain input Text
                 $arraySaveSelf = array();
 
@@ -96,7 +132,7 @@ class DictionaryController extends Controller
                 'workInfo' => $arraySaveView,
                 'workSelf' => $arraySaveSelf,
                 'inputText' => $inputText,
-                'explain'=> $explain,
+                'workRelate' => $arraySaveRelate,
                 'languages'=> $languages
                 ]);
 
