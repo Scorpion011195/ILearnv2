@@ -91,9 +91,10 @@ class DictionaryService extends BaseService implements DictionaryRepository {
     {
         $valueLang = Input::get('lagFrom');
         $fromLanguage = MyConstant::LANGUAGE_FORM_LANGPAIR[$valueLang];
+        
         return DB::table('dictionarys')->where('word', 'LIKE', '%' .$inputText[0].'%')->orderBy('word')->take(5)->get();
 
-        // $langRelate = DB::table('dictionarys')->select('mapping_id', 'language_id')->whereRaw("MATCH(word) AGAINST(? IN BOOLEAN MODE)", array($inputText))->where('language_id', '=', $fromLanguage)->orderby('word','asc')->get();
+        // return DB::table('dictionarys')->select('mapping_id', 'language_id')->whereRaw("MATCH(word) AGAINST(? IN BOOLEAN MODE)", array($inputText))->orderby('word','asc')->get();
 
     }
 }
