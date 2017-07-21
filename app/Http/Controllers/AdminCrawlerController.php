@@ -1,6 +1,24 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Marketplace
+Gist
+ @trangle972501
+ Sign out
+ Watch 0
+  Star 0
+  Fork 0 Scorpion011195/ILearnv2
+ Code  Issues 0  Pull requests 0  Projects 1  Wiki Insights 
+Branch: master Find file Copy pathILearnv2/app/Http/Controllers/AdminCrawlerController.php
+05e08d2  17 hours ago
+@Scorpion011195 Scorpion011195 no message
+1 contributor
+RawBlameHistory     
+256 lines (218 sloc)  9.8 KB
 <?php
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminUploadWordsRequest;
 use Illuminate\Support\Facades\Redirect;
@@ -10,51 +28,41 @@ use App\Services\DictionaryService;
 use DB;
 use Log;
 use Session;
-
 class AdminCrawlerController extends Controller
 {
     private $dictService;
-
     public function __construct(DictionaryService $dictService){
         $this->dictService = $dictService;
     }
-
     /* Crawler from https://vdict.com/
        $langPairId 1:en-vi, 2:vi-en */
     function crawlerVdict($text, $langPairId){
         // Init a CURL
         $ch = curl_init();
-
         // Config for CURL
-        curl_setopt($ch, CURLOPT_URL, 'https://vdict.com/'.$text.','.$langPairId.',0,0.html');
+        $link = 'https://vdict.com/'.rawurlencode($text).','.$langPairId.',0,0.html';
+        curl_setopt($ch, CURLOPT_URL, $link);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6"); // set browser/user agent
-
         // Execute CURL
         $result = curl_exec($ch);
-
         // Get pronounce
         $pattern0 = "/<div class=\"pronounce\">(.*?)<\/div>/si";
         preg_match_all($pattern0, $result, $arrPronounce);
-
         // Choose area get data
         $pattern1 = '/<div class=\"phanloai\">(.*?)<div class=\"relatedWord\">/si';
         preg_match_all($pattern1, $result, $data);
-
         // Check isResult
         if(count($data[0])>0){// If isResult=true
             // Get array type word
             $pattern2 = "/<div class=\"phanloai\">(.*?)<\/div>/si";
             preg_match_all($pattern2, $data[0][0], $arrTypeWord);
-
             // Break segment same type word
             $pattern3 = '/<ul class=\"list1\"><li><b>(.*?)<div/si';
             preg_match_all($pattern3, $data[0][0], $segmentWord);
-
             // Count type word
             $lengthArr = count($arrTypeWord[1]);
-
             $arrWordByType = array();
             // Get array word in a array type word
             foreach ($segmentWord[0] as $segment) {
@@ -62,13 +70,10 @@ class AdminCrawlerController extends Controller
                 preg_match_all($pattern4, $segment, $arrWordSameType);
                 array_push($arrWordByType, $arrWordSameType[1]);
             }
-
             // Close CURL, freedom
             curl_close($ch);
-
             // Return result
             $arrAllResult = array();// [0]: pronounce, [1]: array type words, [2]: array mean words
-
             if(isset($arrPronounce[1][0])){
                 array_push($arrAllResult, $arrPronounce[1][0]);
             }
@@ -84,12 +89,10 @@ class AdminCrawlerController extends Controller
             return -1;
         }
     }
-
     function postUploadWords(AdminUploadWordsRequest $request){
         // Input
         $file = $request->file('fileWordsUpload');
         $codeLanguageVdict = $request->codeLanguageVdict;
-
         if($codeLanguageVdict==MyConstant::CRAWLER_VDICT_LANGPAIR['en-vi']){
             $fromLangId = MyConstant::LANGUAGE['Anh'];
             $toLangId = MyConstant::LANGUAGE['Việt'];
@@ -98,7 +101,6 @@ class AdminCrawlerController extends Controller
             $fromLangId = MyConstant::LANGUAGE['Việt'];
             $toLangId = MyConstant::LANGUAGE['Anh'];
         }
-
         // Count line of file text
         $content = fopen($file,"r");
         $linecount = 1;
@@ -107,29 +109,23 @@ class AdminCrawlerController extends Controller
           $linecount = $linecount + substr_count($line, PHP_EOL);
         }
         fclose($content);
-
         // If file over maximum
         if($linecount>100){
             $errors = new MessageBag(['alertMax' => ' File không được quá 100 dòng!']);
             return redirect()->back()->withInput()->withErrors($errors);
         }
-
         // If not over maximum
         // Set time execute
         ini_set('max_execution_time', 300); //300 seconds = 5 minutes
-
         // If line validate
         $content = fopen($file,"r");
-
         DB::beginTransaction();
         try {
             while(! feof($content)){
                 $word = fgets($content);
                 $word = trim($word);
-
                 Log::info('===== Start word =====');
                 Log::info("Word: ".$word);
-
                 // Call crawler word
                 $arrAllResult = $this->crawlerVdict($word, $codeLanguageVdict);
                 if($arrAllResult==-1){
@@ -142,28 +138,22 @@ class AdminCrawlerController extends Controller
                     Log::info('Pronounce: '.$strPronounce);
                     $arrTypeWord = $arrAllResult[1];
                     $arrWordByType = $arrAllResult[2];
-
                     $lengthArr = count($arrTypeWord);
-
                     for($i=0 ; $i < $lengthArr; $i++) {
                         $typeWord = $arrTypeWord[$i];
                         Log::info('Type: '.$typeWord);
-
                         // Check word existed?
                         $isWordExisted = $this->dictService->checkWordExist($word, $typeWord, $fromLangId);
-
                         // If word existed
                         if($isWordExisted){
                             Log::info('---> Word existed!');
                             $mappingId = $this->dictService->getMappingId($word, $typeWord, $fromLangId);
-
                             if(isset($arrWordByType[$i])){
                                 for($j=0 ; $j < count($arrWordByType[$i]); $j++){
                                     $mean = $arrWordByType[$i][$j];
                                     Log::info($mean);
                                     // Check mean existed?
                                     $isMeanExisted = $this->dictService->checkWordExist($mean, $typeWord, $toLangId);
-
                                     // If mean not existed
                                     if(!$isMeanExisted){
                                         // Add mean to DB
@@ -181,14 +171,12 @@ class AdminCrawlerController extends Controller
                         else{
                             Log::info('---> Word not existed!');
                             $mappingId = $this->dictService->getMaxMappingId();
-
                             if(isset($arrWordByType[$i])){
                                 for($j=0 ; $j < count($arrWordByType[$i]); $j++){
                                     $mean = $arrWordByType[$i][$j];
                                     Log::info($mean);
                                     // Check mean existed?
                                     $isMeanExisted = $this->dictService->checkWordExist($mean, $typeWord, $toLangId);
-
                                     // If mean existed
                                     if($isMeanExisted){
                                         $mappingId = $this->dictService->getMappingId($mean, $typeWord, $toLangId);
@@ -204,7 +192,6 @@ class AdminCrawlerController extends Controller
                                     }
                                 }
                             }
-
                             // Add word to DB
                             $arrAddWord = ['word'=>$word, 'pronounce'=>$strPronounce, 'type_word'=>$typeWord, 'language_id'=>$fromLangId, 'mapping_id'=>$mappingId];
                             $this->dictService->create($arrAddWord);
@@ -213,16 +200,13 @@ class AdminCrawlerController extends Controller
                 }
                 Log::info('=====  End word  =====');
             }
-
             DB::commit();
             $success = true;
         } catch (\Exception $e) {
             $success = false;
             DB::rollback();
         }
-
         fclose($content);
-
         if ($success) {
             $errors = new MessageBag(['errorSuccess' => 'Upload thành công']);
             return redirect()->back()->withInput()->withErrors($errors);
@@ -232,15 +216,12 @@ class AdminCrawlerController extends Controller
             return redirect()->back()->withInput()->withErrors($errors);
         }
     }
-
-
     function testPutSession(){
         Session::put('putMe', true);
         echo Session::get('putMe');
         sleep(10);
         echo "End put";
     }
-
     function testGetSession(){
         if(Session::has('putMe')){
             echo "Has session";
@@ -249,7 +230,6 @@ class AdminCrawlerController extends Controller
             echo "No session";
         }
     }
-
     function testEndSession(){
         Session::forget('putMe');
         echo "Forgot ok!";
