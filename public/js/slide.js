@@ -24,7 +24,7 @@ $(document).ready(function(){
 	});
 
 
-	$("#btnSearch").click(function()
+	$(".btnSearch").click(function()
 	{
 		var val = $(this).text();
 		$("#txtSearch").val(val);

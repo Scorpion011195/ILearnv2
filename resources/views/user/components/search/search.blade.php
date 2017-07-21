@@ -27,7 +27,7 @@
                                     <tr>
                                         @if(isset($workRelate))
                                         @foreach($workRelate as $language)
-                                            <td><a id="btnSearch" href="javascript:void(0);" title="tu goi y">{!! $language->word !!}</a> </td>
+                                            <td><a class="btnSearch" href="javascript:void(0);" title="tu goi y">{!! $language->word !!}</a> </td>
                                         @endforeach
                                         @endif
                                     </tr>
@@ -43,7 +43,11 @@
                         @foreach ($languages as $languageOut)
                             @foreach ($languages as $languageIn)
                                 @if ($languageOut->name_language != $languageIn->name_language) 
-                                    <option name = "{!! $languageIn->id !!}{!! $languageOut->id !!}" value = "{!! $languageIn->id !!}{!! $languageOut->id !!}">{!! $languageIn->name_language !!} - {!! $languageOut->name_language !!}</option>
+                                    <option name = "{!! $languageIn->id !!}{!! $languageOut->id !!}" value = "{!! $languageIn->id !!}{!! $languageOut->id !!}"
+                                    @if(isset($oldLangPair)&&$oldLangPair==$languageIn->id.$languageOut->id)
+                                         selected
+                                    @endif
+                                    >{!! $languageIn->name_language !!} - {!! $languageOut->name_language !!}</option>
                                 @endif
                             @endforeach
                         @endforeach

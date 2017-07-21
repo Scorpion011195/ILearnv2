@@ -72,7 +72,12 @@ class DictionaryService extends BaseService implements DictionaryRepository {
                     }
     		}
     	}
-    	return $lagMapping;
+
+       $arrResultSearch = array();
+       array_push($arrResultSearch, $valueLang);
+       array_push($arrResultSearch, $lagMapping);
+
+        return $arrResultSearch; 
     }
 
     public function findWordSeft($inputText)
@@ -87,7 +92,7 @@ class DictionaryService extends BaseService implements DictionaryRepository {
     {
         $valueLang = Input::get('lagFrom');
         $fromLanguage = MyConstant::LANGUAGE_FORM_LANGPAIR[$valueLang];
-        return DB::table('dictionarys')->where('word', 'LIKE', '%' .$inputText[0].'%')->take(10)->get();
+        return DB::table('dictionarys')->where('word', 'LIKE', $inputText[0].'%')->where('language_id' ,'=' , $fromLanguage)->take(10)->get();
 
          // return DB::table('dictionarys')->whereRaw('MATCH(word) AGAINST(?)', array($inputText))->orderby('word','asc')->get();
 

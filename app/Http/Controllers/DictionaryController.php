@@ -28,9 +28,11 @@ class DictionaryController extends Controller
 
     public function postSearchDictionary(DictionarySearchRequest $request)
     {   
-
+       
     	$inputText = $request->input('search');
-    	$wordInfo = $this->lang->findWord($inputText);
+        $arrResultSearch = $this->lang->findWord($inputText);
+    	$wordInfo = $arrResultSearch[1];
+        $oldLangPair = $arrResultSearch[0];
         $languages = DB::table('languages')->get();
 
         $selfInfo = $this->lang->findWordSeft($inputText);
@@ -76,6 +78,7 @@ class DictionaryController extends Controller
                 'languages' => $languages,
                 'inputText' => $inputText,
                 'workRelate' => $arraySaveRelate,
+                'oldLangPair' => $oldLangPair
                 ]);
         }
         else 
@@ -133,7 +136,8 @@ class DictionaryController extends Controller
                 'workSelf' => $arraySaveSelf,
                 'inputText' => $inputText,
                 'workRelate' => $arraySaveRelate,
-                'languages'=> $languages
+                'languages'=> $languages, 
+                'oldLangPair' => $oldLangPair
                 ]);
 
     }

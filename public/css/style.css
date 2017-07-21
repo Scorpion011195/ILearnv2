@@ -231,6 +231,14 @@ body {
 .il-translate-button {
     text-align: center;
 }
+#list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
 /*----------------CSS SETTING-------------*/
 .il-modal-set {
     margin-left: 100px;

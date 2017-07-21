@@ -14,7 +14,7 @@ use Session;
 use Flash;
 use Image;
 use App\Models\User;
-use App\Models\SettingUsers;
+use App\Models\SettingUser;
 use Validator;
 use Illuminate\Support\MessageBag;
 use App\ModelViews\UserViewModel;
@@ -93,7 +93,7 @@ class UserController extends Controller
         $user->confirmation_code = str_random(30);
         $user->save();
 
-        $setUser= new SettingUsers();
+        $setUser= new SettingUser();
         $setUser->id = $user->id;
         $setUser->user_id = $setUser->id;
         $setUser->type_reminder_id = 1;
