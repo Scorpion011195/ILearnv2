@@ -26,8 +26,12 @@
                                 <tbody>
                                     <tr>
                                         @if(isset($workRelate))
+                                        <?php $checkWordRelated = '' ?>
                                         @foreach($workRelate as $language)
-                                            <td><a class="btnSearch" href="javascript:void(0);" title="tu goi y">{!! $language->word !!}</a> </td>
+                                            @if(($language->word) != $checkWordRelated)
+                                                <?php $checkWordRelated = $language->word ?>
+                                                <td><a class="btnSearch" href="javascript:void(0);" title="tu goi y">{!! $language->word !!}</a> </td>
+                                            @endif()
                                         @endforeach
                                         @endif
                                     </tr>

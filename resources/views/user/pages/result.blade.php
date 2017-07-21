@@ -62,8 +62,12 @@
 				<div class="list-group il-sidebar">
 					<a href="" title="" class="list-group-item active">Từ gợi ý</a>
 					@if(isset($workRelate))
+						<?php $checkWordRelated = '' ?>
 						@foreach($workRelate as $language)
-							<a class="btnSearch" href="javascript:void(0);" id="list-group-item"> {!! $language->word !!}</a>
+							@if(($language->word) != $checkWordRelated)
+                                <?php $checkWordRelated = $language->word ?>
+                                <a class="btnSearch" href="javascript:void(0);" id="list-group-item"> {!! $language->word !!}</a>
+                            @endif()
 						@endforeach
 					@endif
 				</div>
