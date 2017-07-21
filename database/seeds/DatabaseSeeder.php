@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TypeRemindersTableSeeder::class);
         $this->call(TypeWordsTableSeeder::class);
         $this->call(WordUsersTableSeeder::class);
+        $this->call(IsUploadDictionarysTableSeeder::class);
     }
 }

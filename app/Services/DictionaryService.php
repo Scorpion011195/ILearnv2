@@ -36,5 +36,14 @@ class DictionaryService extends BaseService implements DictionaryRepository
 
         return ++$result;
     }
+
+    public function getIsUpload(){
+        $result = DB::table('is_upload_dictionarys')->find(1);
+        return $result->is_upload;
+    }
+
+    public function setIsUpload($isUpload){
+        DB::table('is_upload_dictionarys')->where('id', 1)->update(['is_upload' => $isUpload]);
+    }
 }
 

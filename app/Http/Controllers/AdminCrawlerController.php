@@ -5,11 +5,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests\AdminUploadWordsRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\MessageBag;
-use App\Models\Dictionary;
 use App\Services\DictionaryService;
+use App\Services\IsUploadDictionaryService;
 use DB;
 use Log;
-use Session;
+use Normalizer;
 
 class AdminCrawlerController extends Controller
 {
@@ -26,7 +26,8 @@ class AdminCrawlerController extends Controller
         $ch = curl_init();
 
         // Config for CURL
-        $link = 'https://vdict.com/'.rawurlencode($text).','.$langPairId.',0,0.html';
+        $link = 'https://vdict.com/'.$text.','.$langPairId.',0,0.html';
+
         curl_setopt($ch, CURLOPT_URL, $link);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -87,37 +88,50 @@ class AdminCrawlerController extends Controller
     }
 
     function postUploadWords(AdminUploadWordsRequest $request){
+        // Check is_upload from DB
+        $isUpload = $this->dictService->getIsUpload();
+        if($isUpload){// 1: is uploading
+            $errors = new MessageBag(['alertMax' => 'Quá trình upload đang được thực hiện. Xin bạn vui lòng quay lại sau!']);
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+        else{// 0: none uploading
+            $this->dictService->setIsUpload(1);// Turn on 1: is uploading
+        }
+
         // Input
         $file = $request->file('fileWordsUpload');
+
         $codeLanguageVdict = $request->codeLanguageVdict;
         if($codeLanguageVdict==MyConstant::CRAWLER_VDICT_LANGPAIR['en-vi']){
             $fromLangId = MyConstant::LANGUAGE['Anh'];
             $toLangId = MyConstant::LANGUAGE['Việt'];
+            $isCutWord = false; // File txt utf-8 need cut 3 first-words
         }
         if($codeLanguageVdict==MyConstant::CRAWLER_VDICT_LANGPAIR['vi-en']){
             $fromLangId = MyConstant::LANGUAGE['Việt'];
             $toLangId = MyConstant::LANGUAGE['Anh'];
+            $isCutWord = true; // File txt utf-8 need cut 3 first-words
         }
 
         // Count line of file text
         $content = fopen($file,"r");
         $linecount = 1;
         while(!feof($content)){
-          $line = fgets($content, 4096);
+          $line = fgets($content);
           $linecount = $linecount + substr_count($line, PHP_EOL);
         }
         fclose($content);
 
         // If file over maximum
         if($linecount>100){
-
+            $this->dictService->setIsUpload(0);// Turn off 0: end upload
             $errors = new MessageBag(['alertMax' => ' File không được quá 100 dòng!']);
             return redirect()->back()->withInput()->withErrors($errors);
         }
 
         // If not over maximum
         // Set time execute
-        ini_set('max_execution_time', 300); //300 seconds = 5 minutes
+        ini_set('max_execution_time', 600); //300 seconds = 5 minutes
 
         // If line validate
         $content = fopen($file,"r");
@@ -128,6 +142,11 @@ class AdminCrawlerController extends Controller
                 $word = fgets($content);
                 $word = trim($word);
 
+                if($isCutWord){
+                    $word = substr($word,3);// Unknow 3 first-chars
+                    $isCutWord = false;
+                }
+
                 Log::info('===== Start word =====');
                 Log::info("Word: ".$word);
 
@@ -135,6 +154,9 @@ class AdminCrawlerController extends Controller
                 $arrAllResult = $this->crawlerVdict($word, $codeLanguageVdict);
                 if($arrAllResult==-1){
                     fclose($content);
+                    DB::rollback();
+                    $this->dictService->setIsUpload(0);// Turn off 0: end upload
+                    DB::commit();
                     $errors = new MessageBag(['errorUpload' => 'Từ "'.$word.'" không được tìm thấy!']);
                     return redirect()->back()->withInput()->withErrors($errors);
                 }
@@ -215,6 +237,8 @@ class AdminCrawlerController extends Controller
             DB::commit();
             $success = true;
         } catch (\Exception $e) {
+            var_dump($e);
+            die;
             $success = false;
             DB::rollback();
         }
@@ -222,34 +246,16 @@ class AdminCrawlerController extends Controller
         fclose($content);
 
         if ($success) {
+            $this->dictService->setIsUpload(0);// Turn off 0: end upload
+            DB::commit();
             $errors = new MessageBag(['errorSuccess' => 'Upload thành công']);
             return redirect()->back()->withInput()->withErrors($errors);
         }
         else{
+            $this->dictService->setIsUpload(0);// Turn off 0: end upload
+            DB::commit();
             $errors = new MessageBag(['errorUnsuccess' => 'Upload thất bại!']);
             return redirect()->back()->withInput()->withErrors($errors);
         }
-    }
-
-
-    function testPutSession(){
-        Session::put('putMe', true);
-        echo Session::get('putMe');
-        sleep(10);
-        echo "End put";
-    }
-
-    function testGetSession(){
-        if(Session::has('putMe')){
-            echo "Has session";
-        }
-        else{
-            echo "No session";
-        }
-    }
-
-    function testEndSession(){
-        Session::forget('putMe');
-        echo "Forgot ok!";
     }
 }
