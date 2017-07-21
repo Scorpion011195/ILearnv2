@@ -7,7 +7,6 @@
 				<div class="row il-content-word">
 					<div class="col-md-3 col-xs-12 col-sm-3">
 						<div class="il-word"><span>{!! ucfirst($inputText) !!}</span></div>
-						<div class="il-listen"><a href=""><i class="glyphicon glyphicon-volume-up"></a></i></div>
 					</div>
 					<div class="col-md-9 col-xs-12 col-sm-9">
 						<div class="il-spelling">
@@ -34,7 +33,7 @@
 								<div class="il-category">{{ $language->type_word}}</div>
 								@if(!Auth::guest())
 									<ul class="il-list">
-										<span class="glyphicon glyphicon-plus _push-his _tooltip-me" id="_id{!! $language -> id!!}"></span>&nbsp;<b>{!! $language->word!!}</b>
+										<span class="glyphicon glyphicon-hand-right _push-his _tooltip-me" id="_id{!! $language -> id!!}" title="Thêm vào Từ của tôi"></span>&nbsp;<b>{!! $language->word!!}</b>
 									</ul>
 								@endif
 								@if(Auth::guest())
@@ -45,7 +44,7 @@
 							@else
 								@if(!Auth::guest())
 									<ul class="il-list">
-										<span class="glyphicon glyphicon-plus _push-his _tooltip-me" id="_id{!! $language -> id!!}"></span>&nbsp;<b>{!! $language->word!!}</b>
+										<span class="glyphicon glyphicon-hand-right _push-his _tooltip-me" id="_id{!! $language -> id!!}" title="Thêm vào Từ của tôi"></span>&nbsp;<b>{!! $language->word!!}</b>
 									</ul>
 								@endif
 								@if(Auth::guest())

@@ -44,4 +44,10 @@ $(document).ready(function(){
         });
     }
 
+    $(document).find('._tooltip-me').tooltip();
+
+    // ADD WORDS TO MY WORDS
+    $(document).on('click','._push-his', function(evt){
+        alert('ok');
+    });
 });
