@@ -7,7 +7,7 @@
             <div class="col-sm-12 col-sm-offset-1 col-md-8 col-md-offset-4 col-lg-6 col-lg-offset-3 panel panel-default">
                 <div class="form-inline panel-body">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <div class="row">
+                    <div class="row il-history">
                         <div class="col-sm-6">
                             <select class="form-control" id ="selectFromLg">
                                 <option value="" selected>Viet

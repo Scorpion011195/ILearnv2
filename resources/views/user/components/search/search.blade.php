@@ -17,9 +17,24 @@
                 @endif
                 
                 @if(isset($status))
-                    <div class="alert alert-" role="alert">
-                        {{ $status}}
-                    </div>
+                        <div class="alert il-alert" role="alert">
+                            {{ $status}} <span class="il-alert-result">{!! ucfirst($inputText) !!}</span>
+                        </div>
+                        <div class="row">
+                            <table class="table table-bodered" >
+                                <caption class="il-caption">Một số từ phát âm/đánh vần giống như <sapn class="il-alert-result">"{!! $inputText !!}"</span></caption>
+                                <tbody>
+                                    <tr>
+                                        @if(isset($workRelate))
+                                        @foreach($workRelate as $language)
+                                            <td><a href="{{url('search')}}" title="tu goi y">{!! $language->word !!}</a> </td>
+                                        @endforeach
+                                        @endif
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr>
                 @endif
             </div>
             <div class="col-md-3 col-xs-12 col-sm-4">

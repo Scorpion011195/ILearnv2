@@ -115,12 +115,12 @@ class UserController extends Controller
         $user = User::whereConfirmationCode($confirmation_code)->first();
         if ( ! $user)
         {
-            return redirect('home')->with('status', 'Bạn chưa xác nhận, vui lòng thử lại');
+            return redirect('home')->with('status','Bạn chưa xác nhận, vui lòng thử lại');
         }
         $user->confirmed = 1;
         $user->confirmation_code = $confirmation_code;
         $user->save();
-        return redirect('home')->with('status', 'Chúc mừng bạn đã đăng kí thành công');
+        return redirect('home')->with('status','Chúc mừng bạn đã đăng kí thành công');
     }
 
     //Get edit user
