@@ -24,8 +24,8 @@ class AdminGetProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:4|max:50|alpha',
-            'phone' =>'min:10|regex:/(01)[0-9]{9}/',
+            'name' => 'required|min:4|max:50',
+            'phone' =>'required|min:10|regex:/(01)[0-9]{9}/',
             'address'=>'min:5|max:255',
             'date'=>'after:yesterday',
             'password'=>'max:50'
@@ -37,8 +37,8 @@ class AdminGetProfileRequest extends FormRequest
         return [
             // 'name.alpha_dash' => 'Chỉ nhập các kí tự là: chữ, số, "-", "_"',
             'name.required' => 'Bạn chưa nhập <strong>Tên</strong>',
-            'name.alpha' => 'Tên không được chứa số',
             'name.min' => 'Tên phải có từ 4 kí tự',
+            'phone.required'=>' Số điện thoại là bắt buộc',
             'name.max' => 'Tên phải nhỏ hơn 32 kí tự',
             'phone.min' =>'Số điện thoại phải lớn hơn 10 ký tự',
             'phone.regex' =>'Số điện thoại bắt buộc là số',

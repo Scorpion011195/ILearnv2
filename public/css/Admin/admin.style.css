@@ -25,6 +25,12 @@ input{
 .has--success {
     color: #3c8dbc !important;
 }
+<<<<<<< HEAD
+.message{
+	color: red;
+	background-color: red;
+=======
 .margin--left-30px {
     margin-left: 30px;
+>>>>>>> 1261d2e1bca3a5378c19830e10dfbd5e2b35abf5
 }
