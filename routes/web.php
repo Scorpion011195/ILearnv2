@@ -22,7 +22,7 @@ Route::get('user/pages/verifyEmail/{confirmationCode}','UserController@confirm'
 )->name('confirm');
 
 // Route::get('index', function(){
-// 	return view('user/layouts/index');
+//  return view('user/layouts/index');
 // });
 
 // Link for User search Word
@@ -66,15 +66,66 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('logout', 'AdminController@logout')->name('adminLogout');
     // Trang chủ
     Route::group(['middleware' =>'AdminLogin'],function(){
-    Route::get('/',function(){
-        return view('admin.layouts.ilearn');
-    });
+<<<<<<< HEAD
+        Route::get('/',function(){
+            return view('admin.layouts.ilearn');
+        });
+        //  add word
+        Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
+        Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
+        Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
+        Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
+        Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
+=======
+   	Route::get('/',function(){
+   		return view('admin.layouts.ilearn');
+   	});
     //  add word
     Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
     Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
     Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
     Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
     Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
+
+        /*Quản lý từ điển*/
+        Route::group(['prefix' => 'dict','middleware'=>'AdminLogin'], function () {
+        //  add word
+            Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
+            Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
+        // Search word
+            Route::GET('search','DictionaryManagementController@getSearch')->name('adminDisplay');
+            Route::GET('search/result','DictionaryManagementController@search')->name('adminSearch');
+        // Delete Word
+            Route::post('delete', 'DictionaryManagementController@deleteWord');
+        // Update từ
+            Route::post('update', 'DictionaryManagementController@updateWord');
+        // Upload file
+            Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
+        // Collection 
+            Route::POST('collect','DictionaryManagementController@collection')->name('adminCollection');
+        });
+        // Thông tin cá nhân
+        Route::group(['prefix' => 'profile','middleware'=>'AdminLogin'], function () {
+            Route::get('/', 'AdminController@getProfile')->name('adminProfile');
+
+            Route::post('/', 'AdminController@updateProfile')->name('updateProfile');
+        });
+        /*Quản lý user*/
+        Route::group(['prefix' => 'account','middleware'=>'AdminLogin'], function () {
+        // Admin Seach user
+            Route::get('get', 'UserManagementController@getAccount')->name('adminUserManagement');
+            Route::get('search', 'UserManagementController@searchUser')->name('adminSearchUser');
+        // Change Status
+             Route::post('status', 'UserManagementController@changeStatus');
+        // Chang role
+             Route::post('role', 'UserManagementController@changeRole');
+        // Delete user
+             Route::post('deleteUser', 'UserManagementController@deleteUser');
+
+         Route::get('detail/{id}', 'UserManagementController@detailUser')->name('adminGetDetailUser');
+            // Route::post('updateDetail', 'UserManagementController@postDetailUser')->name('adminPostDetailUser');
+
+
+>>>>>>> scr_admin_home
     });
 });
-// END ADMIN

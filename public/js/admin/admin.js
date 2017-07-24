@@ -1,18 +1,18 @@
 
 $(document).ready(function() {
-	$(document).on('change','#_typeWord', function(evt){
-		var typeWord = $("#_typeWord :selected").val();
-		var _token = $('input[name=_token]').val();
-        $.ajax ({
-            url: 'adminSearch',
-            type: 'POST',
-            dataType: 'json',
-            data :{'typeWord':typeWord,'_token' : _token},
+  	$(document).on('change','#_typeWord', function(evt){
+  		var typeWord = $("#_typeWord :selected").val();
+  		var _token = $('input[name=_token]').val();
+          $.ajax ({
+              url: 'adminSearch',
+              type: 'POST',
+              dataType: 'json',
+              data :{'typeWord':typeWord,'_token' : _token},
 
-            success: function(html){
-                    location.reload();
-                }
-     	});
+              success: function(html){
+                      location.reload();
+                  }
+       	});
     });
 
     $(document).on('click','.delete_', function(evt){
@@ -54,7 +54,33 @@ $(document).ready(function() {
           ajaxUpdateWord(idWord, updateWord, updatePronoun, _token);
         }
     });
-    // datePicker
+    // change role
+      $(document).on('change','#selRole',function(evt){
+        var _element = $(this).closest('tr');
+        var idRole = $(this).val();
+        var _token = $('input[name=_token]').val();
+        var id = _element.find('._user-id').text();
+        var userName = _element.find('._user-name').text();
+
+        ajaxChangeRole(id,idRole, _token, userName);
+    });
+      // chang status
+      $(document).on('change','#sel1',function(evt){
+        var _element = $(this).closest('tr');
+        var Status = $(this).val();
+        var _token = $('input[name=_token]').val();
+        var id = _element.find('._user-id').text();
+
+         ajaxChangeRole(id,Status, _token);
+      });
+      $(document).on('click','.delete',function(evt){
+        var _element = $(this).closest('tr');
+        var _token = $('input[name=_token]').val();
+        var id = _element.find('._user-id').text();
+        ajaxDeleteUser(id,_element,_token);
+
+      });
+    // DeleteWord
     function ajaxDeleteWord(_element, idWord, _token, word){
         $.ajax({
             url:'delete',
@@ -72,6 +98,7 @@ $(document).ready(function() {
             }
         });
     }
+
     function ajaxUpdateWord(idWord, updateWord, updatePronoun, _token){
         $.ajax({
             url:'update',
@@ -80,10 +107,8 @@ $(document).ready(function() {
             dataType:'json',
             success : function(response){
 	            if(response['data']==true){
-
 	              $('#myModal').modal('hide');
 	              $('#modal-success').modal('show');
-		          
 		        }
             },
             error: function(xhr, error) {
@@ -91,13 +116,75 @@ $(document).ready(function() {
             }
         });
     }
-});
 
+<<<<<<< HEAD
+=======
+    function ajaxChangeRole(id,idRole, _token, userName){
+      $.ajax({
+            url:'role',
+            method: 'POST',
+            data : {'idUser': id,'idRole':idRole, '_token':_token, 'username' :userName},
+            dataType:'json',
+            success : function(response){
+              if(response['data']==true){
+                alert("Cập nhật quyền cho " +userName+ " thành công","success");
+
+              }
+            },
+            error: function(xhr, error) {
+               console.log(error);
+            }
+        });
+    }
+    function ajaxChangeRole(id,Status, _token){
+      $.ajax({
+            url:'status',
+            method: 'POST',
+            data : {'idUser': id,'status':Status, '_token':_token},
+            dataType:'json',
+            success : function(response){
+              if(response['data']==true){
+                alert("Cập nhật trạng thái thành công","success");
+
+              }
+            },
+            error: function(xhr, error) {
+               console.log(error);
+            }
+      });
+    }
+
+    function ajaxDeleteUser(id,_element,_token){
+      $.ajax({
+            url:'deleteUser',
+            method: 'POST',
+            data : {'idUser': id,'_token':_token},
+            dataType:'json',
+            success : function(response){
+              if(response['data']==true){
+                _element.remove();
+                alert("Bạn đã xóa thành công","success");
+
+              }
+            },
+            error: function(xhr, error) {
+               console.log(error);
+            }
+      });
+    }
+});
+>>>>>>> master
 // End LI tag
 /*TiNyMCE*/
+
 $(document).ready(function(){
     $(document).on('submit', '#form_upload', function(evt){
         $('.btn_upload').prop('disabled', true);
+
+        //var alertWaiting = '<div><b><span class="glyphicon glyphicon-warning-sign"></span> Quá trình upload đang diễn ra, xin bạn vui lòng đợi trong giây lát...</b></div>'
+        var alertWaiting = '<div class="loader"></div>';
+        $('.alert_waiting').replaceWith(alertWaiting);
+
         return true;
     });
 });

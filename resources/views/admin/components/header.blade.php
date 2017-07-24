@@ -3,7 +3,6 @@
         <!-- Logo -->
         <a href="#" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>I</b>LE</span>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><b>I</b>LEARN</span>
         </a>
@@ -11,7 +10,7 @@
         <nav class="navbar navbar-static-top" role="navigation">
             <!-- Sidebar toggle button-->
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only">Menu mobile</span>
 
             </a>
 
@@ -40,7 +39,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="" class="btn btn-default btn-flat">Thông tin cá nhân</a>
+                                    <a href="{{route('adminProfile')}}" class="btn btn-default btn-flat">Thông tin cá nhân</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{ route('adminLogout') }}" class="btn btn-default btn-flat">Thoát</a>

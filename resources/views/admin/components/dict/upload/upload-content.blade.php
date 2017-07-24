@@ -7,23 +7,23 @@
                         <div class="form-group">
                             <label class="control-label">Danh sách từ muốn thêm</label>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type="file" name="fileWordsUpload" class="form-control">
+                            <input type="file" name="fileWordsUpload" class="form-control btn_choose">
                         </div>
+                        <div class="alert_waiting">
                         @if ($errors->any())
-                            <div>
-                                <b class="
-                                @if($errors->has('errorSuccess'))
-                                    has--success
-                                @else
-                                    has--error
-                                @endif
-                                " id="_notify"><span class="glyphicon glyphicon-warning-sign"></span>
-                                    @foreach ($errors->all() as $error)
-                                        {!! $error !!}
-                                    @endforeach
-                                </b>
-                            </div>
+                            <b class="
+                            @if($errors->has('errorSuccess'))
+                                has--success
+                            @else
+                                has--error
+                            @endif
+                            " id="_notify"><span class="glyphicon glyphicon-warning-sign"></span>
+                                @foreach ($errors->all() as $error)
+                                    {!! $error !!}
+                                @endforeach
+                            </b>
                         @endif
+                        </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                         <div class="form-group">
