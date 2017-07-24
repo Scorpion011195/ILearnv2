@@ -13,15 +13,11 @@ class WordUser extends Model
     protected $timestamp = False;
 
     protected $fillable = [
-    'user_id', 'mean', 'type_word_id','from_language_id','to_language_id','is_notification'];
+    'user_id', 'word', 'mean', 'type_word', 'lang_pair_name', 'from_language_id', 'to_language_id', 'is_notification'];
 
     function User()
     {
     	return $this->hasMany('User','user_id');
-    }
-    function TypeWord()
-    {
-    	return $this->hasMany('TypeWord','type_word_id');
     }
     function Language()
     {

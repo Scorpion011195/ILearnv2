@@ -15,6 +15,7 @@ class AdminCrawlerController extends Controller
     public function __construct(DictionaryService $dictService){
         $this->dictService = $dictService;
     }
+
     /* Crawler from https://vdict.com/
        $langPairId 1:en-vi, 2:vi-en */
     function crawlerVdict($text, $langPairId){
@@ -71,6 +72,7 @@ class AdminCrawlerController extends Controller
             return -1;
         }
     }
+
     function postUploadWords(AdminUploadWordsRequest $request){
         // Check is_upload from DB
         $isUpload = $this->dictService->getIsUpload();

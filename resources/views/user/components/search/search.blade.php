@@ -2,6 +2,7 @@
 <div class="row il-search clearfix">
     <div class="container">
         {!! Form::open(array('route' => 'search','method' => 'GET','id' => 'frmSearch', 'class' =>'form search-form', 'role' => 'search')) !!}
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="col-md-2"></div>
             <div class="col-md-6 col-xs-12 col-sm-4">
                 <div class="input-group {{ $errors->has('search') ? 'has-error' : '' }}">
@@ -43,7 +44,7 @@
             </div>
             <div class="col-md-3 col-xs-12 col-sm-4">
                 <div class="input-group ">
-                    <select class="form-control" name="lagFrom" id="sel1">
+                    <select class="form-control" name="lagFrom" id="lagPair">
                         @foreach ($languages as $languageOut)
                             @foreach ($languages as $languageIn)
                                 @if ($languageOut->name_language != $languageIn->name_language) 
