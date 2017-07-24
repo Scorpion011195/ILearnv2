@@ -42,6 +42,7 @@ Route::get('translate-paragraph', ['as' => 'translateParagraph', 'uses' => 'Tran
 Route::get('profile', function(){
     return view('user/pages/profile');
 })->middleware('auth');
+
 Route::get('editprofile/{id}', ['as' => 'editprofile/{id}', 'uses' => 'UserController@getEditUser'])->middleware('auth');
 Route::post('editprofile/{id}', ['as' => 'editprofile/{id}', 'uses' => 'UserController@postEditUser'])->middleware('auth');
 //User change password

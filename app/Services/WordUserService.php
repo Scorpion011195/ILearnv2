@@ -20,14 +20,16 @@ class WordUserService extends BaseService implements WordUserRepository {
     {
     	return DB::table('type_words')->select('name_type_word')->get();
     }
+
     public function getWordUser()
     {
     	return DB::table('word_users')->get();
     }
 
-    public function checkWordUserExist($word, $mean, $type_word, $lang_pair_name)
+
+    public function checkWordUserExist($word, $mean, $type_word, $lang_pair_name, $userId)
     {
-    	$result = DB::table('word_users')->where('word', '=', $word)->where('mean', '=', $mean)->where('type_word', '=', $type_word)->where('lang_pair_name', '=', $lang_pair_name)->get();
+    	$result = DB::table('word_users')->where('word', '=', $word)->where('mean', '=', $mean)->where('type_word', '=', $type_word)->where('user_id', '=', $userId)->where('lang_pair_name', '=', $lang_pair_name)->get();
         $count = $result->count();
         if($count > 0){
             return true;
@@ -38,4 +40,9 @@ class WordUserService extends BaseService implements WordUserRepository {
         }
     }
 
+    //Find id by colums
+    public function findIdByColums($word, $mean, $type_word, $lang_pair_name, $userId){
+        $result = DB::table('word_users')->where('word', '=', $word)->where('mean', '=', $mean)->where('type_word', '=', $type_word)->where('lang_pair_name', '=', $lang_pair_name)->where('user_id', '=', $userId)->first();
+        return $result->id;
+    }
 }

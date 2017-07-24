@@ -7,7 +7,7 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table table-bordered word--break-word">
+            <table class="table table-bordered word--break-word" id="tb_myWord">
                 <thead>
                     <tr class="info" role="row">
                         <th class="text-center col--width2">Từ</th>

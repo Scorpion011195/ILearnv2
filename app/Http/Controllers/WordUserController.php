@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\WordUserService;
+use App\Http\Request\WordUserUpdateRequest;
 use DB;
 use Auth;
 
@@ -108,6 +109,46 @@ class WordUserController extends Controller
 
     public function postAddWordUserFromMyHistory(Request $request)
     {
+        $fromText = $request->fromText;
+        $toText = $request->toText;
+        $langPairName = $request->langPairName;
+        $langPairId = $request->langPairId;
+        $typeWord = $request->typeWord;
 
+        $langPairFrom = $langPairId[0];
+        $langPairTo = $langPairId[1];
+
+        $userId = Auth::user()->id;
+
+        // Check word and mean 
+        if(empty($fromText)){
+            $dataResponse = ["data"=>'emptyFrom'];
+            return json_encode($dataResponse); 
+        }
+        if(empty($toText)){
+            $dataResponse = ["data"=>'emptyTo'];
+            return json_encode($dataResponse); 
+        }
+
+        // Check Word existed
+        $isWordExist = $this->wordUserService->checkWordUserExist($fromText, $toText, $typeWord, $langPairName, $userId);
+        if($isWordExist)
+        {
+            $dataResponse = ["data"=>false];
+            return json_encode($dataResponse);
+        }
+        else 
+        {
+            // Insert to word_users
+            $arrMyWord = ['user_id'=>$userId, 'word'=> $fromText, 'mean'=> $toText, 'type_word'=>$typeWord, 'lang_pair_name'=>$langPairName, 'from_language_id'=>$langPairFrom, 'to_language_id' => $langPairTo,'is_notification'=> 0];
+        
+            $this->wordUserService->create($arrMyWord);
+
+            // Get id of new word;
+            $id = $this->wordUserService->findIdByColums($fromText, $toText, $typeWord, $langPairName, $userId);
+
+            $dataResponse = ["data"=>true, 'id' => $id];
+            return json_encode($dataResponse);
+        }
     }
 }

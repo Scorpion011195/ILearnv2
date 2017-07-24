@@ -31,14 +31,14 @@
                                  </select>
                             </div>
                             <div class="row il-history">
-                                <div class="input-group {{$errors->has('tu') ? 'has-error' : ''}}">
+                                <div class="input-group {{$errors->has('fromText') ? 'has-error' : ''}}">
                                     <span class="input-group-addon">Từ</span>
-                                    <input type="text" size="30" name="tu" class="form-control" id="fromText" placeholder="Hello" required="">
+                                    <input type="text" size="30" name="fromText" class="form-control" id="fromText" placeholder="Hello" required="">
                                 </div>
                             <br>
-                                @if($errors->has('tu'))
+                                @if($errors->has('fromText'))
                                     <span class="help-block">
-                                        <strong>{!! $errors->first('tu')!!}</strong>
+                                        <strong>{!! $errors->first('fromText')!!}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -53,14 +53,14 @@
                                 </button>
                             </div>
                             <div class="row il-history">
-                                <div class="input-group {{$errors->has('nghia') ? 'has-error' : ''}}">
+                                <div class="input-group {{$errors->has('toText') ? 'has-error' : ''}}">
                                     <span class="input-group-addon">Nghĩa</span>
-                                    <input type="text" size="30" name="nghia" class="form-control" id="toText" placeholder="Hello" required="">
+                                    <input type="text" size="30" name="toText" class="form-control" id="toText" placeholder="Hello" required="">
                                 </div>
                                 <br>
-                                @if($errors->has('nghia'))
+                                @if($errors->has('toText'))
                                     <span class="help-block">
-                                        <strong>{!! $errors->first('nghia')!!}</strong>
+                                        <strong>{!! $errors->first('toText')!!}</strong>
                                     </span>
                                 @endif
                             </div>   

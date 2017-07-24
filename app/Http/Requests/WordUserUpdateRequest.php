@@ -24,14 +24,18 @@ class WordUserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'toText' => 'required',
+            'fromText' => 'required',
             //
-        ''
         ];
     }
-    public function messsages()
+
+    public function messages()
     {
         return [
-        ''
+            'toText.required' => 'Bạn chưa nhập từ',
+            'fromText.required' => 'Bạn chưa nhập từ',
+
         ];
     }
 }

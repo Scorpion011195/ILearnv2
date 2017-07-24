@@ -169,7 +169,63 @@ $(document).ready(function(){
         var toText = $("#toText").val();
         var langPairName = $('#lagPair :selected').text();
         var langPairId = $('#lagPair :selected').val();
-        alert(langPairId);
+        var _token = $('input[name=_token]').val();
 
+        addWordUserFromMyHistory(typeWord, fromText, toText, langPairName, langPairId, _token);
     });
+
+    //Function ajax add word in my history on word_users
+
+    function addWordUserFromMyHistory(typeWord, fromText, toText, langPairName, langPairId, _token)
+    {
+        $.ajax({
+            url:'addWordMyHistory',
+            method: 'POST',
+            data : {'typeWord': typeWord,'fromText': fromText,'toText': toText,'langPairName': langPairName,'langPairId': langPairId, '_token' : _token},
+            dataType:'json',
+            success : function(response){
+                if(response["data"]== true){
+                    // Create new row
+                    var id = response["id"];
+                    var rowAdd = getRowAddHistory(fromText, toText, typeWord, langPairName, id);
+                    $(document).find("#tb_myWord").append( rowAdd );
+                    $.notify('Đã thêm từ "'+fromText+'" với nghĩa "'+toText+'" vào lịch sử!', "success");
+                }
+                else if(response["data"]== false){
+                    $.notify('Từ "'+ fromText +'" với nghĩa "'+ toText +'" đã có!', "success");
+                }
+                // else if(response["data"]== 'invalidate'){
+                //     $.notify('Từ không hợp lệ!', "warn");
+                // }
+                else if(response["data"]== 'emptyFrom'){
+                    $.notify('Bạn chưa nhập từ!', "warn");
+                }
+                else if(response["data"]== 'emptyTo'){
+                    $.notify('Bạn chưa nhập nghĩa!', "warn");
+                }
+            },
+            error: function(xhr, error) {
+                $.notify("Oppps: Lỗi, vui lòng thử lại", "warn");
+            }
+        });
+    }
+
+    //Create table to save value when user add word 
+
+    function getRowAddHistory(fromText, toText, typeWord, langPairName, id){
+        return '<tr>'+
+                    '<th class="text-center col--width2 wordSetting">'+fromText+'</th>'+
+                    '<th class="text-center col--width2 meanSetting">'+toText+'</th>'+
+                    '<th class="text-center col--width2">'+typeWord+'</th>'+
+                    '<th class="text-center col--width2">'+langPairName+'</th>'+
+                    '<td class="text-center align--vertical-middle">'+
+                        '<input type="checkbox" name="notification" class="cb_notification" data-id="'+id+'">'+
+                    '</td>'+
+                    '<td class="text-center align--vertical-middle">'+
+                        '<span>'+
+                            '<a class="fa fa-trash-o fa-1x deleteWordHistory" data-toggle="tooltip" data-placement="left" title="Xóa!" data-id="'+id+'"></a>'+
+                        '</span>'+
+                    '</td>'+ 
+                '</tr>';
+    }
 });
