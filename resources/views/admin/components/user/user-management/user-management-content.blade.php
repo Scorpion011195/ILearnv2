@@ -11,10 +11,18 @@
                         </div>
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                             @if(isset($message))
-                                <div class="message">
-                                    <p class="help-block">
+                                <div>
+                                    <p class="help-block" style="color:red;">
                                     <span class="glyphicon glyphicon-warning-sign"></span>
                                     <strong>{{$message}}</strong></p>
+                                </div>
+                            @endif
+                            <?php  ?>
+                            @if(isset($dataSearch) && count($dataSearch) == 0)
+                                <div>
+                                    <p class="help-block" style="color:red;">
+                                    <span class="glyphicon glyphicon-warning-sign"></span>
+                                    <strong>Từ đang được cập nhật</strong></p>
                                 </div>
                             @endif
                         </div>

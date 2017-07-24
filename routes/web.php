@@ -99,7 +99,8 @@ Route::group(['prefix' => 'admin'], function () {
         // Upload file
             Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
         // Collection 
-            Route::POST('collect','DictionaryManagementController@collection')->name('adminCollection');
+            Route::get('collect', 'StatisticManagementController@displayStatisticalResult')->name('adminDictCollect');
+            Route::post('collect-added', 'StatisticManagementController@displayStatisticalResultByCondition')->name('adminDictCollectByCondition');
         });
         // Thông tin cá nhân
         Route::group(['prefix' => 'profile','middleware'=>'AdminLogin'], function () {
@@ -121,7 +122,6 @@ Route::group(['prefix' => 'admin'], function () {
 
          Route::get('detail/{id}', 'UserManagementController@detailUser')->name('adminGetDetailUser');
             // Route::post('updateDetail', 'UserManagementController@postDetailUser')->name('adminPostDetailUser');
-
-
+     });
     });
 });

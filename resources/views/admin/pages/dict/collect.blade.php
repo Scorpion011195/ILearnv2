@@ -1,4 +1,4 @@
-@extends('backend.layouts.ilearn')
+@extends('admin.layouts.ilearn')
 
 @section('title')
     Thống kê
@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    @include('backend.components.dict.collect.collect-content')
+    @include('admin.components.dict.collect.collect-content')
 @endsection
 
 @section('script')
