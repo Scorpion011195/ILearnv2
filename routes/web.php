@@ -83,9 +83,9 @@ Route::group(['prefix' => 'admin'], function () {
             Route::GET('search','DictionaryManagementController@getSearch')->name('adminDisplay');
             Route::GET('search/result','DictionaryManagementController@search')->name('adminSearch');
         // Delete Word
-            Route::post('delete', 'DictionaryManagementController@deleteWord'); 
+            Route::post('delete', 'DictionaryManagementController@deleteWord');
         // Update từ
-            Route::post('update', 'DictionaryManagementController@updateWord'); 
+            Route::post('update', 'DictionaryManagementController@updateWord');
         // Upload file
             Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
         });
@@ -109,7 +109,7 @@ Route::group(['prefix' => 'admin'], function () {
             // Route::get('detail/{id}', 'UserManagementController@getDetailUser')->name('adminGetDetailUser');
             // Route::post('updateDetail', 'UserManagementController@postDetailUser')->name('adminPostDetailUser');
 
-        
+
     });
 
     //  add word
@@ -123,7 +123,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::GET('testEndSession', 'AdminCrawlerController@testEndSession');
 
     });
-  });
 });
 
 // END ADMIN
