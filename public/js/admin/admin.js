@@ -1,18 +1,18 @@
 
 $(document).ready(function() {
-	$(document).on('change','#_typeWord', function(evt){
-		var typeWord = $("#_typeWord :selected").val();
-		var _token = $('input[name=_token]').val();
-        $.ajax ({
-            url: 'adminSearch',
-            type: 'POST',
-            dataType: 'json',
-            data :{'typeWord':typeWord,'_token' : _token},
+  	$(document).on('change','#_typeWord', function(evt){
+  		var typeWord = $("#_typeWord :selected").val();
+  		var _token = $('input[name=_token]').val();
+          $.ajax ({
+              url: 'adminSearch',
+              type: 'POST',
+              dataType: 'json',
+              data :{'typeWord':typeWord,'_token' : _token},
 
-            success: function(html){
-                    location.reload();
-                }
-     	});
+              success: function(html){
+                      location.reload();
+                  }
+       	});
     });
 
     $(document).on('click','.delete_', function(evt){
@@ -54,7 +54,7 @@ $(document).ready(function() {
           ajaxUpdateWord(idWord, updateWord, updatePronoun, _token);
         }
     });
-    // change role 
+    // change role
       $(document).on('change','#selRole',function(evt){
         var _element = $(this).closest('tr');
         var idRole = $(this).val();
@@ -107,10 +107,8 @@ $(document).ready(function() {
             dataType:'json',
             success : function(response){
 	            if(response['data']==true){
-
 	              $('#myModal').modal('hide');
 	              $('#modal-success').modal('show');
-		          
 		        }
             },
             error: function(xhr, error) {
@@ -128,7 +126,7 @@ $(document).ready(function() {
             success : function(response){
               if(response['data']==true){
                 alert("Cập nhật quyền cho " +userName+ " thành công","success");
-              
+
               }
             },
             error: function(xhr, error) {
@@ -145,7 +143,7 @@ $(document).ready(function() {
             success : function(response){
               if(response['data']==true){
                 alert("Cập nhật trạng thái thành công","success");
-              
+
               }
             },
             error: function(xhr, error) {
@@ -164,7 +162,7 @@ $(document).ready(function() {
               if(response['data']==true){
                 _element.remove();
                 alert("Bạn đã xóa thành công","success");
-              
+
               }
             },
             error: function(xhr, error) {
@@ -173,10 +171,16 @@ $(document).ready(function() {
       });
     }
 });
+// End LI tag
+/*TiNyMCE*/
 
 $(document).ready(function(){
     $(document).on('submit', '#form_upload', function(evt){
         $('.btn_upload').prop('disabled', true);
+
+        var alertWaiting = '<div><b><span class="glyphicon glyphicon-warning-sign"></span> Quá trình upload đang diễn ra, xin bạn vui lòng đợi trong giây lát...</b></div>'
+        $('.alert_waiting').replaceWith(alertWaiting);
+
         return true;
     });
 });
