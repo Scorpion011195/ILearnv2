@@ -100,13 +100,14 @@ Route::group(['prefix' => 'admin'], function () {
         // Admin Seach user
             Route::get('get', 'UserManagementController@getAccount')->name('adminUserManagement');
             Route::get('search', 'UserManagementController@searchUser')->name('adminSearchUser');
-
+        // Change Status
              Route::post('status', 'UserManagementController@changeStatus');
+        // Chang role
              Route::post('role', 'UserManagementController@changeRole');
-
+        // Delete user
              Route::post('deleteUser', 'UserManagementController@deleteUser');
 
-            // Route::get('detail/{id}', 'UserManagementController@getDetailUser')->name('adminGetDetailUser');
+         Route::get('detail/{id}', 'UserManagementController@detailUser')->name('adminGetDetailUser');
             // Route::post('updateDetail', 'UserManagementController@postDetailUser')->name('adminPostDetailUser');
 
 

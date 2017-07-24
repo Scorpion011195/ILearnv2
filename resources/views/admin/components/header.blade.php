@@ -24,7 +24,7 @@
                             <!-- The user image in the navbar-->
                             <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                            <span class="">{{ Session::get('user')->username }}</span>
+                            <span class="">{{ Session::get('user')->name }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
@@ -32,14 +32,14 @@
                                 <img src="{{ asset('http://184.171.241.153/~pagc/wp-content/uploads/2015/04/Welcome-New-Members.jpg') }}" class="img-circle _tooltip-me" alt="User Image" id="img-profile">
                                 <p>
                                    <p>
-                                    {{ Session::get('user')->username }}
+                                    {{ Session::get('user')->name }}
                                 </p>
                                 </p>
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="" class="btn btn-default btn-flat">Thông tin cá nhân</a>
+                                    <a href="{{route('adminProfile')}}" class="btn btn-default btn-flat">Thông tin cá nhân</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{ route('adminLogout') }}" class="btn btn-default btn-flat">Thoát</a>

@@ -18,7 +18,7 @@
                     <input class="form-control" type="text" placeholder="Nhập từ" name = "searchText" style = " padding-left: 100px" id="textSearch"></span>
                     <select class="form-control" name="typeWord" id="_typeWord">
                       @foreach($typeWord as  $value)
-                        <option value="{!!$value->id!!}">{!! $value->name_type_word !!}</option>
+                        <option value="{!!$value->name_type_word!!}">{!! $value->name_type_word !!}</option>
                       @endforeach
                     </select>
                     <div class="input-group ">
