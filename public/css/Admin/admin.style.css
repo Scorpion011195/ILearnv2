@@ -12,25 +12,28 @@
 	box-shadow: 3px 3px 3px 3px;
 
 }
+
 input{
 	 border-left: 3px solid #e74c3c;
       -webkit-transition:0.4s ease;
 }
+
 .input-group:hover {
   background-color: transparent; /* Fix for dropdown-menu item hover background-color */
 }
+
 .has--error {
     color: #a94442 !important;
 }
+
 .has--success {
     color: #3c8dbc !important;
 }
-<<<<<<< HEAD
+
 .message{
 	color: red;
 	background-color: red;
-=======
+
 .margin--left-30px {
     margin-left: 30px;
->>>>>>> 1261d2e1bca3a5378c19830e10dfbd5e2b35abf5
 }
