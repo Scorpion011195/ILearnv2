@@ -1,18 +1,18 @@
 
 $(document).ready(function() {
-	$(document).on('change','#_typeWord', function(evt){
-		var typeWord = $("#_typeWord :selected").val();
-		var _token = $('input[name=_token]').val();
-        $.ajax ({
-            url: 'adminSearch',
-            type: 'POST',
-            dataType: 'json',
-            data :{'typeWord':typeWord,'_token' : _token},
+  	$(document).on('change','#_typeWord', function(evt){
+  		var typeWord = $("#_typeWord :selected").val();
+  		var _token = $('input[name=_token]').val();
+          $.ajax ({
+              url: 'adminSearch',
+              type: 'POST',
+              dataType: 'json',
+              data :{'typeWord':typeWord,'_token' : _token},
 
-            success: function(html){
-                    location.reload();
-                }
-     	});
+              success: function(html){
+                      location.reload();
+                  }
+       	});
     });
 
     $(document).on('click','.delete_', function(evt){
@@ -80,10 +80,8 @@ $(document).ready(function() {
             dataType:'json',
             success : function(response){
 	            if(response['data']==true){
-
 	              $('#myModal').modal('hide');
 	              $('#modal-success').modal('show');
-		          
 		        }
             },
             error: function(xhr, error) {
@@ -93,14 +91,17 @@ $(document).ready(function() {
     }
 });
 
-<<<<<<< HEAD
+
 // End LI tag
 /*TiNyMCE*/
 $(document).ready(function(){
     $(document).on('submit', '#form_upload', function(evt){
         $('.btn_upload').prop('disabled', true);
+
+        var alertWaiting = '<div><b><span class="glyphicon glyphicon-warning-sign"></span> Quá trình upload đang diễn ra, xin bạn vui lòng đợi trong giây lát...</b></div>'
+        $('.alert_waiting').replaceWith(alertWaiting);
+
         return true;
     });
 });
-=======
->>>>>>> 865460e2f42d635fea7be574eef6013e2e299d2f
+
