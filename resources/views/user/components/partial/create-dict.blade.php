@@ -8,53 +8,62 @@
                 <div class="form-inline panel-body">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="row il-history">
-                        <div class="col-sm-6">
-                            <select class="form-control" id ="selectFromLg">
-                                <option value="" selected>Viet
-                                </option>
-                            </select>
-                            <select class="type form-control" id="typeWord">
-                                <option value="" selected>Dong tu
-                                </option>
-                             </select>
-                        </div>
-                        <div class="col-md-6">
-                            <select class="form-control" id="selectToLg">
-                                <option value="" selected>Anh
-                                </option>
-                            </select>
-                            <button type="submit" class="btn btn-success ilearn-background-color" id ="btnAddHistory">
-                              <span class="glyphicon glyphicon-upload"></span>Thêm
-                            </button>
-                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
-                              <span class="glyphicon glyphicon-cog"></span>Cài đặt
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-group {{$errors->has('tu') ? 'has-error' : ''}}">
-                                <span class="input-group-addon">Từ</span>
-                                <input type="text" size="30" name="tu" class="form-control" id="fromText" placeholder="Hello" required="" maxlength="50">
+                        <div class="col-sm-6 il-language-padding-left">
+                            <div class="row il-history">
+                                <select class="form-control" name="lagPair" id="lagPair">
+                                @foreach ($language as $languageOut)
+                                    @foreach ($language as $languageIn)
+                                        @if ($languageOut->name_language != $languageIn->name_language) 
+                                            <option name = "{!! $languageIn->id !!}{!! $languageOut->id !!}" value = "{!! $languageIn->id !!}{!! $languageOut->id !!}"
+                                            @if(isset($oldLangPair)&&$oldLangPair==$languageIn->id.$languageOut->id)
+                                                 selected
+                                            @endif
+                                            >{!! $languageIn->name_language !!} - {!! $languageOut->name_language !!}</option>
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                                </select>
+                                <select class="form-control type" id="typeWord">
+                                    @foreach($typeWordName as $typeWord)
+                                        <option value="{!! $typeWord->name_type_word !!}" selected>{!! $typeWord->name_type_word !!}
+                                        </option>
+                                    @endforeach
+                                 </select>
                             </div>
+                            <div class="row il-history">
+                                <div class="input-group {{$errors->has('tu') ? 'has-error' : ''}}">
+                                    <span class="input-group-addon">Từ</span>
+                                    <input type="text" size="30" name="tu" class="form-control" id="fromText" placeholder="Hello" required="">
+                                </div>
                             <br>
-                            @if($errors->has('tu'))
-                                <span class="help-block">
-                                    <strong>{!! $errors->first('tu')!!}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="input-group {{$errors->has('nghia') ? 'has-error' : ''}}">
-                                <span class="input-group-addon">Nghĩa</span>
-                                <input type="text" size="30" name="nghia" class="form-control" id="toText" placeholder="Hello" required="" maxlength="50">
+                                @if($errors->has('tu'))
+                                    <span class="help-block">
+                                        <strong>{!! $errors->first('tu')!!}</strong>
+                                    </span>
+                                @endif
                             </div>
-                            <br>
-                            @if($errors->has('nghia'))
-                                <span class="help-block">
-                                    <strong>{!! $errors->first('nghia')!!}</strong>
-                                </span>
-                            @endif
+                        </div>
+                        <div class="col-sm-6 il-language-padding-right">
+                            <div class="row il-history">
+                                <button type="submit" class="btn btn-success ilearn-background-color" id ="btnAddHistory">
+                                <span class="glyphicon glyphicon-upload"></span>Thêm
+                                </button>
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+                                  <span class="glyphicon glyphicon-cog"></span>Cài đặt
+                                </button>
+                            </div>
+                            <div class="row il-history">
+                                <div class="input-group {{$errors->has('nghia') ? 'has-error' : ''}}">
+                                    <span class="input-group-addon">Nghĩa</span>
+                                    <input type="text" size="30" name="nghia" class="form-control" id="toText" placeholder="Hello" required="">
+                                </div>
+                                <br>
+                                @if($errors->has('nghia'))
+                                    <span class="help-block">
+                                        <strong>{!! $errors->first('nghia')!!}</strong>
+                                    </span>
+                                @endif
+                            </div>   
                         </div>
                     </div>
                 </div>

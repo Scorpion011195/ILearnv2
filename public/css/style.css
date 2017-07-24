@@ -248,6 +248,19 @@ body {
 .il-history {
     padding-bottom: 10px;
 }
+select#typeWord.form-control.type {
+    padding: 0px 0px;
+}
+select#lagPair.form-control {
+    padding: 0px 0px;
+}
+.il-language-padding-left{
+    padding-left: 10px;
+    padding-right: 23px;
+}
+.il-language-padding-right{
+    padding-right: 10px;
+}
 /*----------------CSS FOOTER-------------*/
 footer {
     padding: 45px 15px;

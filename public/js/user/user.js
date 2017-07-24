@@ -68,7 +68,7 @@ $(document).ready(function(){
                 if(response['data']==true){
                     $.notify('Đã thêm từ "'+word+'" với nghĩa "'+mean+'"', "success");
                 }
-                else if(response['data'] == "existed" )
+                else if (response['data'] == false)
                     $.notify('Từ "'+word+'" với nghĩa "'+mean+'" đã có');
             },
             error: function(xhr, error) {
@@ -76,4 +76,100 @@ $(document).ready(function(){
             }
         });
     }
+
+
+    //Get ID of table word_users
+    $(document).on('click', '.cb_notification', function(){
+        var id = $(this).attr('data-id'); //return value with its
+        var word = $(this).closest('tr').find('.wordSetting').text();
+        var mean = $(this).closest('tr').find('.meanSetting').text();
+        var _token = $('input[name=_token]').val();
+        if (this.checked){
+            var is_notification = 1;
+        }
+        else{
+            var is_notification = 0;
+        }
+
+        ajaxUpdateNotification(id, is_notification, word, mean, _token);
+    });
+
+    //Ajax notification update to word_users
+
+    function ajaxUpdateNotification(id, is_notification, word, mean, _token)
+    {
+        $.ajax({
+
+            url:'notification',
+            method:'POST',
+            dataType:'json',
+            data: {'id': id,'is_notification': is_notification, 'word': word, 'mean': mean, '_token' : _token},
+            success : function(response){
+                if(response['data']==true){
+
+                    $.notify('Đã thêm từ "'+word+'" với nghĩa "'+mean+'" vào thông báo', "success");
+                }
+                else if (response['data'] == false)
+                    $.notify('Đã loại từ "'+word+'" với nghĩa "'+mean+'" ra khỏi thông báo');
+            },
+            error: function(xhr, error) {
+             console.log(error);
+            }
+        });
+    }
+
+    // Delete word in my history 
+    $(document).on('click' , '.deleteWordHistory', function(){
+        var id = $(this).attr('data-id');
+        var _token = $('input[name=_token]').val();
+        var word = $(this).closest('tr').find('.wordSetting').text();
+        var mean = $(this).closest('tr').find('.meanSetting').text();
+        var _this = $(this);
+
+        $(this).confirmation({
+          title: 'Xóa!',
+          onConfirm: function() {
+           deleteWordUserHistory(id, word, mean, _token, _this);
+          },
+          onCancel: function() {
+          },
+        });
+
+        $(this).confirmation('show');
+
+    });
+
+    //Ajax delete Word user in my history
+
+    function deleteWordUserHistory(id, word, mean, _token, _this)
+    {
+        $.ajax({
+            url:'deleteWordHistory',
+            method:'POST',
+            dataType:'json',
+            data:{'id': id, 'mean': mean, 'word': word, '_token': _token},
+            success : function(response){
+                if(response['data']==true){
+                    // Delete rows
+                    _this.closest('tr').remove();
+                    $.notify('Đã xóa từ "'+word+'" với nghĩa "'+mean+'" ra khỏi lịch sử', "success");
+                }
+            },
+            error: function(xhr, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    //ADD WORD FROM MY HISTORY 
+
+    $(document).on('click', '#btnAddHistory', function(){
+        var typeWord = $("#typeWord").val();
+        var fromText = $("#fromText").val();
+        var toText = $("#toText").val();
+        var langPairName = $('#lagPair :selected').text();
+        var langPairId = $('#lagPair :selected').val();
+        alert(langPairId);
+
+    });
 });

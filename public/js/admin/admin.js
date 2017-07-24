@@ -93,7 +93,6 @@ $(document).ready(function() {
     }
 });
 
-<<<<<<< HEAD
 // End LI tag
 /*TiNyMCE*/
 $(document).ready(function(){
@@ -102,5 +101,3 @@ $(document).ready(function(){
         return true;
     });
 });
-=======
->>>>>>> 865460e2f42d635fea7be574eef6013e2e299d2f

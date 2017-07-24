@@ -36,7 +36,7 @@ abstract class BaseService implements BaseRepository
 
     public function delete($id)
     {
-        $this->model->delete($id);
+        $this->model->find($id)->delete();
     }
 
     public function deleteByColumn($column, $value){

@@ -36,10 +36,6 @@ Route::get('result', function(){
     return view('user/pages/result');
 });
 
-Route::get('history', function(){
-    return view('user/pages/history');
-});
-
 Route::get('translate', 'TranslateController@getTranslateParagraph');
 Route::get('translate-paragraph', ['as' => 'translateParagraph', 'uses' => 'TranslateController@translateParagraph']);
 // Route::get('profile', ['as' => 'profile', 'uses'=>'UserController@getShowUser']);
@@ -53,8 +49,13 @@ Route::get('changePass', ['as' => 'changePass', 'uses' => 'UserController@getCha
 Route::post('changePass', ['as' => 'changePass', 'uses' => 'UserController@postChangePass'])->middleware('auth');
 
 //Language My Word
-
+Route::get('history', 'WordUserController@getAddWordFromSearch');
 Route::post('myWord','WordUserController@addWordFromSearch');
+Route::post('addWordMyHistory', 'WordUserController@postAddWordUserFromMyHistory');
+
+//Notification
+Route::post('notification', 'WordUserController@postUpdateNotification');
+Route::post('deleteWordHistory', 'WordUserController@postDeleteWordHistory');
 
 /*=================ADMIN AREA==================*/
 Route::group(['prefix' => 'admin'], function () {
