@@ -30,7 +30,11 @@
                             <label class="control-label">Ngôn ngữ</label>
                             <select name="codeLanguageVdict" class="form-control">
                                @foreach($codeLanguageVdict as $key=>$value)
-                                   <option value="{{ $value }}">{{ $key }}</option>
+                                   <option value="{{ $value }}"
+                                   @if($value == old('codeLanguageVdict'))
+                                       selected
+                                   @endif
+                                   >{{ $key }}</option>
                                @endforeach
                             </select>
                         </div>
@@ -39,7 +43,9 @@
             </div>
         </div>
         <div class="panel-footer">
-          <input type="submit" class="btn btn-success btn_upload" value="Tải lên" >
+            <div class="margin--left-30px">
+                <input type="submit" class="btn btn-success btn_upload" value="Tải lên">
+            </div>
         </div>
     </form>
 </div>

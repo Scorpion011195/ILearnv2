@@ -14,7 +14,7 @@ use Session;
 use Flash;
 use Image;
 use App\Models\User;
-use App\Models\SettingUsers;
+use App\Models\SettingUser;
 use Validator;
 use Illuminate\Support\MessageBag;
 use App\ModelViews\UserViewModel;
@@ -93,7 +93,7 @@ class UserController extends Controller
         $user->confirmation_code = str_random(30);
         $user->save();
 
-        $setUser= new SettingUsers();
+        $setUser= new SettingUser();
         $setUser->id = $user->id;
         $setUser->user_id = $setUser->id;
         $setUser->type_reminder_id = 1;
@@ -115,12 +115,12 @@ class UserController extends Controller
         $user = User::whereConfirmationCode($confirmation_code)->first();
         if ( ! $user)
         {
-            return redirect('home')->with('status', 'Bạn chưa xác nhận, vui lòng thử lại');
+            return redirect('home')->with('status','Bạn chưa xác nhận, vui lòng thử lại');
         }
         $user->confirmed = 1;
         $user->confirmation_code = $confirmation_code;
         $user->save();
-        return redirect('home')->with('status', 'Chúc mừng bạn đã đăng kí thành công');
+        return redirect('home')->with('status','Chúc mừng bạn đã đăng kí thành công');
     }
 
     //Get edit user

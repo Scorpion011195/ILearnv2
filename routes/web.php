@@ -112,7 +112,19 @@ Route::group(['prefix' => 'admin'], function () {
         
     });
 
+    //  add word
+    Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
+    Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
+    Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
+    Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
+    Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
+    Route::GET('testPutSession', 'AdminCrawlerController@testPutSession');
+    Route::GET('testGetSession', 'AdminCrawlerController@testGetSession');
+    Route::GET('testEndSession', 'AdminCrawlerController@testEndSession');
+
     });
+  });
 });
+
 // END ADMIN
 

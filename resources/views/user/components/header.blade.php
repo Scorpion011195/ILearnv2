@@ -42,7 +42,7 @@
 		@if(Auth::guest())
 		<li><a href="{{url('notify')}}">Từ của tôi</a></li>
 		@else
-		<li><a href="{{url('')}}">Từ của tôi</a></li>
+		<li><a href="{{url('history')}}">Từ của tôi</a></li>
 		@endif
 	</ul>
 </nav>

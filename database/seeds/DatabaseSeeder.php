@@ -19,6 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TimeRemindersTableSeeder::class);
         $this->call(TypeRemindersTableSeeder::class);
         $this->call(TypeWordsTableSeeder::class);
-        $this->call(WordUsersTableSeeder::class);
+        $this->call(IsUploadDictionarysTableSeeder::class);
     }
 }
