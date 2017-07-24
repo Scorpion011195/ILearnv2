@@ -33,7 +33,7 @@
               <select class="form-control" name="typeWord" >
                 @if(isset($typeWord))
                     @foreach($typeWord as $value)
-                      <option value="{{ $value->id }}">{!! $value->name_type_word !!}</option>
+                      <option value="{{ $value->name_type_word }}">{!! $value->name_type_word !!}</option>
                     @endforeach
                 @endif
               </select>         

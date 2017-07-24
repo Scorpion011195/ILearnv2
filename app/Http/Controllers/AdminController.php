@@ -24,7 +24,7 @@ class AdminController extends Controller
 {
 	function getLogin()
 	{
-        if(Session::has('user')){
+        if(Session::has('user') || (isset(Auth::user()->id))){
           return redirect('admin');
         }
         else{

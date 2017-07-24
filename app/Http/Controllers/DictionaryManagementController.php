@@ -54,12 +54,12 @@ class DictionaryManagementController extends Controller
         }else
         {
           $mapping = DB::table('dictionarys')->where('word', $fromText)
-                                            ->where('type_word_id',$typeWord)
+                                            ->where('type_word',$typeWord)
                                             ->where('language_id',$fromLg)
                                             ->value('mapping_id');
           $mappingId = $mapping;
           $dict->word = $toText;
-          $dict->type_word_id = $typeWord;
+          $dict->type_word = $typeWord;
           $dict->language_id = $toLg;
           $dict->mapping_id = $mappingId;
           $dict->pronounce = $pronoun;
@@ -77,8 +77,8 @@ class DictionaryManagementController extends Controller
       $mapping = DB::table('dictionarys')->max('mapping_id');
       $mappingId = $mapping + 1;
       $data = array(
-      array('mapping_id'=>$mappingId, 'word'=> $fromText, 'language_id' => $fromLg,'type_word_id' => $typeWord,'pronounce' => $pronoun),
-      array('mapping_id'=>$mappingId, 'word'=> $toText, 'language_id' => $toLg,'type_word_id' => $typeWord,'pronounce' => $pronoun),
+      array('mapping_id'=>$mappingId, 'word'=> $fromText, 'language_id' => $fromLg,'type_word' => $typeWord,'pronounce' => $pronoun),
+      array('mapping_id'=>$mappingId, 'word'=> $toText, 'language_id' => $toLg,'type_word' => $typeWord,'pronounce' => $pronoun),
       );
       /* $data add dữ liệu vào DB khi có nhiều hơn 1 value ở single collum*/
       DB::table('dictionarys')->insert($data);
@@ -110,22 +110,24 @@ class DictionaryManagementController extends Controller
     $typeWord = $request->typeWord;
     $languageFrom = $request->languageFrom;
 
-    if($textSeach == NULL && $typeWord != NULL && $languageFrom != NULL){
-        return view('admin.pages.dict.search')->with
-                                              ([
-                                                'typeWord' => $typeOfWord,
-                                                'Lg'=> $lang
-                                              ])->render();
+    if($textSeach !== NULL && $typeWord != NULL){
+     $result = DB::table('dictionarys')->where ('word','like','%'.$textSeach.'%')->get();
+     return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
     }
-    $result = DB::table('dictionarys')->
-                                        where ('word','like','%'.$textSeach.'%')->
-                                        where('type_word_id', '=', $typeWord)->get();
-    $count = count($result);
-    return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result,'countTo' =>$count,])->render();
+    if($typeWord != NULL && $typeWord != NULL){
+      $result = DB::table('dictionarys')->where ('type_word',' =',$typeWord)->get();
+      return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
+    }
+    if($typeWord != NULL){
+      $result = DB::table('dictionarys')->where ('language_id',' =',$languageFrom)->get();
+      return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
+    }
+    return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
   }
 
   function deleteWord(Request $request)
-  {      // Input
+  {    
+    // Input
     $idWord = $request->idWord;
     $delete = Dictionary::find($idWord);
     $delete->delete();
@@ -149,6 +151,9 @@ class DictionaryManagementController extends Controller
     return json_encode($dataResponse);
   }
 
+  public function collection(request $request){
+    return view('welcome');
+  }
   public function upload()
   {
     $params = ['codeLanguageVdict' => MyConstant::CRAWLER_VDICT_NAME];
