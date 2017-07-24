@@ -27,7 +27,7 @@ Route::get('user/pages/verifyEmail/{confirmationCode}','UserController@confirm'
 
 // Link for User search Word
 Route::get('home', ['as' => 'home', 'uses' => 'DictionaryController@getSearchDictionary']);
-Route::post('search', ['as' => 'search', 'uses' => 'DictionaryController@postSearchDictionary']);
+Route::get('search', ['as' => 'search', 'uses' => 'DictionaryController@postSearchDictionary']);
 
 Route::get('notify', function(){
     return view('user/pages/notify');

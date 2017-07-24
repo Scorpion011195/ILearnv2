@@ -1,7 +1,7 @@
 
 <div class="row il-search clearfix">
     <div class="container">
-        {!! Form::open(array('route' => 'search','method' => 'POST','id' => 'frmSearch', 'class' =>'form search-form', 'role' => 'search')) !!}
+        {!! Form::open(array('route' => 'search','method' => 'get','id' => 'frmSearch', 'class' =>'form search-form', 'role' => 'search')) !!}
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="col-md-2"></div>
             <div class="col-md-6 col-xs-12 col-sm-4">
