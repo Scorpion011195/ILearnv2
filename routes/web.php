@@ -52,7 +52,9 @@ Route::post('editprofile/{id}', ['as' => 'editprofile/{id}', 'uses' => 'UserCont
 Route::get('changePass', ['as' => 'changePass', 'uses' => 'UserController@getChangePass'])->middleware('auth');
 Route::post('changePass', ['as' => 'changePass', 'uses' => 'UserController@postChangePass'])->middleware('auth');
 
+//Language My Word
 
+Route::post('myWord','WordUserController@addWordFromSearch');
 
 /*=================ADMIN AREA==================*/
 Route::group(['prefix' => 'admin'], function () {

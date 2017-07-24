@@ -48,6 +48,32 @@ $(document).ready(function(){
 
     // ADD WORDS TO MY WORDS
     $(document).on('click','._push-his', function(evt){
-        alert('ok');
+        var word = $('#txtSearch').val();
+        var langPairName = $('#lagPair :selected').text();
+        var langPairId = $('#lagPair :selected').val();
+        var typeWord = $(this).prev().text();
+        var mean = $(this).closest('ul').find('b').text();
+        var _token = $('input[name=_token]').val();
+
+        ajaxAddWordToMyWords(word, langPairName, langPairId, typeWord, mean, _token);
     });
+
+    function ajaxAddWordToMyWords(word, langPairName, langPairId, typeWord, mean, _token){
+        $.ajax({
+            url:'myWord',
+            method:'POST',
+            dataType:'json',
+            data: {'word': word,'langPairName': langPairName,'langPairId' : langPairId, 'typeWord' : typeWord, 'mean' : mean, '_token' : _token},
+            success : function(response){
+                if(response['data']==true){
+                    $.notify('Đã thêm từ "'+word+'" với nghĩa "'+mean+'"', "success");
+                }
+                else if(response['data'] == "existed" )
+                    $.notify('Từ "'+word+'" với nghĩa "'+mean+'" đã có');
+            },
+            error: function(xhr, error) {
+             console.log(error);
+            }
+        });
+    }
 });
