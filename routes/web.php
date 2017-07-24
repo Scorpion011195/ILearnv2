@@ -65,7 +65,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('logout', 'AdminController@logout')->name('adminLogout');
     // Trang chủ
     Route::group(['middleware' =>'AdminLogin'],function(){
-<<<<<<< HEAD
         Route::get('/',function(){
             return view('admin.layouts.ilearn');
         });
@@ -75,7 +74,6 @@ Route::group(['prefix' => 'admin'], function () {
         Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
         Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
         Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
-=======
    	Route::get('/',function(){
    		return view('admin.layouts.ilearn');
    	});
@@ -125,6 +123,5 @@ Route::group(['prefix' => 'admin'], function () {
             // Route::post('updateDetail', 'UserManagementController@postDetailUser')->name('adminPostDetailUser');
 
 
->>>>>>> scr_admin_home
     });
 });
