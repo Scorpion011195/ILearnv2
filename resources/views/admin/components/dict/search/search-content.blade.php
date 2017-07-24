@@ -1,8 +1,4 @@
-  @if(isset($countTo))
-  <div class="{{ $errors->has($countTo) ? ' has-error' : '' }}" style="">
-    <p class="help-block" style="color: red"><span class="glyphicon glyphicon-warning-sign"></span> <strong>Không có từ này trong hệ thống!</strong></p>
-  </div>
-@endif
+
   <div class="panel">
       <div class="panel-body">
           <div class="row">
@@ -69,6 +65,7 @@
 
                           <tbody>
                                 @foreach($results as $key =>$value)
+                                <?php $count = count($results) ?>
                                  <tr role="row" class="odd" id="_tr">
                                   <td class="_word-id text-center align--vertical-middle" data-id="{{$value->id}}">{{$value->id}}</td>
                                   <td class="_word align--vertical-middle" id="_td-word{!! $value->id !!}">{{$value->word}}</td>
@@ -86,6 +83,9 @@
               <div class="row">
                   <div class="col-sm-5">
                       <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
+                      @if(isset($count))
+                      <p>Có kết quả được {{$count}} tìm thấy</p>
+                      @endif
                       </div>
                   </div>
                   <div class="col-sm-7">

@@ -110,18 +110,19 @@ class DictionaryManagementController extends Controller
     $typeWord = $request->typeWord;
     $languageFrom = $request->languageFrom;
 
-    if($textSeach == NULL && $typeWord != NULL && $languageFrom != NULL){
-        return view('admin.pages.dict.search')->with
-                                              ([
-                                                'typeWord' => $typeOfWord,
-                                                'Lg'=> $lang
-                                              ])->render();
+    if($textSeach !== NULL && $typeWord != NULL){
+     $result = DB::table('dictionarys')->where ('word','like','%'.$textSeach.'%')->get();
+     return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
     }
-    $result = DB::table('dictionarys')->
-                                        where ('word','like','%'.$textSeach.'%')->
-                                        where('type_word', '=', $typeWord)->get();
-    $count = count($result);
-    return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result,'countTo' =>$count,])->render();
+    if($typeWord != NULL && $typeWord != NULL){
+      $result = DB::table('dictionarys')->where ('type_word',' =',$typeWord)->get();
+      return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
+    }
+    if($typeWord != NULL){
+      $result = DB::table('dictionarys')->where ('language_id',' =',$languageFrom)->get();
+      return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
+    }
+    return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
   }
 
   function deleteWord(Request $request)
@@ -150,6 +151,9 @@ class DictionaryManagementController extends Controller
     return json_encode($dataResponse);
   }
 
+  public function collection(request $request){
+    return view('welcome');
+  }
   public function upload()
   {
     $params = ['codeLanguageVdict' => MyConstant::CRAWLER_VDICT_NAME];

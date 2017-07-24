@@ -88,6 +88,8 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('update', 'DictionaryManagementController@updateWord');
         // Upload file
             Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
+        // Collection 
+            Route::POST('collect','DictionaryManagementController@collection')->name('adminCollection');
         });
         // Thông tin cá nhân
         Route::group(['prefix' => 'profile','middleware'=>'AdminLogin'], function () {
