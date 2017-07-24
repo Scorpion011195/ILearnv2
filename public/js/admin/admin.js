@@ -98,7 +98,8 @@ $(document).ready(function(){
     $(document).on('submit', '#form_upload', function(evt){
         $('.btn_upload').prop('disabled', true);
 
-        var alertWaiting = '<div><b><span class="glyphicon glyphicon-warning-sign"></span> Quá trình upload đang diễn ra, xin bạn vui lòng đợi trong giây lát...</b></div>'
+        //var alertWaiting = '<div><b><span class="glyphicon glyphicon-warning-sign"></span> Quá trình upload đang diễn ra, xin bạn vui lòng đợi trong giây lát...</b></div>'
+        var alertWaiting = '<div class="loader"></div>';
         $('.alert_waiting').replaceWith(alertWaiting);
 
         return true;
