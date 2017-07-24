@@ -74,6 +74,4 @@ Route::group(['prefix' => 'admin'], function () {
     Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
     Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
     Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
-    });
 });
-// END ADMIN

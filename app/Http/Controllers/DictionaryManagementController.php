@@ -6,9 +6,9 @@ use Session;
 use App\Models\Dictionary;
 use App\Services\DictionaryService;
 use App\Http\Requests\AdminAddWordRequest;
-use App\Http\Requests\AdminSearchWordRequest;
 
-class DictionaryManagementController extends Controller
+use App\Http\Requests\AdminSearchWordRequest;
+class DictionaryManagementController extends Controller 
 {
   private $dictService;
 
