@@ -65,13 +65,14 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('logout', 'AdminController@logout')->name('adminLogout');
     // Trang chủ
     Route::group(['middleware' =>'AdminLogin'],function(){
-    Route::get('/',function(){
-        return view('admin.layouts.ilearn');
+        Route::get('/',function(){
+            return view('admin.layouts.ilearn');
+        });
+        //  add word
+        Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
+        Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
+        Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
+        Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
+        Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
     });
-    //  add word
-    Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
-    Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
-    Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
-    Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
-    Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
 });
