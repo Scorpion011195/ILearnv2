@@ -1,9 +1,24 @@
+
     <div class="panel">
         <div class="panel-body">
             <form action="{{ route('adminSearchUser')}}" method="get" role="form">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <h4><b>Tìm theo:</b></h3>
+                    <div class="row">
+                        
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <h4><b>Tìm theo:</b></h4>
+                        </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                            @if(isset($message))
+                                <div class="message">
+                                    <p class="help-block">
+                                    <span class="glyphicon glyphicon-warning-sign"></span>
+                                    <strong>{{$message}}</strong></p>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
                 </div>
                     <div class="col-sm-5">
                         {!! csrf_field() !!}
@@ -11,7 +26,7 @@
                             <span class="input-group-addon" id="basic-addon1" >
                                 <label class="control-label col-sm-4 text-center-vertical text-right">Tên tài khoản</label>
                             </span>
-                            <input type="text" class="form-control" id="name" placeholder="Input field" maxlength ="32" name="nameSearch">
+                            <input type="text" class="form-control" id="name" placeholder="Nhập tên tài khoản" maxlength ="32" name="nameSearch">
                         </div>
                     </div>
                 <div class="col-sm-5">
@@ -33,7 +48,7 @@
                 <div class="col-sm-4">
                 </div>
                 <div class="col-sm-8">
-                  @if ($errors->has('_keytaikhoan'))
+                  @if ($errors->has(''))
                   <div class="{{ $errors->has('_keytaikhoan') ? ' has-error' : '' }}">
                     <p class="help-block"><span class="glyphicon glyphicon-warning-sign"></span>   <strong>{!! $errors->first('_keytaikhoan') !!}</strong></p>
                 </div>

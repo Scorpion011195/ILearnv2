@@ -9,6 +9,7 @@
     </div>
   @endif
 @endif
+
     <!-- /.box-header -->
         <div id="example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
             <div class="row">
@@ -17,64 +18,103 @@
                     aria-describedby="example1_info">
                     <thead>
                         <tr role="row">
-                            <th class="text-center col--width05" aria-controls="example1" rowspan="1" colspan="1"
+                            <th class="text-center " aria-controls="example1" rowspan="1" colspan="1"
                             aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"
                             >ID
                             </th>
-                            <th class="text-center col--width3" aria-controls="example1" rowspan="1" colspan="1"
+                            <th class="text-center " aria-controls="example1" rowspan="1" colspan="1"
                         aria-label="Browser: activate to sort column ascending">Tài khoản
                             </th>
-                            <th class="text-center col--width2" aria-controls="example1" rowspan="1" colspan="1"
+                            <th class="text-center " aria-controls="example1" rowspan="1" colspan="1"
                     aria-label="Platform(s): activate to sort column ascending">
                     Tình trạng
                             </th>
-                            <th class="text-center col--width2" aria-controls="example1" rowspan="1" colspan="1"
+                            <th class="text-center " aria-controls="example1" rowspan="1" colspan="1"
                 aria-label="Engine version: activate to sort column ascending">
                 Quyền
                             </th>
-                            <th class="text-center col--width2" aria-controls="example1" rowspan="1" colspan="1"
+                            <th class="text-center " aria-controls="example1" rowspan="1" colspan="1"
             aria-label="CSS grade: activate to sort column ascending">Ngày đăng ký
                             </th>
-                            <th class="text-center col--width2" aria-controls="example1" rowspan="1" colspan="1"
+                            <th class="text-center " aria-controls="example1" rowspan="1" colspan="1"
         aria-label="CSS grade: activate to sort column ascending">Hành động
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        
-                        @if(isset($dataSearch))
-                            @foreach($dataSearch as $value)
-                                <tr role="row" class="odd text-center">
-                                    <td class="softing_1"> {{$value->id}}</td>
-                                    <td class="softing_1"> {{$value->username}}</td>
-                                    <td class="softing_1" id ="{{$value->status}}">@if($value->status == 1)Hoạt Động @else Block @endif</td>
-                                    <td class="softing_1"> {{$value->role_id}}</td>
-                                    <td class="softing_1"> {{$value->created_at}}</td>
-                                    <td colspan="" rowspan="" headers=""><i class="fa fa-trash"></i></td>
-                                </tr>
-                            @endforeach
-                        @else
-                            @foreach($dataList as $value)
-                                <tr role="row" class="odd text-center">
-                                    <td class="softing_1"> {{$value->id}}</td>
-                                    <td class="softing_1"> {{$value->username}}</td>
-                                    <td class="softing_1" id ="{{$value->status}}">@if($value->status == 1)Hoạt Động @else Block @endif</td>
-                                    <td class="softing_1"> {{$value->role_id}}</td>
-                                    <td class="softing_1"> {{$value->created_at}}</td>
-                                    <td colspan="" rowspan="" headers=""><i class="fa fa-trash"></i></td>
-                                </tr>
-                            @endforeach
-                        @endif
-                    </tbody>
-                    </table>
-                </div>
+                    <tbody>     
+                    @if(isset($dataSearch))
+                        @foreach($dataSearch as $value)
+                            <tr role="row" class="odd text-center">
+                                <td class="_user-id softing_1" data-id="{{$value->id}}"> {{$value->id}}</td>
+                                <td class="_user-name softing_1"> {{$value->username}}</td>
+                                <td class="softing_1" id ="{{$value->status}}">
+                                    <select class="form-control" id="sel1" value="">
+                                    @if( $value->status == 1) 
+                                        <option id="1" selected  >Hoạt động</option>
+                                         <option id="0" >Block</option>
+                                    @else($value->status = 0)
+                                        <option  id="0"selected ">Block</option>
+                                        <option id="1">Hoạt động</option>
+                                    @endif
+                                </select>
+                                </td>
+                                <td class="softing_1">
+                                    <select class="form-control" id="selRole">
+                                        @foreach($roleUser as $role)
+                                            @if($value->role_id == $role->id)
+                                                <option id = "role"  value="{{$role->id}}" selected>{{$role->role}}</option>
+                                            @else
+                                                <option id ="role" value="{{$role->id}}" >{{$role->role}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td class="softing_1"> {{$value->created_at}}</td>
+                                <td class="delete softing_1"><i class="fa fa-trash"></i></td>
+                            </tr>
+                        @endforeach
+                    @else
+                        @foreach($dataList as $value)
+                            <tr role="row" class="odd text-center">
+                                <td class="_user-id softing_1" data-id="{{$value->id}}"> {{$value->id}}</td>
+                                <td class="_user-name softing_1"> {{$value->username}}</td>
+                                <td class="softing_1" id ="{{$value->status}}">
+                                    <select class="form-control" id="sel1" value="{{$value->status}}">
+                                    @if( $value->status == 1) 
+                                        <option selected>Hoạt động</option>
+                                         <option>Block</option>
+                                    @else($value->status = 0)
+                                        <option  >Block</option>
+                                         <option>Hoạt động</option>
+                                    @endif
+                                </select>
+                                </td>
+                                <td class="softing_1">
+                                    <select class="form-control" id="selRole">
+                                        @foreach($roleUser as $role)
+                                            @if($value->role_id == $role->id)
+                                                <option id ="role" value="{{$role->id}}" selected>{{$role->role}}</option>
+                                            @else
+                                                <option id ="role" value="{{$role->id}}" >{{$role->role}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td class="softing_1"> {{$value->created_at}}</td>
+                                <td class="softing_1"><a class="delete"><i class="fa fa-trash"></i></a></td>
+                            </tr>
+                        @endforeach
+                    @endif
+                </tbody>
+                </table>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-5">
-                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Tổng cộng có  tài khoản
-                </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Tổng cộng <b style="color: red;">{{$count}}</b> có tài khoản
             </div>
-            <div class="col-sm-7"></div>
         </div>
+        <div class="col-sm-7"></div>
+    </div>
 

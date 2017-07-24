@@ -25,3 +25,7 @@ input{
 .has--success {
     color: #3c8dbc !important;
 }
+.message{
+	color: red;
+	background-color: red;
+}
