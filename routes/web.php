@@ -106,7 +106,7 @@ Route::group(['prefix' => 'admin'], function () {
         // Change Status
             Route::post('status', 'UserManagementController@changeStatus');
         // Chang role
-             Route::post('role', 'UserManagementController@changeRole');
+            Route::post('role', 'UserManagementController@changeRole');
         // Delete user
             Route::post('deleteUser', 'UserManagementController@deleteUser');
 

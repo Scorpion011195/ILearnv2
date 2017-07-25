@@ -54,23 +54,19 @@ $(document).ready(function() {
           ajaxUpdateWord(idWord, updateWord, updatePronoun, _token);
         }
     });
+
     // change role
-      $(document).on('change','#selRole',function(evt){
-        var _element = $(this).closest('tr');
-        var idRole = $(this).val();
-        var _token = $('input[name=_token]').val();
-        var id = _element.find('._user-id').text();
-        var userName = _element.find('._user-name').text();
+    $(document).on('change','#selRole',function(evt){
+      var _element = $(this).closest('tr');
+      var idRole = $(this).val();
+      var _token = $('input[name=_token]').val();
+      var id = _element.find('._user-id').text();
+      var userName = _element.find('._user-name').text();
 
-        ajaxChangeRole(id,idRole, _token, userName);
+      ajaxChangeRole(id,idRole, _token, userName);
     });
-      // chang status
-      $(document).on('change','#sel1',function(evt){
-        var _element = $(this).closest('tr');
-        var Status = $(this).val();
-        var _token = $('input[name=_token]').val();
-        var id = _element.find('._user-id').text();
 
+<<<<<<< HEAD
          ajaxChangeStatus(id,Status, _token);
       });
       $(document).on('click','.delete',function(evt){
@@ -86,8 +82,24 @@ $(document).ready(function() {
               },
          });
          $(this).confirmation('show');
+=======
+    // chang status
+    $(document).on('change','#sel1',function(evt){
+      var _element = $(this).closest('tr');
+      var Status = $(this).val();
+      var _token = $('input[name=_token]').val();
+      var id = _element.find('._user-id').text();
 
-      });
+       ajaxChangeRole(id,Status, _token);
+    });
+    $(document).on('click','.delete',function(evt){
+      var _element = $(this).closest('tr');
+      var _token = $('input[name=_token]').val();
+      var id = _element.find('._user-id').text();
+      ajaxDeleteUser(id,_element,_token);
+    });
+>>>>>>> master
+
     // DeleteWord
     function ajaxDeleteWord(_element, idWord, _token, word){
         $.ajax({

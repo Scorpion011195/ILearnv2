@@ -55,6 +55,9 @@ $(document).ready(function(){
         var mean = $(this).closest('ul').find('b').text();
         var _token = $('input[name=_token]').val();
 
+        word = htmlEntities(word);
+        mean = htmlEntities(mean);
+
         ajaxAddWordToMyWords(word, langPairName, langPairId, typeWord, mean, _token);
     });
 
@@ -118,7 +121,7 @@ $(document).ready(function(){
         });
     }
 
-    // Delete word in my history 
+    // Delete word in my history
     $(document).on('click' , '.deleteWordHistory', function(){
         var id = $(this).attr('data-id');
         var _token = $('input[name=_token]').val();
@@ -161,7 +164,7 @@ $(document).ready(function(){
         });
     }
 
-    //ADD WORD FROM MY HISTORY 
+    //ADD WORD FROM MY HISTORY
 
     $(document).on('click', '#btnAddHistory', function(){
         var typeWord = $("#typeWord").val();
@@ -171,11 +174,17 @@ $(document).ready(function(){
         var langPairId = $('#lagPair :selected').val();
         var _token = $('input[name=_token]').val();
 
+        fromText = htmlEntities(fromText);
+        toText = htmlEntities(toText);
+
         addWordUserFromMyHistory(typeWord, fromText, toText, langPairName, langPairId, _token);
     });
 
-    //Function ajax add word in my history on word_users
+    function htmlEntities(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
 
+    //Function ajax add word in my history on word_users
     function addWordUserFromMyHistory(typeWord, fromText, toText, langPairName, langPairId, _token)
     {
         $.ajax({
@@ -192,7 +201,7 @@ $(document).ready(function(){
                     $.notify('Đã thêm từ "'+fromText+'" với nghĩa "'+toText+'" vào lịch sử!', "success");
                 }
                 else if(response["data"]== false){
-                    $.notify('Từ "'+ fromText +'" với nghĩa "'+ toText +'" đã có!', "success");
+                    $.notify('Từ "'+ fromText +'" với nghĩa "'+ toText +'" đã có!', "warn");
                 }
                 // else if(response["data"]== 'invalidate'){
                 //     $.notify('Từ không hợp lệ!', "warn");
@@ -210,7 +219,7 @@ $(document).ready(function(){
         });
     }
 
-    //Create table to save value when user add word 
+    //Create table to save value when user add word
 
     function getRowAddHistory(fromText, toText, typeWord, langPairName, id){
         return '<tr>'+
@@ -225,7 +234,7 @@ $(document).ready(function(){
                         '<span>'+
                             '<a class="fa fa-trash-o fa-1x deleteWordHistory" data-toggle="tooltip" data-placement="left" title="Xóa!" data-id="'+id+'"></a>'+
                         '</span>'+
-                    '</td>'+ 
+                    '</td>'+
                 '</tr>';
     }
 });

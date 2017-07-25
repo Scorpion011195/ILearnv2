@@ -48,11 +48,7 @@
 									<ul class="il-list">
 									    <span hidden>{{ $language->type_word }}</span>
 										<span class="glyphicon glyphicon-hand-right _push-his _tooltip-me" id="_id{!! $language -> id!!}" title="Thêm vào Từ của tôi"></span>&nbsp;
-<<<<<<< HEAD
-										<b contenteditable>{!! $language->word!!}</b>								
-=======
-										<b>{!! $language->word!!}</b>
->>>>>>> master
+										<b contenteditable>{!! $language->word!!}</b>
 									</ul>
 								@endif
 								@if(Auth::guest())
