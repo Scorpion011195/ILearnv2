@@ -55,6 +55,9 @@ $(document).ready(function(){
         var mean = $(this).closest('ul').find('b').text();
         var _token = $('input[name=_token]').val();
 
+        word = htmlEntities(word);
+        mean = htmlEntities(mean);
+
         ajaxAddWordToMyWords(word, langPairName, langPairId, typeWord, mean, _token);
     });
 
@@ -171,11 +174,17 @@ $(document).ready(function(){
         var langPairId = $('#lagPair :selected').val();
         var _token = $('input[name=_token]').val();
 
+        fromText = htmlEntities(fromText);
+        toText = htmlEntities(toText);
+
         addWordUserFromMyHistory(typeWord, fromText, toText, langPairName, langPairId, _token);
     });
 
-    //Function ajax add word in my history on word_users
+    function htmlEntities(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
 
+    //Function ajax add word in my history on word_users
     function addWordUserFromMyHistory(typeWord, fromText, toText, langPairName, langPairId, _token)
     {
         $.ajax({
@@ -192,7 +201,7 @@ $(document).ready(function(){
                     $.notify('Đã thêm từ "'+fromText+'" với nghĩa "'+toText+'" vào lịch sử!', "success");
                 }
                 else if(response["data"]== false){
-                    $.notify('Từ "'+ fromText +'" với nghĩa "'+ toText +'" đã có!', "success");
+                    $.notify('Từ "'+ fromText +'" với nghĩa "'+ toText +'" đã có!', "warn");
                 }
                 // else if(response["data"]== 'invalidate'){
                 //     $.notify('Từ không hợp lệ!', "warn");

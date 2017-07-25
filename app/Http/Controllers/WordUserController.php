@@ -109,6 +109,7 @@ class WordUserController extends Controller
 
     public function postAddWordUserFromMyHistory(Request $request)
     {
+        // Input
         $fromText = $request->fromText;
         $toText = $request->toText;
         $langPairName = $request->langPairName;
