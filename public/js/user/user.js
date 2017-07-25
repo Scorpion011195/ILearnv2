@@ -165,7 +165,6 @@ $(document).ready(function(){
     }
 
     //ADD WORD FROM MY HISTORY
-
     $(document).on('click', '#btnAddHistory', function(){
         var typeWord = $("#typeWord").val();
         var fromText = $("#fromText").val();
