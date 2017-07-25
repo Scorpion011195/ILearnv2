@@ -17,7 +17,7 @@
               <ul class="treeview-menu " id= "list_menu">
                 <li id="_menu-qltd-tt"><a href="{{ route('getAddWord') }}">Thêm từ</a></li>
                 <li id="_menu-qltd-trt"><a href="{{route('adminDisplay')}}">Tra từ</a></li>
-                <li id="_menu-qltd-tk"><a href="{{ route('adminCollection')}}">Thống kê</a></li>
+                <li id="_menu-qltd-tk"><a href="{{ route('adminDictCollect')}}">Thống kê</a></li>
                 <li id="_menu-qltd-tfscv"><a href="{{route('adminUpload')}}">Upload từ điển</a></li>
               </ul>
             </li>

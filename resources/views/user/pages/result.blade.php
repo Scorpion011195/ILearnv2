@@ -48,11 +48,7 @@
 									<ul class="il-list">
 									    <span hidden>{{ $language->type_word }}</span>
 										<span class="glyphicon glyphicon-hand-right _push-his _tooltip-me" id="_id{!! $language -> id!!}" title="Thêm vào Từ của tôi"></span>&nbsp;
-<<<<<<< HEAD
-										<b contenteditable>{!! $language->word!!}</b>								
-=======
-										<b>{!! $language->word!!}</b>
->>>>>>> master
+										<b contenteditable>{!! $language->word!!}</b>
 									</ul>
 								@endif
 								@if(Auth::guest())
@@ -86,7 +82,7 @@
 	<div class="row">
 	  <div class="container">
 	    <div class="col-md-9 col-xs-12 col-sm-6 il-contents">
-		  <div class="fb-comments" data-href="http://localhost/ilearn/public/result" data-width="500" data-numposts="5"></div>
+		  <div class="fb-comments" data-href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']; ?>" data-width="500" data-numposts="5"></div>
 		</div>
 	  </div>
 	</div>

@@ -22,8 +22,8 @@
                     @if(isset($getWordToUser))
                     @foreach($getWordToUser as $getWord)
                     <tr>
-                        <th class="text-center col--width2 wordSetting">{!! $getWord->word!!}</th>
-                        <th class="text-center col--width2 meanSetting">{!! $getWord->mean!!}</th>
+                        <th class="text-center col--width2 wordSetting"><?php echo htmlentities($getWord->word); ?></th>
+                        <th class="text-center col--width2 meanSetting"><?php echo htmlentities($getWord->mean); ?></th>
                         <th class="text-center col--width2">{!! $getWord->type_word!!}</th>
                         <th class="text-center col--width2">{!! $getWord->lang_pair_name!!}</th>
                         @if($getWord->is_notification == 0)
@@ -35,7 +35,7 @@
                             <span>
                                 <a class="fa fa-trash-o fa-1x deleteWordHistory" data-toggle="tooltip" data-placement="left" title="Xóa!" data-id="{!! $getWord->id !!}"></a>
                             </span>
-                        </td>  
+                        </td>
                     </tr>
                     @endforeach
                     @endif

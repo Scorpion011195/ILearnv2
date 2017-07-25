@@ -89,6 +89,11 @@ class DictionaryManagementController extends Controller
         'message' => 'Đã thêm thành công'
         ]);
     }
+    /*Peformance Test with 1000 record*/
+    // for($i = 0; $i <1000; $i ++){
+    //    $data = array('mapping_id'=>$mappingId, 'word'=> md5($fromText), 'language_id' => $fromLg,'type_word' => md5($typeWord),'pronounce' => md5($pronoun));
+    //     DB::table('dictionarys')->insert($data);
+    //   }
   }
 
   public function getSearch(){
