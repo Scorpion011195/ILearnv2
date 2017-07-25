@@ -105,7 +105,7 @@
                 <div class="form-group {{ $errors->has('date_of_birth') ? 'has-error' : '' }}">
                     <label class="col-md-3 control-label">Ngày sinh:</label>
                     <div class="col-md-8">
-                        <input class="form-control" type="date" name= "date_of_birth" value="{{ $user['date_of_birth']}}">
+                        <input class="form-control " type="date" name= "date_of_birth" value="{{ $user['date_of_birth']}}">
                         @if ($errors->has('date_of_birth'))
                           <span class="help-block">
                             <strong>{{ $errors->first('date_of_birth') }}</strong>

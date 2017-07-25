@@ -117,6 +117,8 @@ $(document).ready(function() {
         });
     }
 
+<<<<<<< HEAD
+=======
     function ajaxChangeRole(id,idRole, _token, userName){
       $.ajax({
             url:'role',
@@ -171,6 +173,7 @@ $(document).ready(function() {
       });
     }
 });
+>>>>>>> master
 // End LI tag
 /*TiNyMCE*/
 

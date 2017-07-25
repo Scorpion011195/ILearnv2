@@ -36,16 +36,13 @@ Route::get('result', function(){
     return view('user/pages/result');
 });
 
-Route::get('history', function(){
-    return view('user/pages/history');
-});
-
 Route::get('translate', 'TranslateController@getTranslateParagraph');
 Route::get('translate-paragraph', ['as' => 'translateParagraph', 'uses' => 'TranslateController@translateParagraph']);
 // Route::get('profile', ['as' => 'profile', 'uses'=>'UserController@getShowUser']);
 Route::get('profile', function(){
     return view('user/pages/profile');
 })->middleware('auth');
+
 Route::get('editprofile/{id}', ['as' => 'editprofile/{id}', 'uses' => 'UserController@getEditUser'])->middleware('auth');
 Route::post('editprofile/{id}', ['as' => 'editprofile/{id}', 'uses' => 'UserController@postEditUser'])->middleware('auth');
 //User change password
@@ -53,8 +50,13 @@ Route::get('changePass', ['as' => 'changePass', 'uses' => 'UserController@getCha
 Route::post('changePass', ['as' => 'changePass', 'uses' => 'UserController@postChangePass'])->middleware('auth');
 
 //Language My Word
-
+Route::get('history', 'WordUserController@getAddWordFromSearch');
 Route::post('myWord','WordUserController@addWordFromSearch');
+Route::post('addWordMyHistory', 'WordUserController@postAddWordUserFromMyHistory');
+
+//Notification
+Route::post('notification', 'WordUserController@postUpdateNotification');
+Route::post('deleteWordHistory', 'WordUserController@postDeleteWordHistory');
 
 /*=================ADMIN AREA==================*/
 Route::group(['prefix' => 'admin'], function () {
@@ -65,24 +67,17 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('logout', 'AdminController@logout')->name('adminLogout');
     // Trang chủ
     Route::group(['middleware' =>'AdminLogin'],function(){
+
         Route::get('/',function(){
             return view('admin.layouts.ilearn');
         });
+
         //  add word
         Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
         Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
         Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
         Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
         Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
-   	Route::get('/',function(){
-   		return view('admin.layouts.ilearn');
-   	});
-    //  add word
-    Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
-    Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
-    Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
-    Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
-    Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
 
         /*Quản lý từ điển*/
         Route::group(['prefix' => 'dict','middleware'=>'AdminLogin'], function () {
@@ -98,30 +93,33 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('update', 'DictionaryManagementController@updateWord');
         // Upload file
             Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
-        // Collection 
+        // Collection
             Route::get('collect', 'StatisticManagementController@displayStatisticalResult')->name('adminDictCollect');
             Route::post('collect-added', 'StatisticManagementController@displayStatisticalResultByCondition')->name('adminDictCollectByCondition');
         });
+
         // Thông tin cá nhân
         Route::group(['prefix' => 'profile','middleware'=>'AdminLogin'], function () {
             Route::get('/', 'AdminController@getProfile')->name('adminProfile');
 
             Route::post('/', 'AdminController@updateProfile')->name('updateProfile');
         });
+
         /*Quản lý user*/
         Route::group(['prefix' => 'account','middleware'=>'AdminLogin'], function () {
         // Admin Seach user
             Route::get('get', 'UserManagementController@getAccount')->name('adminUserManagement');
             Route::get('search', 'UserManagementController@searchUser')->name('adminSearchUser');
         // Change Status
-             Route::post('status', 'UserManagementController@changeStatus');
+            Route::post('status', 'UserManagementController@changeStatus');
         // Chang role
              Route::post('role', 'UserManagementController@changeRole');
         // Delete user
-             Route::post('deleteUser', 'UserManagementController@deleteUser');
+            Route::post('deleteUser', 'UserManagementController@deleteUser');
 
-         Route::get('detail/{id}', 'UserManagementController@detailUser')->name('adminGetDetailUser');
+            Route::get('detail/{id}', 'UserManagementController@detailUser')->name('adminGetDetailUser');
             // Route::post('updateDetail', 'UserManagementController@postDetailUser')->name('adminPostDetailUser');
-     });
+        });
     });
 });
+// END ADMIN

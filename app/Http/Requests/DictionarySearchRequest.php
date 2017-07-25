@@ -24,7 +24,7 @@ class DictionarySearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'search' => 'required|max:50',
+            'search' => 'required',
             //
         ];
     }
@@ -33,7 +33,6 @@ class DictionarySearchRequest extends FormRequest
     {
         return [
             'search.required' => 'Bạn chưa nhập từ',
-            'search.max' => 'Từ phải ít hơn 50 kí tự'
         ];
     }
 }
