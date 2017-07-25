@@ -9,28 +9,13 @@ $(document).ready(function () {
 	
 });
 
-//Change password
-$(document).ready(function(){
-	$("#changePassword").change(function()
-	{
-		if($(this).is(":checked"))
-		{
-			$(".password").removeAttr('disabled');
-		}
-		else
-		{
-			$(".password").attr('disabled','');
-		}
-	});
-
-
-	$(".btnSearch").click(function()
-	{
-		var val = $(this).text();
-		$("#txtSearch").val(val);
-		$("#frmSearch").submit();
-	});
-
+//datepicker
+$(document).ready(function () {
+                
+    $('#datepicker').datepicker({
+        format: "yyyy/mm/dd"
+    });  
 
 });
+
 
