@@ -32,7 +32,7 @@ class WordUserController extends Controller
     }
 
     public function addWordFromSearch(Request $request)
-    {   
+    {
     	// Input
         $word = $request->word;
         $langPairName = $request->langPairName;
@@ -46,17 +46,17 @@ class WordUserController extends Controller
         $userId = Auth::user()->id;
 
         //Check Word existed
-        $isWordExist = $this->wordUserService->checkWordUserExist($word, $mean, $typeWord, $langPairName);
+        $isWordExist = $this->wordUserService->checkWordUserExist($word, $mean, $typeWord, $langPairName, $userId);
         if($isWordExist)
         {
             $dataResponse = ["data"=>false];
             return json_encode($dataResponse);
         }
-        else 
+        else
         {
             // Insert to word_users
             $arrMyWord = ['user_id'=>$userId, 'word'=> $word, 'mean'=> $mean, 'type_word'=>$typeWord, 'lang_pair_name'=>$langPairName, 'from_language_id'=>$langPairFrom, 'to_language_id' => $langPairTo,'is_notification'=> 0];
-        
+
             $this->wordUserService->create($arrMyWord);
             $dataResponse = ["data"=>true];
             return json_encode($dataResponse);
@@ -103,7 +103,7 @@ class WordUserController extends Controller
 
         $dataResponse = ['data' => true];
         return json_encode($dataResponse);
-    } 
+    }
 
     //Add Word From My History
 
@@ -120,14 +120,14 @@ class WordUserController extends Controller
 
         $userId = Auth::user()->id;
 
-        // Check word and mean 
+        // Check word and mean
         if(empty($fromText)){
             $dataResponse = ["data"=>'emptyFrom'];
-            return json_encode($dataResponse); 
+            return json_encode($dataResponse);
         }
         if(empty($toText)){
             $dataResponse = ["data"=>'emptyTo'];
-            return json_encode($dataResponse); 
+            return json_encode($dataResponse);
         }
 
         // Check Word existed
@@ -137,11 +137,11 @@ class WordUserController extends Controller
             $dataResponse = ["data"=>false];
             return json_encode($dataResponse);
         }
-        else 
+        else
         {
             // Insert to word_users
             $arrMyWord = ['user_id'=>$userId, 'word'=> $fromText, 'mean'=> $toText, 'type_word'=>$typeWord, 'lang_pair_name'=>$langPairName, 'from_language_id'=>$langPairFrom, 'to_language_id' => $langPairTo,'is_notification'=> 0];
-        
+
             $this->wordUserService->create($arrMyWord);
 
             // Get id of new word;
