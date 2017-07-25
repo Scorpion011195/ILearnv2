@@ -63,8 +63,8 @@
             <div class="input-group ">
               <span class="input-group-addon"><b>Từ</b></span>
               <input size="36" id="msg" required maxlength="50" type="text" class="form-control" name="fromText" placeholder="hello"
-              @if (!$errors->has('fromText'))
-                value="{!! old('fromText') !!}"
+              @if(isset($from))
+                value="{!! $from !!}"
               @endif >
             </div>
             @if ($errors->has('fromText'))
@@ -75,8 +75,8 @@
             <div class="input-group">
               <span class="input-group-addon" disable><b>Nghĩa</b></span>
               <input size="30" id="msg" required maxlength="50" type="text" class="form-control" name="toText" placeholder="xin chào"
-              @if (!$errors->has('fromText')&&!$errors->has('toText'))
-                value="{!! old('toText') !!}"
+              @if (isset($from)&&isset($to))
+                value="{!! $to !!}"
               @endif >
             </div>
             @if ($errors->has('toText')&&!($errors->has('fromText')))
@@ -86,7 +86,10 @@
             <div class="col-sm-6 {{ ($errors->has('pronoun')&&!($errors->has('fromText'))) ? ' has-error' : '' }}" style ="padding-top: 20px">
             <div class="input-group">
               <span class="input-group-addon" disable><b>Phát âm</b></span>
-              <input size="30" id="msg" type="text" class="form-control" name="pronoun" placeholder="heˈlō,həˈlō" >
+              <input size="30" id="msg" type="text" class="form-control" name="pronoun" placeholder="heˈlō,həˈlō" 
+              @if(isset($pronoun) && isset($from))
+                value="{{ $pronoun }}"
+               @endif>
             </div>
             @if ($errors->has('pronoun')&&!($errors->has('fromText')))
             <span class="glyphicon glyphicon-warning-sign help-block--color-apple-blossom"></span>   <strong class="help-block--color-apple-blossom">{!! $errors->first('pronoun') !!}</strong>

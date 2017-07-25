@@ -1,4 +1,6 @@
-
+@if(isset($date) && !isset($user))<p>Tìm kiếm user đăng ký vào ngày :  <b style="color:red"> {{$date}} @endif </b></p>
+@if(isset($user) && !isset($date)) <p>Tìm kiếm user với từ khóa là :  <b style="color:red"> {{$user}} @endif</b></p>
+@if(isset($user) && isset($date)) <p>Tìm kiếm user với tài khoản là:<b style="color:red"> {{$user}}  </b> và ngày là : <b style="color:red"> {{$date}}@endif</b></p>
     <!-- /.box-header -->
         <div id="example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
             <div class="row">
@@ -114,4 +116,5 @@
         </div>
         <div class="col-sm-7"></div>
     </div>
-
+@if(isset($dataList)){!! $dataList->links() !!}@endif
+@if(isset($dataSearch)){!! $dataSearch->links() !!}@endif
