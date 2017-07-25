@@ -49,12 +49,11 @@ class AdminController extends Controller
     }
     function logout(){
         Auth::logout();
-        Session::flush();
-        Session::regenerate();
+        Session::forget('user');
         return redirect()->route('adminGetLogin');
     }
     function getProfile()
-    {   
+    {
         $id = Auth::user()->id;
         if($id == null){
           return redirect()->route('adminGetLogin');
@@ -65,7 +64,7 @@ class AdminController extends Controller
         }
     }
     function updateProfile(AdminGetProfileRequest $request)
-    {   
+    {
 
         $UserId = Auth::user()->id;
         $UserInfomation = User::find($UserId);
