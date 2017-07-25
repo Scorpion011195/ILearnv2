@@ -118,7 +118,7 @@ $(document).ready(function(){
         });
     }
 
-    // Delete word in my history 
+    // Delete word in my history
     $(document).on('click' , '.deleteWordHistory', function(){
         var id = $(this).attr('data-id');
         var _token = $('input[name=_token]').val();
@@ -161,7 +161,7 @@ $(document).ready(function(){
         });
     }
 
-    //ADD WORD FROM MY HISTORY 
+    //ADD WORD FROM MY HISTORY
 
     $(document).on('click', '#btnAddHistory', function(){
         var typeWord = $("#typeWord").val();
@@ -210,7 +210,7 @@ $(document).ready(function(){
         });
     }
 
-    //Create table to save value when user add word 
+    //Create table to save value when user add word
 
     function getRowAddHistory(fromText, toText, typeWord, langPairName, id){
         return '<tr>'+
@@ -225,7 +225,7 @@ $(document).ready(function(){
                         '<span>'+
                             '<a class="fa fa-trash-o fa-1x deleteWordHistory" data-toggle="tooltip" data-placement="left" title="Xóa!" data-id="'+id+'"></a>'+
                         '</span>'+
-                    '</td>'+ 
+                    '</td>'+
                 '</tr>';
     }
 });

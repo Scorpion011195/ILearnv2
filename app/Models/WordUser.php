@@ -10,8 +10,6 @@ class WordUser extends Model
     protected $table="word_users";
     protected $primaryKey = 'id';
 
-    protected $timestamp = False;
-
     protected $fillable = [
     'user_id', 'word', 'mean', 'type_word', 'lang_pair_name', 'from_language_id', 'to_language_id', 'is_notification'];
 
