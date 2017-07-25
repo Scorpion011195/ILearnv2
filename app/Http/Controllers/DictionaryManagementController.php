@@ -54,13 +54,61 @@ class DictionaryManagementController extends Controller
         }else
         {
           $mapping = DB::table('dictionarys')->where('word', $fromText)
-                                            ->where('type_word',$typeWord)
                                             ->where('language_id',$fromLg)
                                             ->value('mapping_id');
           $mappingId = $mapping;
           $dict->word = $toText;
           $dict->type_word = $typeWord;
           $dict->language_id = $toLg;
+          $dict->mapping_id = $mappingId;
+          $dict->pronounce = $pronoun;
+          $dict->save();
+          return view('admin.pages.dict.create')->with
+          ([
+          'languages'=> $lang,
+          'typeWord'=> $typeOfWord,
+          'message' => 'Đã thêm thành công'
+          ]);
+        }
+      }
+    else
+    {
+      $mapping = DB::table('dictionarys')->max('mapping_id');
+      $mappingId = $mapping + 1;
+      $data = array(
+      array('mapping_id'=>$mappingId, 'word'=> $fromText, 'language_id' => $fromLg,'type_word' => $typeWord,'pronounce' => $pronoun),
+      array('mapping_id'=>$mappingId, 'word'=> $toText, 'language_id' => $toLg,'type_word' => $typeWord,'pronounce' => $pronoun),
+      );
+      /* $data add dữ liệu vào DB khi có nhiều hơn 1 value ở single collum*/
+      DB::table('dictionarys')->insert($data);
+      return view('admin.pages.dict.create')->with
+        ([
+        'languages'=> $lang,
+        'typeWord'=> $typeOfWord,
+        'message' => 'Đã thêm thành công'
+        ]);
+    }
+
+    $result = $this->dictService->checkWordExist($toText,$toLg,$typeWord);
+    if($result > 0)
+      {
+        $result = $this->dictService->checkWordExist($fromText,$fromLg,$typeWord);
+        if($result > 0 )
+        {
+          return view('admin.pages.dict.create')->with
+            (['languages'=> $lang,
+              'typeWord'=> $typeOfWord,
+              'message' => 'Từ đã có trong hệ thống'
+            ]);
+        }else
+        {
+          $mapping = DB::table('dictionarys')->where('word', $toText)
+                                            ->where('language_id',$toLg)
+                                            ->value('mapping_id');
+          $mappingId = $mapping;
+          $dict->word = $fromText;
+          $dict->type_word = $typeWord;
+          $dict->language_id = $fromLg;
           $dict->mapping_id = $mappingId;
           $dict->pronounce = $pronoun;
           $dict->save();
