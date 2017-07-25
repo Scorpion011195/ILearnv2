@@ -8,13 +8,7 @@
                       <div class="input-group ">
                         <span class="input-group-addon">Tình trạng</span>
                         <select class="form-control" name="_condition">
-                            @foreach($listSearch as $value)
-                            <option
-                                @if($value == $cbTypeWord)
-                                    {!! "selected" !!}
-                                @endif
-                            >{!! $value !!}</option>
-                            @endforeach
+                            
                         </select>
                       </div>
                       <button type="submit" class="btn btn-info">
@@ -61,24 +55,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($submitions as $row)
-                            <tr role="row" class="odd text-center">
-                                <td>{{ $row->STT }}</td>
-                                <td class='_edit-me'>{!! $row->from_text !!}</td>
-                                <td class='_edit-me'>{!! $row->to_text !!}</td>
-                                <td>{!! $row->from !!}-{!! $row->to !!}</td>
-                                <td>{!! $row->quanlity !!}</td>
-                                <td>{!! $row->type_from !!}</td>
-                                <td>{!! $row->status !!}</td>
-                            </tr>
-                            @endforeach
+                            
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-5">
-                        <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Tổng cộng có {!! $noOfSubmitions !!} kết quả
+                        <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Tổng cộng có  kết quả
                         </div>
                     </div>
                     <div class="col-sm-7">
@@ -86,6 +70,6 @@
                 </div>
             </div>
             <!-- /.Table -->
-        {!! $submitions->links() !!}
+      
         </div>
     </div>

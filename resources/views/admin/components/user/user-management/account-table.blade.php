@@ -1,14 +1,3 @@
-@if (isset($code) && count($errors)<=0)
-  @if($code == "RequestInput")
-    <div>
-        <p class="alert--fail" id="_notify"><span class="glyphicon glyphicon-warning-sign"></span>   Xin hãy nhập Tài khoản hoặc chọn Ngày đăng ký!</p>
-    </div>
-  @elseif($code == "Success")
-    <div>
-        <p class="alert--success" id="_notify"><span class="glyphicon glyphicon-ok"></span>   Có {!! $noOfAccounts !!} kết quả được tìm thấy</p>
-    </div>
-  @endif
-@endif
 
     <!-- /.box-header -->
         <div id="example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
