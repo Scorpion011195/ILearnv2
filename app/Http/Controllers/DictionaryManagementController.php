@@ -40,6 +40,7 @@ class DictionaryManagementController extends Controller
     $fromText = $request->fromText;
     $toText  = $request->toText;
     $pronoun = $request->pronoun;
+    /*Tìm kiếm và kiểm tra từ có trong hệ thống chưa*/
     $result = $this->dictService->checkWordExist($fromText,$fromLg,$typeWord);
     if($result > 0)
       {
@@ -49,7 +50,7 @@ class DictionaryManagementController extends Controller
           return view('admin.pages.dict.create')->with
             (['languages'=> $lang,
               'typeWord'=> $typeOfWord,
-              'message' => 'Từ đã có trong hệ thống'
+              'message' => 'Từ '.$fromText.'  đã có trong hệ thống'
             ]);
         }else
         {
@@ -67,7 +68,10 @@ class DictionaryManagementController extends Controller
           ([
           'languages'=> $lang,
           'typeWord'=> $typeOfWord,
-          'message' => 'Đã thêm thành công'
+          'message' => 'Đã thêm thành công nghĩa '.$toText .'thành công',
+          'to' =>$toText,
+          'from' =>$fromText,
+          'pronoun' =>$pronoun
           ]);
         }
       }
@@ -85,10 +89,13 @@ class DictionaryManagementController extends Controller
         ([
         'languages'=> $lang,
         'typeWord'=> $typeOfWord,
-        'message' => 'Đã thêm thành công'
+        'message' => 'Đã thêm thành công từ '.$fromText.' và nghĩa '.$toText.' thành công',
+        'to' =>$toText,
+        'from' =>$fromText,
+        'pronoun' =>$pronoun
         ]);
     }
-
+// Tìm kiếm và kiểm trá nghĩa xem có tồn tại hay không
     $result = $this->dictService->checkWordExist($toText,$toLg,$typeWord);
     if($result > 0)
       {
@@ -98,7 +105,10 @@ class DictionaryManagementController extends Controller
           return view('admin.pages.dict.create')->with
             (['languages'=> $lang,
               'typeWord'=> $typeOfWord,
-              'message' => 'Từ đã có trong hệ thống'
+              'message' => 'Từ '.$fromText.' đã có trong hệ thống',
+              'to' =>$toText,
+              'from' =>$fromText,
+              'pronoun' =>$pronoun
             ]);
         }else
         {
@@ -116,7 +126,10 @@ class DictionaryManagementController extends Controller
           ([
           'languages'=> $lang,
           'typeWord'=> $typeOfWord,
-          'message' => 'Đã thêm thành công'
+          'message' => 'Đã thêm nghĩa '.$toText.' thành công',
+          'to' =>$toText,
+          'from' =>$fromText,
+          'pronoun' =>$pronoun
           ]);
         }
       }
@@ -134,7 +147,10 @@ class DictionaryManagementController extends Controller
         ([
         'languages'=> $lang,
         'typeWord'=> $typeOfWord,
-        'message' => 'Đã thêm thành công'
+        'message' => 'Đã thêm thành công từ '.$fromText.' và nghĩa '.$toText.' thành công',
+          'to' =>$toText,
+          'from' =>$fromText,
+          'pronoun' =>$pronoun
         ]);
     }
     /*Peformance Test with 1000 record*/
@@ -151,7 +167,7 @@ class DictionaryManagementController extends Controller
                                       ([
                                         'typeWord' => $typeOfWord,
                                         'Lg'=> $lang
-                                      ])->render();
+                                      ]);
   }
 
   public function search(AdminSearchWordRequest $request)
@@ -163,19 +179,41 @@ class DictionaryManagementController extends Controller
     $typeWord = $request->typeWord;
     $languageFrom = $request->languageFrom;
 
-    if($textSeach !== NULL && $typeWord != NULL){
-     $result = DB::table('dictionarys')->where ('word','like','%'.$textSeach.'%')->get();
-     return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
+    if(isset($textSeach)){
+
+      if(isset($typeWord)){
+
+        if(isset($languageFrom)){
+           $result = DB::table('dictionarys')
+           ->where ('word','like','%'.$textSeach.'%')
+           ->where ('type_word','like','%'.$typeWord.'%')
+           ->where ('language_id','=', $languageFrom)
+           ->paginate(10);
+           return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
+        }
+        else{
+          $result = DB::table('dictionarys')
+           ->where ('word','like','%'.$textSeach.'%')
+           ->where ('type_word','=', $typeWord)
+           ->paginate(10);
+           return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
+        }
+
+      }
+      else{
+        $result = DB::table('dictionarys')
+           ->where ('word','like','%'.$textSeach.'%')
+            ->paginate(10);
+      }
+
     }
-    if($typeWord != NULL && $typeWord != NULL){
-      $result = DB::table('dictionarys')->where ('type_word',' =',$typeWord)->get();
-      return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
+    else{
+          return view('admin.pages.dict.search')->with
+          ([
+            'typeWord' => $typeOfWord,
+            'Lg'=> $lang
+          ]);
     }
-    if($typeWord != NULL){
-      $result = DB::table('dictionarys')->where ('language_id',' =',$languageFrom)->get();
-      return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
-    }
-    return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
   }
 
   function deleteWord(Request $request)

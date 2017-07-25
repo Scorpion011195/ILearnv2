@@ -9,7 +9,7 @@ $(document).ready(function() {
               dataType: 'json',
               data :{'typeWord':typeWord,'_token' : _token},
 
-              success: function(html){
+              success: function(evt ){
                       location.reload();
                   }
        	});
@@ -71,13 +71,21 @@ $(document).ready(function() {
         var _token = $('input[name=_token]').val();
         var id = _element.find('._user-id').text();
 
-         ajaxChangeRole(id,Status, _token);
+         ajaxChangeStatus(id,Status, _token);
       });
       $(document).on('click','.delete',function(evt){
         var _element = $(this).closest('tr');
         var _token = $('input[name=_token]').val();
         var id = _element.find('._user-id').text();
-        ajaxDeleteUser(id,_element,_token);
+        $(this).confirmation({
+            title: 'Bạn có muốn user?',
+              onConfirm: function() {
+              ajaxDeleteUser(id,_element,_token);
+              },
+              onCancel: function() {
+              },
+         });
+         $(this).confirmation('show');
 
       });
     // DeleteWord
@@ -90,7 +98,9 @@ $(document).ready(function() {
             success : function(response){
                 if(response['data'] == true){
                    _element.remove();
-                   $.notify("Xóa thành công !", "success");
+                   $.notify("Xóa thành công từ ' "+word+"' ra khỏi hệ thống!", "success");
+                }else{
+                  s.notify("vui lòng thử lại","warn");
                 }
             },
             error: function(xhr, error) {
@@ -117,8 +127,6 @@ $(document).ready(function() {
         });
     }
 
-<<<<<<< HEAD
-=======
     function ajaxChangeRole(id,idRole, _token, userName){
       $.ajax({
             url:'role',
@@ -127,7 +135,7 @@ $(document).ready(function() {
             dataType:'json',
             success : function(response){
               if(response['data']==true){
-                alert("Cập nhật quyền cho " +userName+ " thành công","success");
+                $.notify("Cập nhật quyền cho '" +userName+ "' thành công","success");
 
               }
             },
@@ -136,16 +144,18 @@ $(document).ready(function() {
             }
         });
     }
-    function ajaxChangeRole(id,Status, _token){
+    function ajaxChangeStatus(id,Status, _token){
       $.ajax({
             url:'status',
             method: 'POST',
-            data : {'idUser': id,'status':Status, '_token':_token},
+            data : {'idUser'  : id,'status':Status, '_token':_token},
             dataType:'json',
             success : function(response){
               if(response['data']==true){
-                alert("Cập nhật trạng thái thành công","success");
+                 $.notify("Cập nhật trạng thái thành công","success");
 
+              }else{
+                $.notify("Bạn không thể khóa chính bạn","warn");
               }
             },
             error: function(xhr, error) {
@@ -163,8 +173,11 @@ $(document).ready(function() {
             success : function(response){
               if(response['data']==true){
                 _element.remove();
-                alert("Bạn đã xóa thành công","success");
+               $.notify("Bạn đã xóa thành công","success");
 
+              }
+              else{
+                $.notify( "Bạn không thể xóa chính bạn","warn");
               }
             },
             error: function(xhr, error) {
@@ -173,9 +186,6 @@ $(document).ready(function() {
       });
     }
 });
->>>>>>> master
-// End LI tag
-/*TiNyMCE*/
 
 $(document).ready(function(){
     $(document).on('submit', '#form_upload', function(evt){

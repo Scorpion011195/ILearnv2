@@ -72,21 +72,14 @@ Route::group(['prefix' => 'admin'], function () {
             return view('admin.layouts.ilearn');
         });
 
-        //  add word
-        Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
-        Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
-        Route::GET('search','DictionaryManagementController@search')->name('adminSearch');
-        Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
-        Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
-
         /*Quản lý từ điển*/
-        Route::group(['prefix' => 'dict','middleware'=>'AdminLogin'], function () {
+        Route::group(['prefix' => 'dict'], function () {
         //  add word
             Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
             Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
         // Search word
             Route::GET('search','DictionaryManagementController@getSearch')->name('adminDisplay');
-            Route::GET('search/result','DictionaryManagementController@search')->name('adminSearch');
+            Route::POST('search','DictionaryManagementController@search')->name('adminSearch');
         // Delete Word
             Route::post('delete', 'DictionaryManagementController@deleteWord');
         // Update từ
@@ -99,14 +92,14 @@ Route::group(['prefix' => 'admin'], function () {
         });
 
         // Thông tin cá nhân
-        Route::group(['prefix' => 'profile','middleware'=>'AdminLogin'], function () {
+        Route::group(['prefix' => 'profile'], function () {
             Route::get('/', 'AdminController@getProfile')->name('adminProfile');
 
             Route::post('/', 'AdminController@updateProfile')->name('updateProfile');
         });
 
         /*Quản lý user*/
-        Route::group(['prefix' => 'account','middleware'=>'AdminLogin'], function () {
+        Route::group(['prefix' => 'account'], function () {
         // Admin Seach user
             Route::get('get', 'UserManagementController@getAccount')->name('adminUserManagement');
             Route::get('search', 'UserManagementController@searchUser')->name('adminSearchUser');

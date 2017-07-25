@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Session;
 use DB;
-use Input;
+use Input;   
 use App\Services\UserInformationService;
 use App\Models\UserInformation;
 use App\Services\UserService;
@@ -30,6 +30,10 @@ class AdminController extends Controller
         else{
             return view('admin.pages.login');
    		}
+        if ($user->delete()) {
+
+            return Redirect::route('admin.pages.login');
+        }
 	}
     function postLogin(AdminLoginRequest $request)
     {
@@ -49,8 +53,7 @@ class AdminController extends Controller
     }
     function logout(){
         Auth::logout();
-        Session::flush();
-        Session::regenerate();
+        Session::forget('user');
         return redirect()->route('adminGetLogin');
     }
     function getProfile()
