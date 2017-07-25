@@ -18,16 +18,21 @@ class WordUserController extends Controller
     }
     public function getAddWordFromSearch()
     {
-        // $language = DB::table('languages')->select('name_language')->get();
-        // $typeWordName = DB::table('type_words')->select('name_type_word')->get();
+        $user_id = Auth::user()->id;
         $language = $this->wordUserService->getLanguages();
         $typeWordName = $this->wordUserService->getTypeWord();
-        $getWordToUser = $this->wordUserService->getWordUser();
-
+        $getWordToUser = $this->wordUserService->getWordUser($user_id);
+        $getTypeReminder = $this->wordUserService->getTypeReminder();
+        $getTimeReminder = $this->wordUserService->getTimeReminder();
+        $getSettingUser = $this->wordUserService->getSettingUser($user_id);
+        
         return view('user.pages.history')->with([
                 'language' => $language,
                 'typeWordName' => $typeWordName,
-                'getWordToUser' => $getWordToUser
+                'getWordToUser' => $getWordToUser,
+                'getTypeReminder' => $getTypeReminder,
+                'getTimeReminder' => $getTimeReminder,
+                'getSettingUser' => $getSettingUser
             ]);
     }
 

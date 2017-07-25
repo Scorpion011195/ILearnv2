@@ -27,9 +27,9 @@ class DictionaryController extends Controller
     }
 
     public function postSearchDictionary(DictionarySearchRequest $request)
-    {   
-       
+    {      
     	$inputText = $request->input('search');
+        $inputText = $this->lang->htmlEntities($inputText);
         $arrResultSearch = $this->lang->findWord($inputText);
     	$wordInfo = $arrResultSearch[1];
         $oldLangPair = $arrResultSearch[0];
@@ -141,4 +141,5 @@ class DictionaryController extends Controller
                 ]);
 
     }
+
 }

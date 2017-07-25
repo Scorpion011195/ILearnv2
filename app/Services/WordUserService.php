@@ -21,11 +21,25 @@ class WordUserService extends BaseService implements WordUserRepository {
     	return DB::table('type_words')->select('name_type_word')->get();
     }
 
-    public function getWordUser()
+    public function getWordUser($user_id)
     {
-    	return DB::table('word_users')->get();
+    	return DB::table('word_users')->where('user_id', '=', $user_id)->get();
     }
 
+    public function getTypeReminder()
+    {
+        return DB::table('type_reminders')->get();
+    }
+
+    public function getTimeReminder()
+    {
+        return DB::table('time_reminders')->get();
+    }
+
+    public function getSettingUser($user_id)
+    {
+        return DB::table('setting_users')->where('user_id', '=', $user_id)->first();
+    }
 
     public function checkWordUserExist($word, $mean, $type_word, $lang_pair_name, $userId)
     {

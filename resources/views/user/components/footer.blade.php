@@ -7,8 +7,12 @@
 		</div>
 		<div class='col-md-12 il-footer'>
 			Liên kết: <a href="{{url('home')}}" title="">Từ điển</a> | 
-			<a href="" title="{{url('')}}">Dịch văn bản</a> | 
-			<a href="{{url('')}}">Từ của tôi</a> | 
+			<a href="{{url('translate')}}" title="">Dịch văn bản</a> | 
+			@if(Auth::guest())
+			<a href="{{url('notify')}}">Từ của tôi</a> | 
+			@else
+			<a href="{{url('history')}}">Từ của tôi</a> |
+			@endif
 			<a href="{{url('login')}}" title=""> Đăng nhập</a> |
 			<a href="{{url('register')}}">Đăng kí</a>
 		</div>

@@ -11,6 +11,14 @@ $(document).ready(function () {
 
 //datepicker
 $(document).ready(function () {
+
+	$(".btnSearch").click(function()
+	{
+		var val = $(this).text();
+		$("#txtSearch").val(val);
+		$("#frmSearch").submit();
+	});
+	
                 
     $('#datepicker').datepicker({
         format: "yyyy/mm/dd"

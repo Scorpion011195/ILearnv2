@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UserProfileRequest;
@@ -19,8 +19,14 @@ use Validator;
 use Illuminate\Support\MessageBag;
 use App\ModelViews\UserViewModel;
 
-class UserController extends Controller
+
+class UserController extends Controller 
 {
+    public function __construct(UserRepository $user)
+    {
+        $this->user = $user;
+    }
+
     // Get user login
     public function getLogin()
     {
@@ -144,17 +150,21 @@ class UserController extends Controller
             Image::make($image)->resize(960,640)->save(public_path('/uploads/images/' . $filename));
 
             $user->name = $request->name;
+            $user->name = $this->user->htmlEntities($user->name);
             $user->phone = $request->phone;
             $user->image = $filename;
             $user->address = $request->address;
+            $user->address = $this->user->htmlEntities($user->address);
             $user->date_of_birth = date('Y-m-d',strtotime($request->date_of_birth)); 
             $user->save();
 
             return redirect('editprofile/'. $id)->with('status', 'Chỉnh sửa thông tin thành công');
         } else {
             $user->name = $request->name;
+            $user->name = $this->user->htmlEntities($user->name);
             $user->phone = $request->phone;
             $user->address = $request->address;
+            $user->address = $this->user->htmlEntities($user->address);
             $user->date_of_birth = date('Y-m-d',strtotime($request->date_of_birth)); 
             $user->save();
 
