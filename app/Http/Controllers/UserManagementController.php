@@ -8,6 +8,12 @@ use App\Models\User;
 
 class UserManagementController extends Controller
 {
+    function detailUser(request $request){
+        $id =$request->id;
+        $data = DB::table('users')->where('id',$id)->get();
+
+        return view('admin.pages.user.user-management.detail-user')->with(['data'=>$data]);
+    }
     public function getAccount(){
     	 $listUser = DB::table('users')->get();
     	   $role = DB::table('role_users')->get();
@@ -19,14 +25,14 @@ class UserManagementController extends Controller
     public function searchUser(request $request){
 
     	 $user = $request->nameSearch;
-         $date = date('Y-m-d', strtotime($request->dateSeach));
-         $formatdate = '1970-01-01';
+         $date = $request->dateSearch;
     	 $role = DB::table('role_users')->get();
     	 $listUser = DB::table('users')->get();
 
     	 if($user == null && $date == null){
     	 	$message = "Vui lòng nhập từ hoặc chọn ngày để tìm kiếm";
-    	 	return view('admin.pages.user.user-management.user-management')->with(['message'=>$message,'dataList'=>$listUser,'roleUser'=> $role]);
+            $count = 0;
+    	 	return view('admin.pages.user.user-management.user-management')->with(['message'=>$message,'dataList'=>$listUser,'roleUser'=> $role,'count'=>$count]);
     	 }
          else{
         	 if($user !== null && $date == null){

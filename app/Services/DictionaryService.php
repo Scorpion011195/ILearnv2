@@ -16,7 +16,7 @@ class DictionaryService extends BaseService implements DictionaryRepository {
 
     public function checkWordExist($word, $typeWord, $languageId)
     {
-        $result = DB::table('dictionarys')->where('word', '=', $word)->where('type_word', '=', $typeWord)->where('language_id','=', $languageId)->get();
+        $result = DB::table('dictionarys')->where('word', '=', $word)->get();
         $count = $result->count();
         if($count > 0){
             return true;

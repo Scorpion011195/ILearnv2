@@ -44,8 +44,9 @@
                     <tbody>     
                     @if(isset($dataSearch))
                         @foreach($dataSearch as $value)
+                        <?php $id = $value->id ?>
                             <tr role="row" class="odd text-center">
-                                <td class="_user-id softing_1" data-id="{{$value->id}}"> {{$value->id}}</td>
+                                <td class="_user-id softing_1" data-id="{{ $id }}"> {{ $id }}</td>
                                 <td class="_user-name softing_1"> {{$value->username}}</td>
                                 <td class="softing_1" id ="{{$value->status}}">
                                     <select class="form-control" id="sel1" value="">
@@ -70,13 +71,17 @@
                                     </select>
                                 </td>
                                 <td class="softing_1"> {{$value->created_at}}</td>
-                                <td class="delete softing_1"><i class="fa fa-trash"></i></td>
+                                <td class="softing_1"> 
+                                 <a class="edit" href="{{ route('adminGetDetailUser',$value->id) }}"><i class="fa fa-pencil"></i></a>
+                                <a class="delete" ><i class="fa fa-trash"></i></a>
+                                </td>
                             </tr>
                         @endforeach
                     @else
                         @foreach($dataList as $value)
+                        <?php $id = $value->id ?>
                             <tr role="row" class="odd text-center">
-                                <td class="_user-id softing_1" data-id="{{$value->id}}"> {{$value->id}}</td>
+                                <td class="_user-id softing_1" data-id="{{ $id }}"> {{ $id }}</td>
                                 <td class="_user-name softing_1"> {{$value->username}}</td>
                                 <td class="softing_1" id ="{{$value->status}}">
                                     <select class="form-control" id="sel1" value="{{$value->status}}">
@@ -101,7 +106,10 @@
                                     </select>
                                 </td>
                                 <td class="softing_1"> {{$value->created_at}}</td>
-                                <td class="softing_1"><a class="delete"><i class="fa fa-trash"></i></a></td>
+                                <td class="softing_1"> 
+                                <a class="edit" href="{{route('adminGetDetailUser',$id)}}"><i class="fa fa-pencil"></i></a>
+                                <a class="delete"><i class="fa fa-trash"></i></a>
+                                </td>
                             </tr>
                         @endforeach
                     @endif
@@ -112,7 +120,7 @@
     </div>
     <div class="row">
         <div class="col-sm-5">
-            <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Tổng cộng <b style="color: red;">{{$count}}</b> có tài khoản
+            <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Tổng cộng có <b style="color: red;">{{$count}} tài khoản</b>
             </div>
         </div>
         <div class="col-sm-7"></div>
