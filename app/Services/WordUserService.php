@@ -23,7 +23,7 @@ class WordUserService extends BaseService implements WordUserRepository {
 
     public function getWordUser($user_id)
     {
-    	return DB::table('word_users')->where('user_id', '=', $user_id)->get();
+    	return DB::table('word_users')->where('user_id', '=', $user_id)->paginate(5);
     }
 
     public function getTypeReminder()

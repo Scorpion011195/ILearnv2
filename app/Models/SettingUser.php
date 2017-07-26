@@ -20,13 +20,13 @@ class SettingUser extends Model
    		return $this->belongsTo('App\Models\User','user_id');
     }
 
-    function TimeReminder()
+    function timeReminder()
     {
-    	return $this->belongsTo('TimeReminder', 'time_reminder_id');
+    	return $this->belongsTo('App\Models\TimeReminder', 'time_reminder_id', 'id');
     }
-    function TypeReminder()
+    function typeReminder()
     {
-    	return $this->belongsTo('TypeReminder','type_reminder_id');
+    	return $this->belongsTo('App\Models\TypeReminder','type_reminder_id', 'id');
     }
 
 }
