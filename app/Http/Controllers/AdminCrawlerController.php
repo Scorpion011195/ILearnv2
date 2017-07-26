@@ -211,12 +211,14 @@ class AdminCrawlerController extends Controller
             DB::commit();
             $success = true;
         } catch (\Exception $e) {
-            var_dump($e);
-            die;
-            $success = false;
             DB::rollback();
+            $this->dictService->setIsUpload(0);// Turn off 0: end upload
+            DB::commit();
+            $success = false;
         }
+
         fclose($content);
+
         if ($success) {
             $this->dictService->setIsUpload(0);// Turn off 0: end upload
             DB::commit();
