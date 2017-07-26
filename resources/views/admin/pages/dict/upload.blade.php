@@ -1,7 +1,7 @@
 @extends('admin.layouts.ilearn')
 
 @section('title')
-    Thêm file csv
+    Upload từ điển
 @endsection
 
 @section('content-header')
@@ -10,8 +10,4 @@
 
 @section('content')
     @include('admin.components.dict.upload.upload-content')
-@endsection
-
-@section('script')
-    <script src="{!! asset('js/admin/admin-upload.js') !!}"></script>
 @endsection
