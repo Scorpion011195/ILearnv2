@@ -71,7 +71,7 @@ $(document).ready(function() {
         var _token = $('input[name=_token]').val();
         var id = _element.find('._user-id').text();
         $(this).confirmation({
-            title: 'Bạn có muốn user?',
+            title: 'Bạn có muốn xóa user?',
               onConfirm: function() {
               ajaxDeleteUser(id,_element,_token);
               },
@@ -79,6 +79,7 @@ $(document).ready(function() {
               },
          });
          $(this).confirmation('show');
+      });
     // chang status
     $(document).on('change','#sel1',function(evt){
       var _element = $(this).closest('tr');
@@ -86,7 +87,7 @@ $(document).ready(function() {
       var _token = $('input[name=_token]').val();
       var id = _element.find('._user-id').text();
 
-       ajaxChangeRole(id,Status, _token);
+       ajaxChangeStatus(id,Status, _token);
     });
 
     // DeleteWord
@@ -136,7 +137,7 @@ $(document).ready(function() {
             dataType:'json',
             success : function(response){
               if(response['data']==true){
-                $.notify("Cập nhật quyền cho '" +userName+ "' thành công","success");
+                $.notify("Cập nhật quyền cho user thành công","success");
 
               }
             },
@@ -186,6 +187,8 @@ $(document).ready(function() {
             }
       });
     }
+    /*Pop hover*/
+    $('[data-toggle="popover"]').popover();  
 });
 
 $(document).ready(function(){
@@ -199,3 +202,4 @@ $(document).ready(function(){
         return true;
     });
 });
+

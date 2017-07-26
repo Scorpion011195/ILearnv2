@@ -62,7 +62,7 @@ Route::post('deleteWordHistory', 'WordUserController@postDeleteWordHistory');
 Route::group(['prefix' => 'admin'], function () {
     // Đăng nhập
     Route::get('login', 'AdminController@getLogin')->name('adminGetLogin');
-    Route::post('login', 'AdminController@postLogin')->name('adminPostLogin');
+    Route::post('/', 'AdminController@postLogin')->name('adminPostLogin');
     // Đăng xuất
     Route::get('logout', 'AdminController@logout')->name('adminLogout');
     // Trang chủ

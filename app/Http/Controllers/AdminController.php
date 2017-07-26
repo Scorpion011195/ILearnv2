@@ -20,10 +20,25 @@ use App\Http\Controllers\DictionaryManagementController;
 use App\Http\Requests\AdminGetProfileRequest;
 class AdminController extends Controller
 {
+    function home()
+    {
+        return view('admin.layouts.ilearn');
+    }
 	function getLogin()
 	{
         if(Session::has('user') || (isset(Auth::user()->id))){
-          return redirect('admin');
+          $id = Auth::user()->id;
+          $getRole = DB::table('users')->where('id',$id)->value('role_id');
+              if($getRole == 5){
+                Auth::logout();
+                Session::forget('user');
+                return redirect()->route('adminGetLogin');
+              }
+              else{
+                 Auth::logout();
+                Session::forget('user');
+                return redirect()->route('adminGetLogin');
+              }
         }
         else{
             return view('admin.pages.login');
