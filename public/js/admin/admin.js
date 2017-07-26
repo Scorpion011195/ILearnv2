@@ -66,20 +66,21 @@ $(document).ready(function() {
       ajaxChangeRole(id,idRole, _token, userName);
     });
 
-      $(document).on('click','.delete',function(evt){
-        var _element = $(this).closest('tr');
-        var _token = $('input[name=_token]').val();
-        var id = _element.find('._user-id').text();
-        $(this).confirmation({
-            title: 'Bạn có muốn xóa user?',
-              onConfirm: function() {
-              ajaxDeleteUser(id,_element,_token);
-              },
-              onCancel: function() {
-              },
-         });
-         $(this).confirmation('show');
-      });
+    $(document).on('click','.delete',function(evt){
+      var _element = $(this).closest('tr');
+      var _token = $('input[name=_token]').val();
+      var id = _element.find('._user-id').text();
+      $(this).confirmation({
+          title: 'Bạn có muốn xóa user?',
+            onConfirm: function() {
+            ajaxDeleteUser(id,_element,_token);
+            },
+            onCancel: function() {
+            },
+       });
+       $(this).confirmation('show');
+    });
+    
     // chang status
     $(document).on('change','#sel1',function(evt){
       var _element = $(this).closest('tr');
