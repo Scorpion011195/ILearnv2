@@ -69,7 +69,7 @@ $(document).ready(function(){
             data: {'word': word,'langPairName': langPairName,'langPairId' : langPairId, 'typeWord' : typeWord, 'mean' : mean, '_token' : _token},
             success : function(response){
                 if(response['data']==true){
-                    $.notify('Đã thêm từ "'+word+'" với nghĩa "'+mean+'"', "success");
+                    $.notify('Đã thêm từ "'+word+'" với nghĩa "'+mean+'" vào Từ của tôi', "success");
                 }
                 else if (response['data'] == false)
                     $.notify('Từ "'+word+'" với nghĩa "'+mean+'" đã có');
@@ -98,7 +98,6 @@ $(document).ready(function(){
     });
 
     //Ajax notification update to word_users
-
     function ajaxUpdateNotification(id, is_notification, word, mean, _token)
     {
         $.ajax({
@@ -139,11 +138,9 @@ $(document).ready(function(){
         });
 
         $(this).confirmation('show');
-
     });
 
     //Ajax delete Word user in my history
-
     function deleteWordUserHistory(id, word, mean, _token, _this)
     {
         $.ajax({
@@ -219,7 +216,6 @@ $(document).ready(function(){
     }
 
     //Create table to save value when user add word
-
     function getRowAddHistory(fromText, toText, typeWord, langPairName, id){
         return '<tr>'+
                     '<th class="text-center col--width2 wordSetting">'+fromText+'</th>'+
@@ -257,8 +253,7 @@ $(document).ready(function(){
         ajaxGetInfoNotification(notificationButton, timeReminder, typeReminder, _token);
     });
 
-    //ajax get information of notification 
-
+    //ajax get information of notification
     function ajaxGetInfoNotification(notificationButton, timeReminder, typeReminder, _token){
         $.ajax({
             url: 'addInfoNotificate',
