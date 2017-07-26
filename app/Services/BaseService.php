@@ -56,4 +56,13 @@ abstract class BaseService implements BaseRepository
         $this->model->where($column, $value)->update($attributes);
     }
 
+    public function htmlEntities($string){
+        $string = str_replace('&', '&amp;', $string);
+        $string = str_replace('<', '&lt;', $string);
+        $string = str_replace('>', '&gt;', $string);
+        $string = str_replace('"', '&quot;', $string);
+
+        return $string;
+    }
+
 }

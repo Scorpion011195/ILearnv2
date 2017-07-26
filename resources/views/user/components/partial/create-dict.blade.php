@@ -87,7 +87,11 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="row">
                         <label for="" class=" col-md-6" name="">Thông báo</label>
-                        <div class="col-md-6"><input type="checkbox" id="toggle-one" data-toggle="toggle"  data="ON" data-off="OFF">
+                        <div class="col-md-6"><input type="checkbox" id="toggle-one" data-toggle="toggle"  data="ON" data-off="OFF"
+                         @if(($getSettingUser->isOn) == 'ON')
+                            {{ "checked" }}
+                         @endif
+                        >
                         </div>
                     </div>
                     <br>
@@ -95,6 +99,16 @@
                       <label for="" class="col-md-6">Thời gian</label>
                         <div class="col-md-6">
                             <select id="_time" class="form-control">
+                               @if(isset($getTimeReminder))
+                                    @foreach($getTimeReminder as $timeReminder)
+                                        <option value="{!! $timeReminder->id !!}" 
+                                        @if(($getSettingUser->time_reminder_id) == ($timeReminder->id))
+                                            {{ "selected" }}
+                                        @endif
+                                        >
+                                        {!! $timeReminder->time !!}</option>
+                                    @endforeach
+                               @endif
                             </select>
                         </div>
                     </div>
@@ -103,6 +117,15 @@
                         <label for="" class="col-md-6">Hiển thị</label>
                         <div class="col-md-6">
                             <select id="_typeRemind" class="form-control">
+                                 @if(isset($getTypeReminder))
+                                    @foreach( $getTypeReminder as $typeReminder)
+                                        <option value="{!! $typeReminder->id !!}"
+                                            @if(($getSettingUser->type_reminder_id) == ($typeReminder->id))
+                                                {{ "selected" }}
+                                            @endif 
+                                        >{!! $typeReminder->type !!}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>

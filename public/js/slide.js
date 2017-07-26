@@ -9,20 +9,8 @@ $(document).ready(function () {
 	
 });
 
-//Change password
-$(document).ready(function(){
-	$("#changePassword").change(function()
-	{
-		if($(this).is(":checked"))
-		{
-			$(".password").removeAttr('disabled');
-		}
-		else
-		{
-			$(".password").attr('disabled','');
-		}
-	});
-
+//datepicker
+$(document).ready(function () {
 
 	$(".btnSearch").click(function()
 	{
@@ -30,7 +18,12 @@ $(document).ready(function(){
 		$("#txtSearch").val(val);
 		$("#frmSearch").submit();
 	});
-
+	
+                
+    $('#datepicker').datepicker({
+        format: "yyyy/mm/dd"
+    });  
 
 });
+
 

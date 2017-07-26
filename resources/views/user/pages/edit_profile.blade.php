@@ -105,7 +105,12 @@
                 <div class="form-group {{ $errors->has('date_of_birth') ? 'has-error' : '' }}">
                     <label class="col-md-3 control-label">Ngày sinh:</label>
                     <div class="col-md-8">
-                        <input class="form-control " type="date" name= "date_of_birth" value="{{ $user['date_of_birth']}}">
+                        <div class='input-group date' id='datepicker'>
+                            <input type='text' name= "date_of_birth" value="{{ $user['date_of_birth']}}" class="form-control" data-role ="date" data-inline = "true"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
                         @if ($errors->has('date_of_birth'))
                           <span class="help-block">
                             <strong>{{ $errors->first('date_of_birth') }}</strong>
