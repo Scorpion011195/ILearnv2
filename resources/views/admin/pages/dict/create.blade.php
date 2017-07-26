@@ -11,6 +11,3 @@
 @section('content')
     @include('admin.components.dict.create.create-content')
 @endsection
-
-
-
