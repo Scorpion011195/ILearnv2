@@ -87,6 +87,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('update', 'DictionaryManagementController@updateWord');
         // Upload file
             Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
+            Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
         // Collection
             Route::get('collect', 'StatisticManagementController@displayStatisticalResult')->name('adminDictCollect');
             Route::post('collect-added', 'StatisticManagementController@displayStatisticalResultByCondition')->name('adminDictCollectByCondition');
