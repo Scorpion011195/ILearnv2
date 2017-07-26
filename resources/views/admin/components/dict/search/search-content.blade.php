@@ -1,9 +1,17 @@
-
+<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    @if(isset($results) && count($results) == 0)
+        <div>
+            <p class="help-block" style="color:red;">
+            <span class="glyphicon glyphicon-warning-sign"></span>
+            <strong>Từ này đang được cập nhật</strong></p>
+        </div>
+    @endif
+</div>
   <div class="panel">
       <div class="panel-body">
           <div class="row">
             <div class="col-sm-12">
-              <form action="{{route('adminSearch')}}" class="form-inline margin--top" method="get">
+              <form action="{{route('adminSearch')}}" class="form-inline margin--top" method="POST">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <div class="form-group">
                     @if ($errors->has('searchText'))
@@ -18,7 +26,7 @@
                       @endforeach
                     </select>
                     <div class="input-group ">
-                      <span class="input-group-addon">From</span>
+                      <span class="input-group-addon">Ngôn ngữ:</span>
                       <select class="form-control" name="languageFrom">
                         @foreach($Lg as $value)
                           <option value="{!!$value->id!!}">{!!$value->name_language!!}</option>}
@@ -54,7 +62,7 @@
                                   Phát âm
                               </th>
                               <!-- If not contributor -->
-                              @if((Auth::user()->id_role != 4))
+                              @if((Auth::user()->role_id != 4))
                                 <th class="text-center col--width1" aria-controls="example1" rowspan="1" colspan="1"
                                   aria-label="Engine version: activate to sort column ascending">
                                   Hành động
@@ -68,7 +76,7 @@
                                 <?php $count = count($results) ?>
                                  <tr role="row" class="odd" id="_tr">
                                   <td class="_word-id text-center align--vertical-middle" data-id="{{$value->id}}">{{$value->id}}</td>
-                                  <td class="_word align--vertical-middle" id="_td-word{!! $value->id !!}">{{$value->word}}</td>
+                                  <td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">{{$value->word}}</td>
                                   <td class="_pronoun text-center align--vertical-middle">{{$value->pronounce}}</td>
                                   <td class="text-center align--vertical-middle">
                                   <a class="delete_"><i class="fa fa-trash"></i></a>
@@ -76,28 +84,31 @@
                                   </td>
                                   </tr>
                                 @endforeach    
-                          </tbody>
+                          </tbody> 
                       </table>
                   </div>
               </div>
+    @if(isset($results)){!! $results->links() !!}@endif
               <div class="row">
                   <div class="col-sm-5">
                       <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
-                      @if(isset($count))
-                      <p>Có kết quả được {{$count}} tìm thấy</p>
+                      @if(isset($results))
+                      <p>Có <b style="color:red ">{{$results->total()}} kết quả </b> được tìm thấy</p>
                       @endif
                       </div>
                   </div>
                   <div class="col-sm-7">
+                  <a href="" title=""></a>
                   </div>
               </div>
           </div>
           <!-- /.Table -->
-      @else
 
+      @else
       @endif
         </div>
     </div>
+
 @include('admin.components.dict.search.modal-search')
 @include('admin.components.dict.search.modal-success')
 

@@ -1,4 +1,6 @@
-
+@if(isset($date) && !isset($user))<p>Tìm kiếm user đăng ký vào ngày :  <b style="color:red"> {{$date}} @endif </b></p>
+@if(isset($user) && !isset($date)) <p>Tìm kiếm user với từ khóa là :  <b style="color:red"> {{$user}} @endif</b></p>
+@if(isset($user) && isset($date)) <p>Tìm kiếm user với tài khoản là:<b style="color:red"> {{$user}}  </b> và ngày là : <b style="color:red"> {{$date}}@endif</b></p>
     <!-- /.box-header -->
         <div id="example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
             <div class="row">
@@ -112,6 +114,9 @@
             <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Tổng cộng có <b style="color: red;">{{$count}} tài khoản</b>
             </div>
         </div>
-        <div class="col-sm-7"></div>
+        <div class="col-sm-7">
+            <button class="form-control" data-toggle="popover" title="Quyền và tình trạng user" data-placement="top" data-content="Khi bạn muốn xóa hoặc chỉnh sửa user thì hãy cân nhắc thật kỹ. Vì nếu bạn xóa user thì mọi thông tin và lịch sử của user đó sẽ mất hoàn toàn !">Chú ý <b style="color:red"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></button>
+        </div>
     </div>
-
+@if(isset($dataList)){!! $dataList->links() !!}@endif
+@if(isset($dataSearch)){!! $dataSearch->links() !!}@endif

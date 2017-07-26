@@ -11,8 +11,3 @@
 @section('content')
     @include('admin.components.dict.search.search-content')
 @endsection
-
-@section('script')
-    <script src="{!! asset('js/admin/admin.js') !!}"></script>
-    <script src="{!! asset('js/admin/admin-search.js') !!}"></script>
-@endsection

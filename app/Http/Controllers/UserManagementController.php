@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\User;
+use Auth;
 
 class UserManagementController extends Controller
 {
@@ -15,7 +16,7 @@ class UserManagementController extends Controller
         return view('admin.pages.user.user-management.detail-user')->with(['data'=>$data]);
     }
     public function getAccount(){
-    	 $listUser = DB::table('users')->get();
+    	   $listUser = User::paginate(10);
     	   $role = DB::table('role_users')->get();
            $count = (count($listUser));
     	 return view('admin.pages.user.user-management.user-management')
@@ -36,17 +37,17 @@ class UserManagementController extends Controller
     	 }
          else{
         	 if($user !== null && $date == null){
-    	    	 $result = DB::table('users')->where ('username','like','%'.$user.'%')->get();
+    	    	 $result = DB::table('users')->where ('username','like','%'.$user.'%')->paginate(10);
          	 }
          	 elseif($user == null && $date !== null){
-         	 	$result = DB::table('users')->where ('created_at','=',$date)->get();
+         	 	$result = DB::table('users')->where ('created_at','like',$date.'%')->paginate(10);
          	 }
          	 else{
          	 	$result = DB::table('users')->where ('username','like','%'.$user.'%')
-         	 								->where ('created_at','=',$date)->get();
+         	 								->where ('created_at','like',$date.'%')->paginate(10);
          	 }
              $count = (count($result));
-        	return view('admin.pages.user.user-management.user-management')->with(['dataSearch'=>$result,'roleUser'=> $role,'count'=>$count]);
+        	return view('admin.pages.user.user-management.user-management')->with(['dataSearch'=>$result,'roleUser'=> $role,'count'=>$count, 'user'=>$user,'date'=>$date]);
         }
     }
     public function changeRole(request $request){
@@ -63,15 +64,19 @@ class UserManagementController extends Controller
     public function changeStatus(request $request){
         $idUser =$request->idUser;
         $status = $request->status;
-        if($status == "Hoạt động")
+        if($status == "Block")
         {
-            $status = 1;
+            $statusData = 0;
         }
         else{
-             $status = 0;
+             $statusData = 1;
         }
         $data = User::find($idUser);
-        $data->status = $status;
+        if($idUser == Auth::id()){
+            $dataResponse = ["data"=>false];
+            return json_encode($dataResponse);
+        }
+        $data->status = $statusData;
         $data->save();
         $dataResponse = ["data"=>true];
         return json_encode($dataResponse);
@@ -80,6 +85,12 @@ class UserManagementController extends Controller
 
         $idUser =$request->idUser;
         $delete = User::find($idUser);
+        if($idUser == Auth::id()){
+
+        $dataResponse = ["data"=>false];
+        return json_encode($dataResponse);
+
+        }
         $delete->delete();
         $dataResponse = ["data"=>true];
         return json_encode($dataResponse);

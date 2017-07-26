@@ -18,14 +18,27 @@ use App\Http\Requests\AdminPersonalInformationRequest;
 use App\Http\Requests\AdminResetPasswordRequest;
 use App\Http\Controllers\DictionaryManagementController;
 use App\Http\Requests\AdminGetProfileRequest;
-
-
 class AdminController extends Controller
 {
+    function home()
+    {
+        return view('admin.layouts.ilearn');
+    }
 	function getLogin()
 	{
         if(Session::has('user') || (isset(Auth::user()->id))){
-          return redirect('admin');
+          $id = Auth::user()->id;
+          $getRole = DB::table('users')->where('id',$id)->value('role_id');
+              if($getRole == 5){
+                Auth::logout();
+                Session::forget('user');
+                return redirect()->route('adminGetLogin');
+              }
+              else{
+                 Auth::logout();
+                Session::forget('user');
+                return redirect()->route('adminGetLogin');
+              }
         }
         else{
             return view('admin.pages.login');
@@ -36,13 +49,11 @@ class AdminController extends Controller
         $username = $request['username'];
         $password = $request['password'];
         $check = ['username'=>$username,'password'=>$password,'status' => MyConstant::STATUS_USER['Hoạt động']];
-
 		if(Auth::attempt($check) && Auth::user()->role_id !=5){
              Session::put('user', Auth::user());
              $errors = new MessageBag(['Đăng nhập thành công']);
         	return view('admin.layouts.ilearn');
         }else{
-
         	 $errors = new MessageBag(['errorLogin' => '<b>Username</b> hoặc <b>Password</b> không đúng!']);
             return redirect()->back()->withInput()->withErrors($errors);
         }
@@ -65,7 +76,6 @@ class AdminController extends Controller
     }
     function updateProfile(AdminGetProfileRequest $request)
     {
-
         $UserId = Auth::user()->id;
         $UserInfomation = User::find($UserId);
         $nameUser = $request->name;
@@ -74,7 +84,6 @@ class AdminController extends Controller
         $dobUser = $request->dob;
         $inputData = Input::all();
         $password = $inputData['password'];
-
         $UserInfomation->name =$nameUser;
         $UserInfomation->phone =$phoneUser;
         $UserInfomation->address =$addressUser;
