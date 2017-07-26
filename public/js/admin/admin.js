@@ -67,6 +67,7 @@ $(document).ready(function() {
       ajaxChangeRole(id,idRole, _token, userName);
     });
 
+<<<<<<< HEAD
     $(document).on('click','.delete',function(evt){
       var _element = $(this).closest('tr');
       var _token = $('input[name=_token]').val();
@@ -82,6 +83,22 @@ $(document).ready(function() {
       $(this).confirmation('show');
     }
 
+=======
+      $(document).on('click','.delete',function(evt){
+        var _element = $(this).closest('tr');
+        var _token = $('input[name=_token]').val();
+        var id = _element.find('._user-id').text();
+        $(this).confirmation({
+            title: 'Bạn có muốn xóa user?',
+              onConfirm: function() {
+              ajaxDeleteUser(id,_element,_token);
+              },
+              onCancel: function() {
+              },
+         });
+         $(this).confirmation('show');
+      });
+>>>>>>> scr_admin_home
     // chang status
     $(document).on('change','#sel1',function(evt){
       var _element = $(this).closest('tr');
@@ -89,7 +106,7 @@ $(document).ready(function() {
       var _token = $('input[name=_token]').val();
       var id = _element.find('._user-id').text();
 
-       ajaxChangeRole(id,Status, _token);
+       ajaxChangeStatus(id,Status, _token);
     });
 
     // DeleteWord
@@ -188,6 +205,9 @@ $(document).ready(function() {
       });
     }
 
+    /*Pop hover*/
+    $('[data-toggle="popover"]').popover();
+
     // Upload dictionarys
     $(document).on('submit', '#form_upload', function(evt){
         $('.btn_upload').prop('disabled', true);
@@ -198,5 +218,4 @@ $(document).ready(function() {
         return true;
     });
 });
-
 

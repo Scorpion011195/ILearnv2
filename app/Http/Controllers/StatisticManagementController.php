@@ -11,11 +11,9 @@ class StatisticManagementController extends Controller
 {
     // Display result after statistic
     function displayStatisticalResult(){
-    	$data  = DB::table('word_users')->get();
-    		$count = 1;
-	    	foreach ($data as $datas){
-	    		$word =$datas->word;
-	    	}
+    	$word = Db::table('word_users')->get();
+        
+
         return view('admin.pages.dict.collect');
     }
 
