@@ -236,4 +236,43 @@ $(document).ready(function(){
                     '</td>'+
                 '</tr>';
     }
+
+    // SCREEN NOTIFICATION
+
+    // Toggle button
+    $(document).find('#toggle-one').bootstrapToggle();
+
+    //Save data of notification on setting_users
+    $(document).on('click', '#_save-setting', function(){
+        if($('#toggle-one').prop('checked')){
+            var notificationButton = "ON";
+        }
+        else {
+            var notificationButton = "OFF";
+        }
+        var timeReminder = $('#_time').val();
+        var typeReminder = $('#_typeRemind').val();
+        var _token = $('input[name=_token]').val();
+
+        ajaxGetInfoNotification(notificationButton, timeReminder, typeReminder, _token);
+    });
+
+    //ajax get information of notification 
+
+    function ajaxGetInfoNotification(notificationButton, timeReminder, typeReminder, _token){
+        $.ajax({
+            url: 'addInfoNotificate',
+            method: 'POST',
+            data: {'notificationButton': notificationButton, 'timeReminder': timeReminder, 'typeReminder': typeReminder, '_token': _token},
+            dataType: 'json',
+            success : function(response){
+                if(response["data"]== true){
+                    $.notify('Cài đặt thành công!', "success");
+                }
+            },
+            error: function(xhr, error) {
+                $.notify("Oppps: Lỗi, vui lòng thử lại", "warn");
+            }
+        });
+    }
 });

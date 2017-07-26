@@ -50,13 +50,14 @@ Route::get('changePass', ['as' => 'changePass', 'uses' => 'UserController@getCha
 Route::post('changePass', ['as' => 'changePass', 'uses' => 'UserController@postChangePass'])->middleware('auth');
 
 //Language My Word
-Route::get('history', 'WordUserController@getAddWordFromSearch');
-Route::post('myWord','WordUserController@addWordFromSearch');
-Route::post('addWordMyHistory', 'WordUserController@postAddWordUserFromMyHistory');
+Route::get('history', 'WordUserController@getAddWordFromSearch')->middleware('auth');
+Route::post('myWord','WordUserController@addWordFromSearch')->middleware('auth');
+Route::post('addWordMyHistory', 'WordUserController@postAddWordUserFromMyHistory')->middleware('auth');
 
 //Notification
-Route::post('notification', 'WordUserController@postUpdateNotification');
-Route::post('deleteWordHistory', 'WordUserController@postDeleteWordHistory');
+Route::post('notification', 'WordUserController@postUpdateNotification')->middleware('auth');
+Route::post('deleteWordHistory', 'WordUserController@postDeleteWordHistory')->middleware('auth');
+Route::post('addInfoNotificate', 'NotificationController@addInforOfNotification')->middleware('auth');
 
 /*=================ADMIN AREA==================*/
 Route::group(['prefix' => 'admin'], function () {
