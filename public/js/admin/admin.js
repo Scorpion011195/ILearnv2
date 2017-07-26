@@ -3,16 +3,17 @@ $(document).ready(function() {
   	$(document).on('change','#_typeWord', function(evt){
   		var typeWord = $("#_typeWord :selected").val();
   		var _token = $('input[name=_token]').val();
-          $.ajax ({
-              url: 'adminSearch',
-              type: 'POST',
-              dataType: 'json',
-              data :{'typeWord':typeWord,'_token' : _token},
 
-              success: function(evt ){
-                      location.reload();
-                  }
-       	});
+      $.ajax ({
+          url: 'adminSearch',
+          type: 'POST',
+          dataType: 'json',
+          data :{'typeWord':typeWord,'_token' : _token},
+
+          success: function(evt ){
+                  location.reload();
+          }
+   	  });
     });
 
     $(document).on('click','.delete_', function(evt){
@@ -23,13 +24,13 @@ $(document).ready(function() {
 
         $(this).confirmation({
         	  title: 'Bạn có muốn xóa từ này?',
-              onConfirm: function() {
+            onConfirm: function() {
               ajaxDeleteWord(_element, idWord, _token,word);
-              },
-              onCancel: function() {
-              },
-         });
-         $(this).confirmation('show');
+            },
+            onCancel: function() {
+            },
+        });
+        $(this).confirmation('show');
     });
 
     $(document).on('click','._update-word', function(evt){
@@ -71,7 +72,7 @@ $(document).ready(function() {
       var _token = $('input[name=_token]').val();
       var id = _element.find('._user-id').text();
       $(this).confirmation({
-          title: 'Bạn có muốn xóa user?',
+           title: 'Bạn có muốn xóa user?',
             onConfirm: function() {
             ajaxDeleteUser(id,_element,_token);
             },
@@ -81,6 +82,21 @@ $(document).ready(function() {
        $(this).confirmation('show');
     });
     
+    $(document).on('click','.delete',function(evt){
+      var _element = $(this).closest('tr');
+      var _token = $('input[name=_token]').val();
+      var id = _element.find('._user-id').text();
+      $(this).confirmation({
+          title: 'Bạn có muốn xóa user?',
+            onConfirm: function() {
+              ajaxDeleteUser(id,_element,_token);
+            },
+            onCancel: function() {
+            },
+       });
+       $(this).confirmation('show');
+    });
+
     // chang status
     $(document).on('change','#sel1',function(evt){
       var _element = $(this).closest('tr');
@@ -122,7 +138,7 @@ $(document).ready(function() {
 	            if(response['data']==true){
 	              $('#myModal').modal('hide');
 	              $('#modal-success').modal('show');
-		        }
+		          }
             },
             error: function(xhr, error) {
                console.log(error);
@@ -138,15 +154,15 @@ $(document).ready(function() {
             dataType:'json',
             success : function(response){
               if(response['data']==true){
-                $.notify("Cập nhật quyền cho user thành công","success");
-
+                $.notify("Cập nhật quyền cho '" +userName+ "' thành công","success");
               }
             },
             error: function(xhr, error) {
                console.log(error);
             }
-        });
+      });
     }
+
     function ajaxChangeStatus(id,Status, _token){
       $.ajax({
             url:'status',
@@ -156,7 +172,6 @@ $(document).ready(function() {
             success : function(response){
               if(response['data']==true){
                  $.notify("Cập nhật trạng thái thành công","success");
-
               }else{
                 $.notify("Bạn không thể khóa chính bạn","warn");
               }
@@ -177,7 +192,6 @@ $(document).ready(function() {
               if(response['data']==true){
                 _element.remove();
                $.notify("Bạn đã xóa thành công","success");
-
               }
               else{
                 $.notify( "Bạn không thể xóa chính bạn","warn");
@@ -188,19 +202,8 @@ $(document).ready(function() {
             }
       });
     }
+
     /*Pop hover*/
-    $('[data-toggle="popover"]').popover();  
-});
-
-$(document).ready(function(){
-    $(document).on('submit', '#form_upload', function(evt){
-        $('.btn_upload').prop('disabled', true);
-
-        //var alertWaiting = '<div><b><span class="glyphicon glyphicon-warning-sign"></span> Quá trình upload đang diễn ra, xin bạn vui lòng đợi trong giây lát...</b></div>'
-        var alertWaiting = '<div class="loader"></div>';
-        $('.alert_waiting').replaceWith(alertWaiting);
-
-        return true;
-    });
+    $('[data-toggle="popover"]').popover();
 });
 

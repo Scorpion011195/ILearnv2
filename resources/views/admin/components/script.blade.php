@@ -19,3 +19,4 @@
     <script src="{!! asset('js/admin/notify.js') !!}"></script>
     <script src="{!! asset('js/admin/bootstrap-confirmation.min.js') !!}"></script>
     <script src="{!! asset('js/admin/admin.js') !!}"></script>
+    <script src="{!! asset('js/admin/admin-upload.js') !!}"></script>
