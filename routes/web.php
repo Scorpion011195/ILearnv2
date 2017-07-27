@@ -38,26 +38,44 @@ Route::get('result', function(){
 
 Route::get('translate', 'TranslateController@getTranslateParagraph');
 Route::get('translate-paragraph', ['as' => 'translateParagraph', 'uses' => 'TranslateController@translateParagraph']);
-// Route::get('profile', ['as' => 'profile', 'uses'=>'UserController@getShowUser']);
-Route::get('profile', function(){
+
+// Group link User After Login
+Route::group(['middleware' => 'auth'], function () {
+
+    // Go to page profile ò User 
+    Route::get('profile', function(){
     return view('user/pages/profile');
-})->middleware('auth');
+    });
 
-Route::get('editprofile/{id}', ['as' => 'editprofile/{id}', 'uses' => 'UserController@getEditUser'])->middleware('auth');
-Route::post('editprofile/{id}', ['as' => 'editprofile/{id}', 'uses' => 'UserController@postEditUser'])->middleware('auth');
-//User change password
-Route::get('changePass', ['as' => 'changePass', 'uses' => 'UserController@getChangePass'])->middleware('auth');
-Route::post('changePass', ['as' => 'changePass', 'uses' => 'UserController@postChangePass'])->middleware('auth');
+    // Go to edit profile
+    Route::get('editprofile/{id}', ['as' => 'editprofile/{id}', 'uses' => 'UserController@getEditUser']);
+    Route::post('editprofile/{id}', ['as' => 'editprofile/{id}', 'uses' => 'UserController@postEditUser']);
 
-//Language My Word
-Route::get('history', 'WordUserController@getAddWordFromSearch')->middleware('auth');
-Route::post('myWord','WordUserController@addWordFromSearch')->middleware('auth');
-Route::post('addWordMyHistory', 'WordUserController@postAddWordUserFromMyHistory')->middleware('auth');
+    // Go To User Change Pass
+    Route::get('changePass', ['as' => 'changePass', 'uses' => 'UserController@getChangePass']);
+    Route::post('changePass', ['as' => 'changePass', 'uses' => 'UserController@postChangePass']);
 
-//Notification
-Route::post('notification', 'WordUserController@postUpdateNotification')->middleware('auth');
-Route::post('deleteWordHistory', 'WordUserController@postDeleteWordHistory')->middleware('auth');
-Route::post('addInfoNotificate', 'NotificationController@addInforOfNotification')->middleware('auth');
+    // Go To My Word
+    Route::get('history', 'WordUserController@getAddWordFromSearch');
+    Route::post('myWord','WordUserController@addWordFromSearch');
+    Route::post('addWordMyHistory', 'WordUserController@postAddWordUserFromMyHistory');
+});
+
+// Group link Notification
+Route::group(['middleware' => 'auth'], function() {
+
+    //Notification
+    Route::post('notification', 'WordUserController@postUpdateNotification');
+    Route::post('deleteWordHistory', 'WordUserController@postDeleteWordHistory');
+    Route::post('addInfoNotificate', 'NotificationController@addInforOfNotification');
+    Route::get('getIsOn', 'NotificationController@getIsOn' );
+    Route::get('getIsStartNotification', 'NotificationController@getIsStartNotification');
+    Route::get('endIsStartNotification', 'NotificationController@endIsStartNotification');
+    Route::get('getTimeReminder', 'NotificationController@getTimeReminder');
+    Route::get('getWordToPush', 'NotificationController@getWordToPush');
+    Route::get('getTypeReminder', 'NotificationController@getTypeReminder');
+
+});
 
 /*=================ADMIN AREA==================*/
 Route::group(['prefix' => 'admin'], function () {

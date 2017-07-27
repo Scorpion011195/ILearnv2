@@ -69,7 +69,7 @@ $(document).ready(function(){
             data: {'word': word,'langPairName': langPairName,'langPairId' : langPairId, 'typeWord' : typeWord, 'mean' : mean, '_token' : _token},
             success : function(response){
                 if(response['data']==true){
-                    $.notify('Đã thêm từ "'+word+'" với nghĩa "'+mean+'"', "success");
+                    $.notify('Đã thêm từ "'+word+'" với nghĩa "'+mean+'" vào Từ của tôi', "success");
                 }
                 else if (response['data'] == false)
                     $.notify('Từ "'+word+'" với nghĩa "'+mean+'" đã có');
@@ -94,11 +94,14 @@ $(document).ready(function(){
             var is_notification = 0;
         }
 
+        // Update word to notification
         ajaxUpdateNotification(id, is_notification, word, mean, _token);
+
+        // Push Notification
+        pushNotification();
     });
 
     //Ajax notification update to word_users
-
     function ajaxUpdateNotification(id, is_notification, word, mean, _token)
     {
         $.ajax({
@@ -106,14 +109,15 @@ $(document).ready(function(){
             url:'notification',
             method:'POST',
             dataType:'json',
+            async: false,
             data: {'id': id,'is_notification': is_notification, 'word': word, 'mean': mean, '_token' : _token},
             success : function(response){
                 if(response['data']==true){
-
                     $.notify('Đã thêm từ "'+word+'" với nghĩa "'+mean+'" vào thông báo', "success");
                 }
-                else if (response['data'] == false)
+                else{
                     $.notify('Đã loại từ "'+word+'" với nghĩa "'+mean+'" ra khỏi thông báo');
+                }
             },
             error: function(xhr, error) {
              console.log(error);
@@ -139,11 +143,9 @@ $(document).ready(function(){
         });
 
         $(this).confirmation('show');
-
     });
 
     //Ajax delete Word user in my history
-
     function deleteWordUserHistory(id, word, mean, _token, _this)
     {
         $.ajax({
@@ -219,7 +221,6 @@ $(document).ready(function(){
     }
 
     //Create table to save value when user add word
-
     function getRowAddHistory(fromText, toText, typeWord, langPairName, id){
         return '<tr>'+
                     '<th class="text-center col--width2 wordSetting">'+fromText+'</th>'+
@@ -237,8 +238,7 @@ $(document).ready(function(){
                 '</tr>';
     }
 
-    // SCREEN NOTIFICATION
-
+    // NOTIFICATION
     // Toggle button
     $(document).find('#toggle-one').bootstrapToggle();
 
@@ -254,25 +254,255 @@ $(document).ready(function(){
         var typeReminder = $('#_typeRemind').val();
         var _token = $('input[name=_token]').val();
 
-        ajaxGetInfoNotification(notificationButton, timeReminder, typeReminder, _token);
+        // Update Setting Notification
+        ajaxUpdateSettingNotification(notificationButton, timeReminder, typeReminder, _token);
+
+        // Push Notification
+        pushNotification();
     });
 
-    //ajax get information of notification 
-
-    function ajaxGetInfoNotification(notificationButton, timeReminder, typeReminder, _token){
+    //ajax get information of notification
+    function ajaxUpdateSettingNotification(notificationButton, timeReminder, typeReminder, _token){
         $.ajax({
             url: 'addInfoNotificate',
             method: 'POST',
             data: {'notificationButton': notificationButton, 'timeReminder': timeReminder, 'typeReminder': typeReminder, '_token': _token},
             dataType: 'json',
+            async: false,
             success : function(response){
                 if(response["data"]== true){
-                    $.notify('Cài đặt thành công!', "success");
+                    if(notificationButton=="ON"){
+                        $.notify('Đã bật thông báo!', "success");
+                    }
+                    else{
+                        $.notify('Đã tắt thông báo!', "warn");
+                    }
                 }
             },
             error: function(xhr, error) {
                 $.notify("Oppps: Lỗi, vui lòng thử lại", "warn");
             }
         });
+    }
+
+    // Push when start page
+    $(document).ready(function() {
+        pushNotification();
+    });
+
+    var loop;
+    function pushNotification(){
+        // Check push status
+        var isOn = ajaxGetIsOn();
+        var isStartNotification = ajaxGetIsStartNotification();
+
+        // Reset Notification
+        window.clearInterval(loop);
+
+        if(checkIsOn(isOn)){
+            if (isStartNotification) {
+                $.notify('Đã bật chức năng thông báo!', "success");
+                // End Session isStartNotification
+                ajaxEndIsStartNotification();
+            }
+            // Get setting Reminder
+            var timeReminder = ajaxGetTimeReminder();
+            var typeReminder = ajaxGetTypeReminder();
+            var arrWordUsers = ajaxGetWordUser();
+
+            var failed = '-1';
+            if(arrWordUsers!=failed){
+                var lenghtArrWordUsers = arrWordUsers.length;
+                var title = 'Remember';
+
+                // Push Notification
+                loop = window.setInterval(loopNotification, timeReminder);
+
+                function loopNotification(){
+                    var index = Math.floor(Math.random() * lenghtArrWordUsers);
+                    var word = arrWordUsers[index]['word'];
+                    var mean = arrWordUsers[index]['mean'];
+
+                    var options = getOptions(typeReminder, word, mean);
+                    var n = new Notification(title, options);
+                    setTimeout(n.close.bind(n), 5000);
+                }
+            }
+        }
+    }
+
+    function ajaxGetIsOn()
+    {
+        var isOn;
+
+        $.ajax({
+            url:'getIsOn',
+            method:'get',
+            dataType:'json',
+            async: false, //off asynchronize
+            success : function(response){
+                if(response['data']==true){
+                    isOn = response['checkIsOn'];
+                }
+            },
+            error: function(xhr, error) {
+                console.log(error);
+            }
+        });
+
+        return isOn;
+    }
+
+    function ajaxGetIsStartNotification(){
+        var isStartNotification;
+
+        $.ajax({
+            url:'getIsStartNotification',
+            method:'get',
+            dataType:'json',
+            async: false, //off asynchronize
+            success : function(response){
+                if(response['data']==true){
+                    isStartNotification = response['isStartNotification'];
+                }
+            },
+            error: function(xhr, error) {
+                console.log(error);
+            }
+        });
+
+        return isStartNotification;
+    }
+
+    function ajaxEndIsStartNotification(){
+        $.ajax({
+            url:'endIsStartNotification',
+            method:'get',
+            dataType:'json',
+            async: false, //off asynchronize
+            success : function(response){
+                if(response['data']==true){
+                    // Do not thing
+                }
+            },
+            error: function(xhr, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function checkIsOn(isOn){
+        if(isOn=="ON"){
+            if (!Notification in window) {
+                alert('Desktop notifications are not available in your browser!');
+                return false;
+            }
+            else if (Notification.permission !== 'granted') {
+                Notification.requestPermission((permission) => {
+                  if (permission === 'granted') {
+                    return true;
+                  }
+                });
+            }
+            else {
+                return true;
+            }
+        }
+        else{
+            return false;
+        }
+    }
+
+    /* /.PUSH NOTIFICATION */
+
+    /* ----- AJAX ----- */
+    function ajaxGetTimeReminder(){
+        var time;
+
+        $.ajax({
+            url:'getTimeReminder',
+            method:'get',
+            dataType:'json',
+            async: false, //off asynchronize
+            success : function(response){
+                if(response['data']==true){
+                    time = response['timeReminder'];
+                }
+            },
+            error: function(xhr, error) {
+                console.log(error);
+            }
+        });
+
+        return time;
+    }
+
+    // Function get Word User
+    function ajaxGetWordUser(){
+        var arrWordUsers;
+
+        $.ajax({
+            url:'getWordToPush',
+            method:'get',
+            dataType:'json',
+            async: false, //off asynchronize
+            success : function(response){
+                if(response['data']==false){
+                    $.notify('Xin chọn ít nhất 1 từ trong Danh sách Từ của tôi để nhận thông báo!', "success");
+                }
+                arrWordUsers = response['wordUsers'];
+            },
+            error: function(xhr, error) {
+             console.log(error);
+            }
+        });
+
+        return arrWordUsers;
+    }
+
+    // Get Type Riminder
+    function ajaxGetTypeReminder(){
+        var type;
+
+        $.ajax({
+            url:'getTypeReminder',
+            method:'get',
+            dataType:'json',
+            async: false, //off asynchronize
+            success : function(response){
+                if(response['data']==true){
+                    type = response['typeReminder'];
+                }
+            },
+            error: function(xhr, error) {
+                console.log(error);
+            }
+        });
+
+        return type;
+    }
+
+    // Get options
+    function getOptions(typeReminder, word, mean){
+        switch(typeReminder){
+            case 'Từ':
+            return options = {
+                body: word,
+                noscreen: true,
+                icon: 'http://felix.hamburg/files/codepen/rMgbrJ/notification.png'
+            }
+            case 'Nghĩa':
+            return options = {
+                body: mean,
+                noscreen: true,
+                icon: 'http://felix.hamburg/files/codepen/rMgbrJ/notification.png'
+            }
+            case 'Từ và nghĩa':
+            return options = {
+                body: word+'-'+mean,
+                noscreen: true,
+                icon: 'http://felix.hamburg/files/codepen/rMgbrJ/notification.png'
+            }
+        }
     }
 });

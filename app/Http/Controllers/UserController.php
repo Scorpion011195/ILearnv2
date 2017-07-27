@@ -64,7 +64,8 @@ class UserController extends Controller
     		$remember = $request->input('remember');
 
     		if(Auth()->attempt(['username' =>$username, 'password' =>$password ,'status' => 1, 'confirmed' =>1], $remember))
-    		{
+    		{   
+                Session::put('isStartNotification', true);
     			return redirect()->intended('home');
     		}
     		else {
@@ -78,6 +79,7 @@ class UserController extends Controller
     {
     	Auth::logout();
     	Session::forget('user');
+        Session::forget('isStartNotification');
     	return redirect()->intended('home');
     }
 

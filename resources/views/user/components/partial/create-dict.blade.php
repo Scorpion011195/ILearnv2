@@ -1,10 +1,11 @@
 <div class="row il-history clearfix">
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-sm-offset-1 col-md-8 col-md-offset-4 col-lg-6 col-lg-offset-3">
-                <center><b><h2>Thêm vào lịch sử</h2></b></center>
+            <div class="col-sm-12 ">
+                <center><b><h2>Thêm vào danh sách từ</h2></b></center>
             </div>
-            <div class="col-sm-12 col-sm-offset-1 col-md-8 col-md-offset-4 col-lg-6 col-lg-offset-3 panel panel-default">
+            <div class="col-md-2"></div>
+            <div class="col-sm-8 panel panel-default">
                 <div class="form-inline panel-body">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="row il-history">

@@ -81,7 +81,7 @@ $(document).ready(function() {
        });
        $(this).confirmation('show');
     });
-    
+
     $(document).on('click','.delete',function(evt){
       var _element = $(this).closest('tr');
       var _token = $('input[name=_token]').val();

@@ -41,6 +41,7 @@
                     @endif
                 </tbody>
             </table>
+           {{ $getWordToUser->links() }}
         </div>
     </div>
 </div>
