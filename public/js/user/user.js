@@ -94,7 +94,11 @@ $(document).ready(function(){
             var is_notification = 0;
         }
 
+        // Update word to notification
         ajaxUpdateNotification(id, is_notification, word, mean, _token);
+
+        // Push Notification
+        pushNotification();
     });
 
     //Ajax notification update to word_users
@@ -248,10 +252,10 @@ $(document).ready(function(){
         var timeReminder = $('#_time').val();
         var typeReminder = $('#_typeRemind').val();
         var _token = $('input[name=_token]').val();
-        
+
         // Update Setting Notification
         ajaxUpdateSettingNotification(notificationButton, timeReminder, typeReminder, _token);
-        
+
         // Push Notification
         pushNotification();
     });
@@ -266,7 +270,12 @@ $(document).ready(function(){
             async: false,
             success : function(response){
                 if(response["data"]== true){
-                    $.notify('Cài đặt thành công!', "success");
+                    if(notificationButton=="ON"){
+                        $.notify('Đã bật thông báo!', "success");
+                    }
+                    else{
+                        $.notify('Đã tắt thông báo!', "warn");
+                    }
                 }
             },
             error: function(xhr, error) {
@@ -286,40 +295,42 @@ $(document).ready(function(){
         var isOn = ajaxGetIsOn();
         var isStartNotification = ajaxGetIsStartNotification();
 
+        // Reset Notification
+        window.clearInterval(loop);
+
         if(checkIsOn(isOn)){
             if (isStartNotification) {
                 $.notify('Đã bật chức năng thông báo!', "success");
+                // End Session isStartNotification
+                ajaxEndIsStartNotification();
             }
             // Get setting Reminder
             var timeReminder = ajaxGetTimeReminder();
             var typeReminder = ajaxGetTypeReminder();
             var arrWordUsers = ajaxGetWordUser();
-            var lenghtArrWordUsers = arrWordUsers.length;
-            var title = 'Remember';
+            var failed = '-1';
+            if(arrWordUsers!=failed){
+                var lenghtArrWordUsers = arrWordUsers.length;
+                var title = 'Remember';
 
-            // End Session isStartNotification
-            ajaxEndIsStartNotification();
+                // Push Notification
+                loop = window.setInterval(loopNotification, timeReminder);
 
-            // Push Notification
-            loop = window.setInterval(loopNotification, timeReminder);
+                function loopNotification(){
+                    var index = Math.floor(Math.random() * lenghtArrWordUsers);
+                    var word = arrWordUsers[index]['word'];
+                    var mean = arrWordUsers[index]['mean'];
 
-            function loopNotification(){    
-                var index = Math.floor(Math.random() * lenghtArrWordUsers);
-                var word = arrWordUsers[index]['word'];
-                var mean = arrWordUsers[index]['mean'];
-
-                var options = getOptions(typeReminder, word, mean);
-                var n = new Notification(title, options);
-                setTimeout(n.close.bind(n), 5000);
+                    var options = getOptions(typeReminder, word, mean);
+                    var n = new Notification(title, options);
+                    setTimeout(n.close.bind(n), 5000);
+                }
             }
-        } 
-        else {
-            window.clearInterval(loop);
-        } 
+        }
     }
 
     function ajaxGetIsOn()
-    {   
+    {
         var isOn;
 
         $.ajax({
@@ -329,15 +340,15 @@ $(document).ready(function(){
             async: false, //off asynchronize
             success : function(response){
                 if(response['data']==true){
-                    isOn = response['checkIsOn'];                        
+                    isOn = response['checkIsOn'];
                 }
             },
             error: function(xhr, error) {
                 console.log(error);
             }
-        });  
+        });
 
-        return isOn;  
+        return isOn;
     }
 
     function ajaxGetIsStartNotification(){
@@ -350,15 +361,15 @@ $(document).ready(function(){
             async: false, //off asynchronize
             success : function(response){
                 if(response['data']==true){
-                    isStartNotification = response['isStartNotification'];                        
+                    isStartNotification = response['isStartNotification'];
                 }
             },
             error: function(xhr, error) {
                 console.log(error);
             }
-        });  
+        });
 
-        return isStartNotification;  
+        return isStartNotification;
     }
 
     function ajaxEndIsStartNotification(){
@@ -369,13 +380,13 @@ $(document).ready(function(){
             async: false, //off asynchronize
             success : function(response){
                 if(response['data']==true){
-                    // Do not thing                      
+                    // Do not thing
                 }
             },
             error: function(xhr, error) {
                 console.log(error);
             }
-        });  
+        });
     }
 
     function checkIsOn(isOn){
@@ -399,7 +410,7 @@ $(document).ready(function(){
             return false;
         }
     }
-    
+
     /* /.PUSH NOTIFICATION */
 
     /* ----- AJAX ----- */
@@ -434,13 +445,10 @@ $(document).ready(function(){
             dataType:'json',
             async: false, //off asynchronize
             success : function(response){
-                if(response['data']==true){
-                    arrWordUsers = response['wordUsers'];
+                if(response['data']==false){
+                    $.notify('Xin chọn ít nhất 1 từ trong Danh sách Từ của tôi để nhận thông báo!', "success");
                 }
-                // If code ==  false
-                else{
-                    $.notify('Xin chọn ít nhất 1 từ bên Lịch sử để nhận thông báo!', "success");
-                }
+                arrWordUsers = response['wordUsers'];
             },
             error: function(xhr, error) {
              console.log(error);
