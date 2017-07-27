@@ -140,7 +140,7 @@ class UserController extends Controller
     }
     // Post edit user
 
-    public function postEditUser( UserProfileRequest $request, $id)
+    public function postEditUser(UserProfileRequest $request, $id)
     {
         $user = User::find($id);
 

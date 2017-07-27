@@ -19,9 +19,7 @@ Route::get('logout', ['as'=>'logout', 'uses' => 'UserController@logout']);
 Route::get('user/pages/verifyEmail/{confirmationCode}','UserController@confirm'
 )->name('confirm');
 
-// Route::get('index', function(){
-//  return view('user/layouts/index');
-// });
+Route::get('test', 'WordUserController@test');
 
 // Link for User search Word
 Route::get('home', ['as' => 'home', 'uses' => 'DictionaryController@getSearchDictionary']);
