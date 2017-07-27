@@ -5,10 +5,10 @@
 		<div class="container">
 			<div class="col-md-9 col-xs-12 col-sm-6 il-contents">
 				<div class="row il-content-word">
-					<div class="col-md-3 col-xs-12 col-sm-3">
+					<div class="col-md-12 col-xs-12 col-sm-12">
 						<div class="il-word"><span>{!! ucfirst($inputText) !!}</span></div>
 					</div>
-					<div class="col-md-9 col-xs-12 col-sm-9">
+					<div class="col-md-12 col-xs-12 col-sm-12">
 						<div class="il-spelling">
 							@if(isset($workSelf))
 							<?php $pronounce = '' ?>
@@ -23,7 +23,6 @@
 					</div>
 				</div>
 				<div class="clearfix"></div>
-				<hr>
 				<div class="row il-word-tile">
 					@if(isset($workInfo))
 						<?php $type_word = '' ?>

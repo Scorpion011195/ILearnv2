@@ -377,7 +377,7 @@ $(document).ready(function(){
             }
         });  
     }
-
+    
     function checkIsOn(isOn){
         if(isOn=="ON"){
             if (!Notification in window) {

@@ -77,7 +77,7 @@ class NotificationController extends Controller
         	return json_encode($dataResponse);
     	}
     	else{
-    		$dataResponse = ["data"=>falses];
+    		$dataResponse = ["data"=>false];
         	return json_encode($dataResponse);
     	}
         
