@@ -45,7 +45,10 @@ class DictionaryManagementController extends Controller
         return view('admin.pages.dict.create')->with
                 (['languages'=> $lang,
                   'typeWord'=> $typeOfWord,
-                  'message' => 'Từ và nghĩa không được giống nhau !'
+                  'message' => 'Từ và nghĩa không được giống nhau !',
+                  'to' =>$toText,
+                  'from' =>$fromText,
+                  'pronoun' =>$pronoun
                 ]);
     }
     else{
@@ -58,7 +61,10 @@ class DictionaryManagementController extends Controller
               return view('admin.pages.dict.create')->with
                 (['languages'=> $lang,
                   'typeWord'=> $typeOfWord,
-                  'message' => 'Từ '.$fromText.'  đã có trong hệ thống'
+                  'message' => 'Từ  "'.$fromText.'" và nghĩa "'.$toText.'"  đã có trong hệ thống',
+                  'to' =>$toText,
+                  'from' =>$fromText,
+                  'pronoun' =>$pronoun
                 ]);
             }else
             {
@@ -76,7 +82,7 @@ class DictionaryManagementController extends Controller
               ([
               'languages'=> $lang,
               'typeWord'=> $typeOfWord,
-              'message' => 'Đã thêm thành công nghĩa  '.$toText .'!',
+              'message' => 'Đã thêm thành công nghĩa  "'.$toText .'"của từ "'.$fromText.'"!',
               'to' =>$toText,
               'from' =>$fromText,
               'pronoun' =>$pronoun
@@ -95,7 +101,7 @@ class DictionaryManagementController extends Controller
                 return view('admin.pages.dict.create')->with
                   (['languages'=> $lang,
                     'typeWord'=> $typeOfWord,
-                    'message' => 'Từ '.$fromText.' đã có trong hệ thống',
+                    'message' => 'Từ "'.$fromText.'" và nghĩa "'.$toText.'" đã có trong hệ thống',
                     'to' =>$toText,
                     'from' =>$fromText,
                     'pronoun' =>$pronoun
@@ -137,7 +143,7 @@ class DictionaryManagementController extends Controller
               ([
               'languages'=> $lang,
               'typeWord'=> $typeOfWord,
-              'message' => 'Đã thêm thành công từ '.$fromText.' và nghĩa '.$toText.' thành công',
+              'message' => 'Đã thêm thành công từ "'.$fromText.'" và nghĩa "'.$toText.'" !' ,
                 'to' =>$toText,
                 'from' =>$fromText,
                 'pronoun' =>$pronoun
@@ -181,7 +187,7 @@ class DictionaryManagementController extends Controller
            ->where ('type_word','like','%'.$typeWord.'%')
            ->where ('language_id','=', $languageFrom)
            ->paginate(10);
-           return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
+           return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result,'word' =>$textSeach]);
         }
         else{
           $result = DB::table('dictionarys')

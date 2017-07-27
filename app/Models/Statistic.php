@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Statistic extends Model
 {
-    protected $table = "word_users";
+    protected $table = "statistic_words";
    protected $primaryKey = "id";
 }

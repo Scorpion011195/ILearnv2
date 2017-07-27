@@ -55,6 +55,22 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @if(isset($data))
+
+                                @foreach($data as $value) 
+                                  <tr role="row" class="odd" id="_tr"> 
+                                    <td class="text-center align--vertical-middle">{{$value->id}}</td>
+                                    <td class="text-center align--vertical-middle">{{$value->from_text}}</td>
+                                    <td class="text-center align--vertical-middle">{{$value->to_text}}</td>
+                                    <td class="text-center align--vertical-middle">{{$value->from_language_id}} {{$value->to_language_id}}</td>
+                                    <td class="text-center align--vertical-middle">{{$value->quanlity}}</td>
+                                    <td class="text-center align--vertical-middle">{{$value->type_word}}</td>
+                                    <td class="text-center align--vertical-middle">{{$value->isAvailable}}</td>
+                                  </tr>
+
+                                @endforeach
+
+                            @endif
                             
                             </tbody>
                         </table>
