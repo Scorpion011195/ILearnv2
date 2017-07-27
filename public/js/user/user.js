@@ -109,14 +109,15 @@ $(document).ready(function(){
             url:'notification',
             method:'POST',
             dataType:'json',
+            async: false,
             data: {'id': id,'is_notification': is_notification, 'word': word, 'mean': mean, '_token' : _token},
             success : function(response){
                 if(response['data']==true){
-
                     $.notify('Đã thêm từ "'+word+'" với nghĩa "'+mean+'" vào thông báo', "success");
                 }
-                else if (response['data'] == false)
+                else{
                     $.notify('Đã loại từ "'+word+'" với nghĩa "'+mean+'" ra khỏi thông báo');
+                }
             },
             error: function(xhr, error) {
              console.log(error);
