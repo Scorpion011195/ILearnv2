@@ -39,7 +39,7 @@ class UserController extends Controller
     	$rules = 
     		 array(
     			'name'=> 'required|min:6|max:32|alpha_dash',
-  				'pass'=> 'required|min:6',
+  				'pass'=> 'required|min:6|max:100',
 				);
     	$messages = 
     		array(
@@ -50,7 +50,7 @@ class UserController extends Controller
 			    'name.alpha_dash' => 'Chỉ nhập các kí tự là: chữ, số, "-", "_"',
 			    'pass.required' => 'Mật khẩu là bắt buộc',
 			    'pass.min' => 'Mật khẩu lớn hơn 6 kí tự',
-			    'pass.max' => 'Mật khẩu nhỏ hơn 32 kí tự',
+			    'pass.max' => 'Mật khẩu nhỏ hơn 100 kí tự',
     		);
     	$validator = Validator::make($request->all(), $rules, $messages);
 
