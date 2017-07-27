@@ -19,7 +19,7 @@
                           <p class="help-block" style="color: red"><span class="glyphicon glyphicon-warning-sign"></span> <strong>{!! $errors->first('searchText') !!}</strong></p>
                       </div>
                   @endif
-                    <input class="form-control" type="text" placeholder="Nhập từ" name = "searchText" style = " padding-left: 100px" id="textSearch"></span>
+                    <input class="form-control" type="text" placeholder="Nhập từ" name = "searchText" style = " padding-left: 100px" id="textSearch" value="@if(isset($word)) {{$word}}@endif"></span>
                     <select class="form-control" name="typeWord" id="_typeWord">
                       @foreach($typeWord as  $value)
                         <option value="{!!$value->name_type_word!!}">{!! $value->name_type_word !!}</option>
@@ -29,7 +29,12 @@
                       <span class="input-group-addon">Ngôn ngữ:</span>
                       <select class="form-control" name="languageFrom">
                         @foreach($Lg as $value)
-                          <option value="{!!$value->id!!}">{!!$value->name_language!!}</option>}
+                        @if($value->id == 1){
+                          <option value="1">Anh-Việt</option>
+                        }
+                        <option value="3">Việt-Anh</option>
+                        @endif
+
                         @endforeach
                       </select>
                     </div>
@@ -55,7 +60,7 @@
                                   aria-label="Browser: activate to sort column ascending">ID
                               </th>
                               <th class="text-center col--width3" aria-controls="example1" rowspan="1" colspan="1"
-                                  aria-label="Browser: activate to sort column ascending">Từ
+                                  aria-label="Browser: activate to sort column ascending">Nghĩa
                               </th>
                               <th class="text-center col--width4" aria-controls="example1" rowspan="1" colspan="1"
                                   aria-label="Platform(s): activate to sort column ascending">
@@ -75,9 +80,9 @@
                                 @foreach($results as $key =>$value)
                                 <?php $count = count($results) ?>
                                  <tr role="row" class="odd" id="_tr">
-                                  <td class="_word-id text-center align--vertical-middle" data-id="{{$value->id}}">{{$value->id}}</td>
-                                  <td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">{{$value->word}}</td>
-                                  <td class="_pronoun text-center align--vertical-middle">{{$value->pronounce}}</td>
+                                  <td class="_word-id text-center align--vertical-middle" data-id="{{$value->id}}">{{ $value->id }}</td>
+                                  <td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">{{ $value->word }}</td>
+                                  <td class="_pronoun text-center align--vertical-middle">{{ $value->pronounce }}</td>
                                   <td class="text-center align--vertical-middle">
                                   <a class="delete_"><i class="fa fa-trash"></i></a>
                                   <a  class="_update-word" style="padding-left: 5px"  data-toggle="modal" data-target="#myModal"><i class= "fa fa-pencil"></i></a>
@@ -88,7 +93,7 @@
                       </table>
                   </div>
               </div>
-    @if(isset($results)){!! $results->links() !!}@endif
+            @if(isset($results)){!! $results->links() !!}@endif
               <div class="row">
                   <div class="col-sm-5">
                       <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
