@@ -234,7 +234,6 @@ $(document).ready(function(){
     }
 
     // SCREEN NOTIFICATION
-
     // Toggle button
     $(document).find('#toggle-one').bootstrapToggle();
 
