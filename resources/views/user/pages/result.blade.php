@@ -22,6 +22,7 @@
 						</div>
 					</div>
 				</div>
+				<hr>
 				<div class="clearfix"></div>
 				<div class="row il-word-tile">
 					@if(isset($workInfo))
