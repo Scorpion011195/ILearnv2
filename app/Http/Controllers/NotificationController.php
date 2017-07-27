@@ -18,7 +18,7 @@ class NotificationController extends Controller
 
     public function addInforOfNotification(Request $request)
     {
-    	//Input 
+    	//Input
     	$notificationButton = $request->notificationButton;
     	$timeReminder = $request->timeReminder;
     	$typeReminder = $request->typeReminder;
@@ -41,7 +41,7 @@ class NotificationController extends Controller
 
         $dataResponse = ["data"=>true, 'checkIsOn' => $isOn];
         return json_encode($dataResponse);
-    } 
+    }
 
     public function getIsStartNotification(){
     	$isStartNotification = Session::get('isStartNotification');
@@ -77,10 +77,12 @@ class NotificationController extends Controller
         	return json_encode($dataResponse);
     	}
     	else{
-    		$dataResponse = ["data"=>false];
+            $failed = '-1';
+    		$dataResponse = ["data"=>false, 'wordUsers' => $failed];
+
         	return json_encode($dataResponse);
     	}
-        
+
     }
 
     public function getTypeReminder()
