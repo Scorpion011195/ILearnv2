@@ -247,12 +247,15 @@ body {
 /*----------------CSS HISTORY-------------*/
 .il-history {
     padding-bottom: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
 }
 select#typeWord.form-control.type {
-    padding: 0px 0px;
+    padding: 0px 18px;
 }
 select#lagPair.form-control {
     padding: 0px 0px;
+    border-radius: 4px;
 }
 .il-language-padding-left{
     padding-left: 10px;
