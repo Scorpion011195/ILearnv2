@@ -10,9 +10,7 @@
 |
 */
 /*=================USER AREA==================*/
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'DictionaryController@getSearchDictionary');
 Route::get('login', [ 'as' => 'login', 'uses' => 'UserController@getLogin']);
 Route::post('login', [ 'as' => 'login', 'uses' => 'UserController@postLogin']);
 Route::get('register', [ 'as' => 'register', 'uses' => 'UserController@getRegister']);
@@ -42,7 +40,7 @@ Route::get('translate-paragraph', ['as' => 'translateParagraph', 'uses' => 'Tran
 // Group link User After Login
 Route::group(['middleware' => 'auth'], function () {
 
-    // Go to page profile ò User 
+    // Go to page profile ò User
     Route::get('profile', function(){
     return view('user/pages/profile');
     });
