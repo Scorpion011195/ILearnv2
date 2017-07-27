@@ -79,18 +79,20 @@
 	</div>
 	<hr>
 	<!-- facebook cmt -->
-	<div class="row">
-	  	<div class="container">
-		    <div class="col-md-9 col-xs-12 col-sm-6 il-contents">
-			  	<div class="fb-comments" data-href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']; ?>" data-width="500" data-numposts="5"></div>
-			  	<div
-					class="fb-like"
-					data-share="true"
-					data-width="450"
-					data-show-faces="true">
+	@if(!Auth::guest())
+		<div class="row">
+		  	<div class="container">
+			    <div class="col-md-9 col-xs-12 col-sm-6 il-contents">
+				  	<div class="fb-comments" data-href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']; ?>" data-width="500" data-numposts="5"></div>
+				  	<div
+						class="fb-like"
+						data-share="true"
+						data-width="450"
+						data-show-faces="true">
+					</div>
 				</div>
-			</div>
-	  	</div>
-	</div>
+		  	</div>
+		</div>
+	@endif
 	<!-- /.facebook cmt -->
 @endsection
