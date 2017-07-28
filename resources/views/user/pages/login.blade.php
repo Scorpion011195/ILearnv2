@@ -21,7 +21,7 @@
 									@endif
 								</fieldset>
 								<fieldset class="form-group {{ $errors->has('pass') ? 'has-error' : ''}}">
-									<input type="password" class="form-control form-control-lg" value="" maxlength="32" minlength="6" name="pass" placeholder="Mật khẩu của bạn" required="">
+									<input type="password" class="form-control form-control-lg" value="" maxlength="100" minlength="6" name="pass" placeholder="Mật khẩu của bạn" required="">
 									@if($errors->has('pass'))
 										<div class="text-danger ng-hide">
 											<span> <i class="fa fa-times text-danger"></i>{!! $errors->first('pass')!!}</span>
