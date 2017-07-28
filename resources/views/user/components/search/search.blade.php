@@ -23,7 +23,7 @@
                         </div>
                         <div class="row">
                             <table class="table table-bodered" >
-                                <caption class="il-caption">Một số từ phát âm/đánh vần giống như <sapn class="il-alert-result">"{!! $inputText !!}"</span></caption>
+                                <caption class="il-caption">Một số từ phát âm/đánh vần giống như <span class="il-alert-result">"{!! $inputText !!}"</span></caption>
                                 <tbody>
                                     <tr>
                                         @if(isset($workRelate))

@@ -63,7 +63,7 @@ class UserController extends Controller
     		$password = $request->input('pass');
     		$remember = $request->input('remember');
 
-    		if(Auth()->attempt(['username' =>$username, 'password' =>$password ,'status' => 1, 'confirmed' =>1], $remember))
+    		if(Auth()->attempt(['username' =>$username, 'password' =>$password ,'status' => 1, 'confirmed' =>1], true))
     		{   
                 Session::put('isStartNotification', true);
     			return redirect()->intended('home');
