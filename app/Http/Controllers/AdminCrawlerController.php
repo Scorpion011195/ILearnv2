@@ -114,7 +114,7 @@ class AdminCrawlerController extends Controller
         }
         // If not over maximum
         // Set time execute
-        ini_set('max_execution_time', 600); //300 seconds = 5 minutes
+        ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 
         // If line validate
         $content = fopen($file,"r");
