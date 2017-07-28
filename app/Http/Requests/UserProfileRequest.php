@@ -27,10 +27,10 @@ class UserProfileRequest extends FormRequest
         return [
             //
         	'name' =>'min:6|max:100',
-            'address' => 'min:3|max:100',
-            'phone'=>'numeric|digits_between:9, 11',
-            'image' => 'mimes:jpeg,jpg,png|max:1000',
-            'date_of_birth' =>'date|before:'.$currentDay,
+            'address' => 'nullable|min:3|max:100',
+            'phone'=>'nullable|numeric|digits_between:9, 11',
+            'image' => 'nullable|mimes:jpeg,jpg,png|max:1000',
+            'date_of_birth' =>'nullable|date|before:'.$currentDay,
         ];
     }
 

@@ -193,16 +193,4 @@ class WordUserController extends Controller
         }
         return true;
     }
-
-    public function test(){
-        $checkLengWordFromText = $this->checkLengWord('acbdlllllll000000000000000000000000000000000000000000000000000000000000lllllllllllllll');
-        $checkLengWordToText = $this->checkLengWord('bjbkn jikjo');
-        if(!($checkLengWordFromText) || !($checkLengWordToText))
-        {
-            echo 'false';
-        }
-        else {
-            echo 'true';
-        }
-    }
 }

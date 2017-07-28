@@ -86,6 +86,11 @@
                     <label class="col-lg-3 control-label">Địa chỉ:</label>
                     <div class="col-lg-8">
                         <input class="form-control" type="text" name="address" value="{{ $user['address']}}" maxlength="200" minlength="3">
+                        @if ($errors->has('address'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('address') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
                 <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
