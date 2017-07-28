@@ -6,7 +6,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-6 col-xs-12 col-sm-4">
                 <div class="input-group {{ $errors->has('search') ? 'has-error' : '' }}">
-                  <input name="search" type="text" id="txtSearch" class="form-control"  value = "@if(isset($inputText)){{$inputText}} @endif" placeholder="Nhập từ bạn muốn tra" maxlength="50" required="">    
+                  <input name="search" type="text" id="txtSearch" class="form-control"  value = "@if(isset($inputText)){{$inputText}} @endif" placeholder="Nhập từ bạn muốn tra" maxlength="50" required="">
                     <span class="input-group-btn">
                       <button type="submit" value="Search" class="btn btn-danger" type="button">Tra từ&nbsp;</button>
                     </span>
@@ -16,14 +16,14 @@
                         {!! $errors->first('search') !!}
                     </p>
                 @endif
-                
+
                 @if(isset($status))
                         <div class="alert il-alert" role="alert">
                             {{ $status}} <span class="il-alert-result">{!! ucfirst($inputText) !!}</span>
                         </div>
                         <div class="row">
                             <table class="table table-bodered" >
-                                <caption class="il-caption">Một số từ phát âm/đánh vần giống như <sapn class="il-alert-result">"{!! $inputText !!}"</span></caption>
+                                <caption class="il-caption">Một số từ phát âm/đánh vần giống như <span class="il-alert-result">"{!! $inputText !!}"</span></caption>
                                 <tbody>
                                     <tr>
                                         @if(isset($workRelate))
@@ -47,7 +47,7 @@
                     <select class="form-control" name="lagFrom" id="lagPair">
                         @foreach ($languages as $languageOut)
                             @foreach ($languages as $languageIn)
-                                @if ($languageOut->name_language != $languageIn->name_language) 
+                                @if ($languageOut->name_language != $languageIn->name_language)
                                     <option name = "{!! $languageIn->id !!}{!! $languageOut->id !!}" value = "{!! $languageIn->id !!}{!! $languageOut->id !!}"
                                     @if(isset($oldLangPair)&&$oldLangPair==$languageIn->id.$languageOut->id)
                                          selected

@@ -12,6 +12,7 @@ use Log;
 class AdminCrawlerController extends Controller
 {
     private $dictService;
+
     public function __construct(DictionaryService $dictService){
         $this->dictService = $dictService;
     }
