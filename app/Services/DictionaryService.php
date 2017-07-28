@@ -16,7 +16,7 @@ class DictionaryService extends BaseService implements DictionaryRepository {
 
     public function checkWordExist($word, $typeWord, $languageId)
     {
-        $result = DB::table('dictionarys')->where('word', '=', $word)->get();
+        $result = DB::table('dictionarys')->where('word', '=', $word)->where('type_word', '=', $typeWord)->where('language_id','=', $languageId)->get();
         $count = $result->count();
         if($count > 0){
             return true;
@@ -77,8 +77,8 @@ class DictionaryService extends BaseService implements DictionaryRepository {
 
        array_push($arrResultSearch, $valueLang);
        array_push($arrResultSearch, $lagMapping);
-       
-        return $arrResultSearch; 
+
+        return $arrResultSearch;
     }
 
     public function findWordSeft($inputText)
