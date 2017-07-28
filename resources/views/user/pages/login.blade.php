@@ -4,7 +4,7 @@
 		<div class="container">
 			<div class="col-lg-6 col-md-8 col-sm-8 col-xs-12 col-lg-offset-3 col-md-offset-2 col-sm-offset-2 ">
 	            <form method="post" role="form" action= "{{route('login')}}" accept-charset="utf-8" name="loginForm" id="loginForm">
-	            	{!! csrf_field() !!}
+	            	{{ csrf_field() }}
 	            	<div class='il-title-login'>
 	            		<legend>Đăng nhập</legend>
 	            		<span>Bạn có tài khoản vui lòng đăng nhập để sử dụng nhiều tiện ích</span>
