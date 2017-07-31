@@ -22,7 +22,11 @@
                     <input class="form-control" type="text" placeholder="Nhập từ" name = "searchText" style = " padding-left: 100px" id="textSearch" value="@if(isset($word)) {{$word}}@endif"></span>
                     <select class="form-control" name="typeWord" id="_typeWord">
                       @foreach($typeWord as  $value)
-                        <option value="{!!$value->name_type_word!!}">{!! $value->name_type_word !!}</option>
+                      @if(isset($RtypeWord) && $RtypeWord == $value->name_type_word)
+                        <option value="{!!$value->name_type_word!!}" selected>{!! $value->name_type_word !!}</option>
+                      @else
+                      <option value="{!!$value->name_type_word!!}">{!! $value->name_type_word !!}</option>
+                      @endif
                       @endforeach
                     </select>
                     <div class="input-group ">

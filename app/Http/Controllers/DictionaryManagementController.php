@@ -205,14 +205,14 @@ class DictionaryManagementController extends Controller
            ->where ('type_word','like','%'.$typeWord.'%')
            ->where ('language_id','=', $languageFrom)
            ->paginate(10);
-           return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result,'word' =>$textSeach]);
+           return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result,'word' =>$textSeach,'RtypeWord' => $typeWord,'lang' =>$languageFrom]);
         }
         else{
           $result = DB::table('dictionarys')
            ->where ('word','like','%'.$textSeach.'%')
            ->where ('type_word','=', $typeWord)
            ->paginate(10);
-           return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result]);
+           return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result,'word' =>$textSeach,'RtypeWord' => $typeWord,'lang' =>$languageFrom]);
         }
 
       }
@@ -220,6 +220,7 @@ class DictionaryManagementController extends Controller
         $result = DB::table('dictionarys')
            ->where ('word','like','%'.$textSeach.'%')
             ->paginate(10);
+        return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result,'word' =>$textSeach,'RtypeWord' => $typeWord,'lang' =>$languageFrom]);
       }
 
     }
@@ -227,7 +228,7 @@ class DictionaryManagementController extends Controller
           return view('admin.pages.dict.search')->with
           ([
             'typeWord' => $typeOfWord,
-            'Lg'=> $lang
+            'Lg'=> $lang, 'word' =>$textSeach,'RtypeWord' => $typeWord,'lang' =>$languageFrom
           ]);
     }
   }

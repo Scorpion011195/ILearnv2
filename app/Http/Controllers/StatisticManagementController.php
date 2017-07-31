@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Statistic;
 use App\Services\StatisticService;
 use DB;
+use DateTime;
 
 
 class StatisticManagementController extends Controller
@@ -15,6 +16,15 @@ class StatisticManagementController extends Controller
     public function __construct(StatisticService $statistic)
     {
       $this->statistic = $statistic;
+    }
+    public function displaySceenST(){
+        if(isset($dataChecker)){
+            return view('admin.pages.dict.collect')->with(['data'=>$dataChecker]);
+        }
+        return view('admin.pages.dict.collect');
+    }
+    public function displayByOb(){
+        return view('admin.pages.dict.collect');
     }
     // Display result after statistic
     public function displayStatisticalResult(){
@@ -63,8 +73,16 @@ class StatisticManagementController extends Controller
                     $Aval ="NO";
                 }
                 $data = DB::Table('statistic_words')->insert(['from_text' => $value->word,'to_text' => $value->mean,'from_language_id' => $value->from_language_id,'to_language_id' => $value->to_language_id,'type_word' => $value->type_word,'isAvailable' => $Aval]);
+                $db = DB::table('word_users')
+                ->where('word',$value->word)
+                ->where('mean', $value->mean)
+                ->where('from_language_id',$value->from_language_id)
+                ->delete();
             }
         }
+        $now = new DateTime();
+        $gettimeCollect =  $now->getTimestamp(); 
+        var_dump($gettimeCollect);
         return view('admin.pages.dict.collect')->with(['data'=>$dataChecker]);
 
     }

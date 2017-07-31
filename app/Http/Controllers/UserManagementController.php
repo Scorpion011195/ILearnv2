@@ -95,6 +95,4 @@ class UserManagementController extends Controller
         $dataResponse = ["data"=>true];
         return json_encode($dataResponse);
     }
-
-
 }
