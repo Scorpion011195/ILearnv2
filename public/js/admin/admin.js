@@ -207,5 +207,12 @@ $(document).ready(function() {
 
     /*Pop hover*/
     $('[data-toggle="popover"]').popover();
+    // datePiker
+    $( function() {
+    $( "#datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+  } );
 });
 

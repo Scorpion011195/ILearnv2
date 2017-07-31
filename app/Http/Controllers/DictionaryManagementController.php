@@ -55,10 +55,10 @@ class DictionaryManagementController extends Controller
                 ]);
     }
     else{
-        $result = $this->dictService->checkWordExist($fromText,$fromLg,$typeWord);
+        $result = $this->dictService->findWordInDB($fromText,$fromLg);
         if($result > 0)
           {
-            $result = $this->dictService->checkWordExist($toText,$toLg,$typeWord);
+            $result = $this->dictService->findWordInDB($toText,$toLg);
             if($result > 0 )
             {
               return view('admin.pages.dict.create')->with
@@ -101,10 +101,10 @@ class DictionaryManagementController extends Controller
         else
         {
       // Tìm kiếm và kiểm trá nghĩa xem có tồn tại hay không
-          $result = $this->dictService->checkWordExist($toText,$toLg,$typeWord);
+          $result = $this->dictService->findWordInDB($toText,$fromLg);
           if($result > 0)
             {
-              $result = $this->dictService->checkWordExist($fromText,$fromLg,$typeWord);
+              $result = $this->dictService->findWordInDB($fromText,$toLg);
               if($result > 0 )
               {
                 return view('admin.pages.dict.create')->with
