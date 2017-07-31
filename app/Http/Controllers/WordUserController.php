@@ -136,6 +136,27 @@ class WordUserController extends Controller
             return json_encode($dataResponse);
         }
 
+        //Check Max lenght Word
+        $lengthFromText = strlen($fromText);
+        $lengthToText = strlen($toText);
+
+        if($lengthFromText > 1000 || $lengthToText > 1000)
+        {
+            $dataResponse = ["data"=>'invalidMaxlenght'];
+            return json_encode($dataResponse);
+        }
+
+        // Check Lenght letter before Insert To DB
+        $checkLengWordFromText = $this->checkLengWord($fromText);
+        $checkLengWordToText = $this->checkLengWord($toText);
+        
+        if(!$checkLengWordFromText || !$checkLengWordToText)
+        {
+            $dataResponse = ["data"=>'invalid'];
+            return json_encode($dataResponse);
+
+        }
+
         // Check Word existed
         $isWordExist = $this->wordUserService->checkWordUserExist($fromText, $toText, $typeWord, $langPairName, $userId);
         if($isWordExist)
@@ -156,5 +177,20 @@ class WordUserController extends Controller
             $dataResponse = ["data"=>true, 'id' => $id];
             return json_encode($dataResponse);
         }
+    }
+
+    // Function check lenght word
+    public function checkLengWord($input){
+        $explodeInput = explode(" ", $input);
+        for($i = 0; $i < count($explodeInput); $i++)
+        {
+            $lenghtInput = strlen($explodeInput[$i]);
+
+            if($lenghtInput > 45)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

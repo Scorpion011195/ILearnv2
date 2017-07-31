@@ -199,14 +199,17 @@ $(document).ready(function(){
                     var id = response["id"];
                     var rowAdd = getRowAddHistory(fromText, toText, typeWord, langPairName, id);
                     $(document).find("#tb_myWord").append( rowAdd );
-                    $.notify('Đã thêm từ "'+fromText+'" với nghĩa "'+toText+'" vào lịch sử!', "success");
+                    $.notify('Đã thêm từ "'+fromText+'" với nghĩa "'+toText+'" vào Danh sách từ!', "success");
                 }
                 else if(response["data"]== false){
                     $.notify('Từ "'+ fromText +'" với nghĩa "'+ toText +'" đã có!', "warn");
                 }
-                // else if(response["data"]== 'invalidate'){
-                //     $.notify('Từ không hợp lệ!', "warn");
-                // }
+                else if(response["data"]== 'invalid'){
+                    $.notify('Từ không hợp lệ!', "warn");
+                }
+                else if(response["data"]== 'invalidMaxlenght'){
+                    $.notify('Từ quá 1000 kí tự!', "warn");
+                }
                 else if(response["data"]== 'emptyFrom'){
                     $.notify('Bạn chưa nhập từ!', "warn");
                 }
@@ -390,7 +393,7 @@ $(document).ready(function(){
             }
         });
     }
-
+    
     function checkIsOn(isOn){
         if(isOn=="ON"){
             if (!Notification in window) {

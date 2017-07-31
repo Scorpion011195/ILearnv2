@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UserProfileRequest;
 use App\Http\Requests\ChangePassRequest;
+use App\Http\Requests\LoginRequest;
 use Auth;
 use Mail;
 use Illuminate\Support\Facades\Input;
@@ -34,45 +35,22 @@ class UserController extends Controller
     }
 
     //Post user login
-    public function postLogin(Request $request)
+    public function postLogin(LoginRequest $request)
     {
-    	$rules = 
-    		 array(
-    			'name'=> 'required|min:6|max:32|alpha_dash',
-  				'pass'=> 'required|min:6',
-				);
-    	$messages = 
-    		array(
-    			'name.required' => 'Trường username là bắt buộc',
-    			'name.required' => 'Trường username là bắt buộc',
-    			'name.min' => 'Tên đăng nhập lớn hơn 6 kí tự',
-    			'name.max' =>'Tên đăng nhập nhỏ hơn 6 kí tự',
-			    'name.alpha_dash' => 'Chỉ nhập các kí tự là: chữ, số, "-", "_"',
-			    'pass.required' => 'Mật khẩu là bắt buộc',
-			    'pass.min' => 'Mật khẩu lớn hơn 6 kí tự',
-			    'pass.max' => 'Mật khẩu nhỏ hơn 32 kí tự',
-    		);
-    	$validator = Validator::make($request->all(), $rules, $messages);
 
-    	if($validator->fails())
-    		{
-    			return redirect()->back()->withErrors($validator)->withInput();
-    		}
-    	else {
-    		$username = $request->input('name');
-    		$password = $request->input('pass');
-    		$remember = $request->input('remember');
+		$username = $request->input('name');
+		$password = $request->input('pass');
+		$remember = $request->has('remember');
 
-    		if(Auth()->attempt(['username' =>$username, 'password' =>$password ,'status' => 1, 'confirmed' =>1], $remember))
-    		{   
-                Session::put('isStartNotification', true);
-    			return redirect()->intended('home');
-    		}
-    		else {
-    			$errors = new Messagebag(['errorLogin' => 'Email hoặc mật khẩu không đúng']);
-    			return redirect()->back()->withInput()->withErrors($errors);
-    		}
-    	}
+		if(Auth()->attempt(['username' =>$username, 'password' =>$password ,'status' => 1, 'confirmed' =>1], $remember))
+		{   
+            Session::put('isStartNotification', true);
+                return redirect()->intended('home');
+        }
+		else {
+			$errors = new Messagebag(['errorLogin' => 'Email hoặc mật khẩu không đúng']);
+			return redirect()->back()->withInput()->withErrors($errors);
+		}
     }
      //User logout
     public function logout()
@@ -140,7 +118,7 @@ class UserController extends Controller
     }
     // Post edit user
 
-    public function postEditUser( UserProfileRequest $request, $id)
+    public function postEditUser(UserProfileRequest $request, $id)
     {
         $user = User::find($id);
 

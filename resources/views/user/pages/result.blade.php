@@ -5,10 +5,10 @@
 		<div class="container">
 			<div class="col-md-9 col-xs-12 col-sm-6 il-contents">
 				<div class="row il-content-word">
-					<div class="col-md-3 col-xs-12 col-sm-3">
+					<div class="col-md-12 col-xs-12 col-sm-12">
 						<div class="il-word"><span>{!! ucfirst($inputText) !!}</span></div>
 					</div>
-					<div class="col-md-9 col-xs-12 col-sm-9">
+					<div class="col-md-12 col-xs-12 col-sm-12">
 						<div class="il-spelling">
 							@if(isset($workSelf))
 							<?php $pronounce = '' ?>
@@ -22,8 +22,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="clearfix"></div>
 				<hr>
+				<div class="clearfix"></div>
 				<div class="row il-word-tile">
 					@if(isset($workInfo))
 						<?php $type_word = '' ?>
@@ -79,12 +79,20 @@
 	</div>
 	<hr>
 	<!-- facebook cmt -->
-	<div class="row">
-	  <div class="container">
-	    <div class="col-md-9 col-xs-12 col-sm-6 il-contents">
-		  <div class="fb-comments" data-href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']; ?>" data-width="500" data-numposts="5"></div>
+	@if(!Auth::guest())
+		<div class="row">
+		  	<div class="container">
+			    <div class="col-md-9 col-xs-12 col-sm-6 il-contents">
+				  	<div class="fb-comments" data-href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']; ?>" data-width="500" data-numposts="5"></div>
+				  	<div
+						class="fb-like"
+						data-share="true"
+						data-width="450"
+						data-show-faces="true">
+					</div>
+				</div>
+		  	</div>
 		</div>
-	  </div>
-	</div>
+	@endif
 	<!-- /.facebook cmt -->
 @endsection

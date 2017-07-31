@@ -25,9 +25,6 @@
 						{!! $user->name !!}
 					</div>
 				</div>
-				<div class="profile-userbuttons">
-					<button type="button" class="btn btn-success btn-sm">Active</button>
-				</div>
 				<div class="profile-usermenu">
 					<ul class="nav">
 						<li class="active">
@@ -77,24 +74,29 @@
                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                     <label class="col-lg-3 control-label">Họ và tên:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" name="name" value="{{ $user['name']}}">
+                        <input class="form-control" type="text" name="name" value="{{ $user['name']}}" maxlength="100" minlength="6">
                          @if ($errors->has('name'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('name') }}</strong>
-                        </span>
+                            <span class="help-block">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </span>
                         @endif 
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Địa chỉ:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" type="text" name="address" value="{{ $user['address']}}">
+                        <input class="form-control" type="text" name="address" value="{{ $user['address']}}" maxlength="200" minlength="3">
+                        @if ($errors->has('address'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('address') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
                 <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
                     <label class="col-md-3 control-label">Số điện thoại:</label>
                     <div class="col-md-8">
-                        <input class="form-control" type="number" name="phone" value="{{ $user['phone']}}">
+                        <input class="form-control" type="number" name="phone" value="{{ $user['phone'] }}">
                         @if ($errors->has('phone'))
                           <span class="help-block">
                             <strong>{{ $errors->first('phone') }}</strong>
@@ -106,7 +108,7 @@
                     <label class="col-md-3 control-label">Ngày sinh:</label>
                     <div class="col-md-8">
                         <div class='input-group date' id='datepicker'>
-                            <input type='text' name= "date_of_birth" value="{{ $user['date_of_birth']}}" class="form-control" data-role ="date" data-inline = "true"/>
+                            <input type='text' name= "date_of_birth" value="{{ $user['date_of_birth'] }}" class="form-control" data-role ="date" data-inline = "true"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>

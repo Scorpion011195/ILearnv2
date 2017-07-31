@@ -79,6 +79,7 @@ class NotificationController extends Controller
     	else{
             $failed = '-1';
     		$dataResponse = ["data"=>false, 'wordUsers' => $failed];
+
         	return json_encode($dataResponse);
     	}
 
