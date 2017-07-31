@@ -107,8 +107,8 @@ Route::group(['prefix' => 'admin'], function () {
             Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
             Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
         // Collection
+            Route::POST('collect/', 'StatisticManagementController@collectByOb')->name('adminDictCollectByOb');
             Route::get('collect', 'StatisticManagementController@displayStatisticalResult')->name('adminDictCollect');
-            Route::post('collect-added', 'StatisticManagementController@displayStatisticalResultByCondition')->name('adminDictCollectByCondition');
         });
 
         // Thông tin cá nhân

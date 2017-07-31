@@ -22,10 +22,12 @@ class StatisticManagementController extends Controller
         $dataChecker = DB::table('statistic_words')->get();
         $countChecker = count($dataChecker);
         $countDB = count($db);
-        if($countDB == $countChecker){
+        if($countDB == $countChecker)
+        {
             return view('admin.pages.dict.collect');
         }
-        foreach ($db as $value) {
+        foreach ($db as $value) 
+        {
             $from  = $value->word;
             $to = $value->mean;
             $result = $this->statistic->findWordInBD($from,$to);
@@ -45,16 +47,19 @@ class StatisticManagementController extends Controller
                 ->where('to_language_id',$value->to_language_id)
                 ->update(['quanlity' => $quanlity ]);
             }
-            else{
+            else
+            {
                 $Available = DB::Table('dictionarys')
                 ->where('word',$value->word)
                 ->where('language_id',$value->to_language_id)
                 ->get();
                 $count = count($Available);
-                if($count > 0 ){
+                if($count > 0 )
+                {
                     $Aval = "YES";
                 }
-                else{
+                else
+                {
                     $Aval ="NO";
                 }
                 $data = DB::Table('statistic_words')->insert(['from_text' => $value->word,'to_text' => $value->mean,'from_language_id' => $value->from_language_id,'to_language_id' => $value->to_language_id,'type_word' => $value->type_word,'isAvailable' => $Aval]);
@@ -65,8 +70,10 @@ class StatisticManagementController extends Controller
     }
 
     // Display result by conditio
-    function displayStatisticalResultByCondition(Request $request){
-        // Input
-        return view('admin.pages.dict.collect');
+    public function collectByOb(request $request)
+    {
+        $value =$request->obCollect;
+        $gtData = DB::table('statistic_words')->where('isAvailable',$value)->get();
+        return view('admin.pages.dict.collect')->with(['data'=> $gtData]);
     }
 }

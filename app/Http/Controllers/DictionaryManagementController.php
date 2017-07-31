@@ -48,7 +48,10 @@ class DictionaryManagementController extends Controller
                   'message' => 'Từ và nghĩa không được giống nhau !',
                   'to' =>$toText,
                   'from' =>$fromText,
-                  'pronoun' =>$pronoun
+                  'pronoun' =>$pronoun,
+                  'ssFromLang' =>$fromLg,
+                  'ssToLang' =>$toLg,
+                  'ssType' =>$typeWord,
                 ]);
     }
     else{
@@ -64,7 +67,10 @@ class DictionaryManagementController extends Controller
                   'message' => 'Từ  "'.$fromText.'" và nghĩa "'.$toText.'"  đã có trong hệ thống',
                   'to' =>$toText,
                   'from' =>$fromText,
-                  'pronoun' =>$pronoun
+                  'pronoun' =>$pronoun,
+                  'ssType' =>$typeWord,
+                  'ssFromLang' =>$fromLg,
+                  'ssToLang' =>$toLg,
                 ]);
             }else
             {
@@ -85,7 +91,10 @@ class DictionaryManagementController extends Controller
               'message' => 'Đã thêm thành công nghĩa  "'.$toText .'"của từ "'.$fromText.'"!',
               'to' =>$toText,
               'from' =>$fromText,
-              'pronoun' =>$pronoun
+              'pronoun' =>$pronoun,
+              'ssFromLang' =>$fromLg,
+              'ssToLang' =>$toLg,
+              'ssType' =>$typeWord,
               ]);
             }
           }
@@ -104,7 +113,10 @@ class DictionaryManagementController extends Controller
                     'message' => 'Từ "'.$fromText.'" và nghĩa "'.$toText.'" đã có trong hệ thống',
                     'to' =>$toText,
                     'from' =>$fromText,
-                    'pronoun' =>$pronoun
+                    'pronoun' =>$pronoun,
+                    'ssFromLang' =>$fromLg,
+                    'ssToLang' =>$toLg,
+                    'ssType' =>$typeWord,
                   ]);
               }else
               {
@@ -125,7 +137,10 @@ class DictionaryManagementController extends Controller
                 'message' => 'Đã thêm từ '.$fromText.' thành công',
                 'to' =>$toText,
                 'from' =>$fromText,
-                'pronoun' =>$pronoun
+                'pronoun' =>$pronoun,
+                'ssFromLang' =>$fromLg,
+                'ssToLang' =>$toLg,
+                'ssType' =>$typeWord
                 ]);
               }
             }
@@ -146,7 +161,10 @@ class DictionaryManagementController extends Controller
               'message' => 'Đã thêm thành công từ "'.$fromText.'" và nghĩa "'.$toText.'" !' ,
                 'to' =>$toText,
                 'from' =>$fromText,
-                'pronoun' =>$pronoun
+                'pronoun' =>$pronoun,
+                'ssFromLang' =>$fromLg,
+                'ssToLang' =>$toLg,
+                'ssType' =>$typeWord
               ]);
           }
           /*Peformance Test with 1000 record*/

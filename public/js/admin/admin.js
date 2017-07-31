@@ -107,6 +107,8 @@ $(document).ready(function() {
        ajaxChangeStatus(id,Status, _token);
     });
 
+    /* =============================================*/
+
     // DeleteWord
     function ajaxDeleteWord(_element, idWord, _token, word){
         $.ajax({

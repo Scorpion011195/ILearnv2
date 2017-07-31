@@ -25,7 +25,11 @@
                 <select class="form-control" name="fromLg" >
                   @if(isset($languages))
                     @foreach($languages as $language)
-                        <option value="{!! $language->id !!}"> {!! $language->name_language !!} ({!!$language->code_language!!})</option>
+                        @if(isset($ssFromLang) && $ssFromLang == $language->id)
+                            <option value="{!! $language->id !!}" selected> {!! $language->name_language !!} ({!!$language->code_language!!})</option>
+                        @else
+                         <option value="{!! $language->id !!}"> {!! $language->name_language !!} ({!!$language->code_language!!})</option>
+                        @endif
                     @endforeach
                   @endif
                 </select>
@@ -33,7 +37,12 @@
               <select class="form-control" name="typeWord" >
                 @if(isset($typeWord))
                     @foreach($typeWord as $value)
-                      <option value="{{ $value->name_type_word }}">{!! $value->name_type_word !!}</option>
+                    @if(isset($ssType) && $ssType == $value->name_type_word)
+                      <option value="{{ $value->name_type_word }}" selected>{!! $value->name_type_word !!}</option>
+                    @else
+                      <option value="{{ $value->name_type_word }}" >{!! $value->name_type_word !!}</option>
+                    @endif
+
                     @endforeach
                 @endif
               </select>         
@@ -46,7 +55,11 @@
                 <select class="form-control" name="toLg">
                 @if(isset($languages))
                   @foreach($languages as $language)
-                  <option value="{!! $language->id !!}"> {!! $language->name_language !!} ({!!$language->code_language!!})</option>
+                  @if(isset($ssToLang) && $ssToLang == $language->id)
+                            <option value="{!! $language->id !!}" selected> {!! $language->name_language !!} ({!!$language->code_language!!})</option>
+                        @else
+                         <option value="{!! $language->id !!}"> {!! $language->name_language !!} ({!!$language->code_language!!})</option>
+                        @endif({!!$language->code_language!!})</option>
                   @endforeach
                 @endif
                 </select>
