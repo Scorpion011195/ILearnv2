@@ -35,7 +35,7 @@ class UserController extends Controller
     }
 
     //Post user login
-    public function postLogin(LoginRequest $request)
+    public function postLogin(Request $request)
     {
 
 		$username = $request->input('name');
@@ -44,6 +44,9 @@ class UserController extends Controller
 
 		if(Auth()->attempt(['username' =>$username, 'password' =>$password ,'status' => 1, 'confirmed' =>1], $remember))
 		{   
+            $numOfUse = Auth::user()->NOU;
+            $numOfUse =$numOfUse + 1;
+            $db = DB::table('users')->where('id',Auth::user()->id)->update(['NOU' => $numOfUse]);
             Session::put('isStartNotification', true);
                 return redirect()->intended('home');
         }
