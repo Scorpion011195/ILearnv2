@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Repositories\UserRepository;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UserProfileRequest;
@@ -23,7 +23,7 @@ use App\ModelViews\UserViewModel;
 
 class UserController extends Controller 
 {
-    public function __construct(UserRepository $user)
+    public function __construct(UserService $user)
     {
         $this->user = $user;
     }
@@ -44,6 +44,7 @@ class UserController extends Controller
 
 		if(Auth()->attempt(['username' =>$username, 'password' =>$password ,'status' => 1, 'confirmed' =>1], $remember))
 		{   
+            
             Session::put('isStartNotification', true);
                 return redirect()->intended('home');
         }
