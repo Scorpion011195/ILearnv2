@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('phone',50)->nullable()->default(null);
             $table->date('date_of_birth')->nullable()->default(null);
             $table->integer('status');
+            $table->integer('number_of_use')->nullable()->default(null);
             $table->integer('role_id');
             $table->boolean('confirmed')->default(0);
             $table->string('confirmation_code')->nullable();

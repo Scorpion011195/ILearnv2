@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Repositories\UserRepository;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UserProfileRequest;
@@ -23,7 +23,7 @@ use App\ModelViews\UserViewModel;
 
 class UserController extends Controller 
 {
-    public function __construct(UserRepository $user)
+    public function __construct(UserService $user)
     {
         $this->user = $user;
     }
@@ -41,14 +41,12 @@ class UserController extends Controller
         $username = $request->input('name');
         $password = $request->input('pass');
         $remember = $request->has('remember');
-
+        
         if(Auth()->attempt(['username' =>$username, 'password' =>$password ,'status' => 1, 'confirmed' =>1], $remember))
         {   
             $numOfUse = Auth::user()->NOU;
             $numOfUse =$numOfUse + 1;
             $db = DB::table('users')->where('id',Auth::user()->id)->update(['NOU' => $numOfUse]);
-            Session::put('isStartNotification', true);
-                return redirect()->intended('home');
         }
         else {
             $errors = new Messagebag(['errorLogin' => 'Email hoặc mật khẩu không đúng']);
