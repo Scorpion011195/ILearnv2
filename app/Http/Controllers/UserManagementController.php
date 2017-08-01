@@ -95,4 +95,7 @@ class UserManagementController extends Controller
         $dataResponse = ["data"=>true];
         return json_encode($dataResponse);
     }
+    public function  collect(request $request){
+        return view('admin.components.user.user-management.account-collect');
+    }
 }

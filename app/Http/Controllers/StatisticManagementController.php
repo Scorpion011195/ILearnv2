@@ -80,9 +80,6 @@ class StatisticManagementController extends Controller
                 ->delete();
             }
         }
-        $now = new DateTime();
-        $gettimeCollect =  $now->getTimestamp(); 
-        var_dump($gettimeCollect);
         return view('admin.pages.dict.collect')->with(['data'=>$dataChecker]);
 
     }

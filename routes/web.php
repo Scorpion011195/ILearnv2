@@ -102,7 +102,7 @@ Route::group(['prefix' => 'admin'], function () {
         // Upload file
             Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
             Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
-        // Collection
+        // Collection wword
             Route::POST('collect/', 'StatisticManagementController@collectByOb')->name('adminDictCollectByOb');
             Route::get('collect', 'StatisticManagementController@displayStatisticalResult')->name('adminDictCollect');
         });
@@ -128,6 +128,7 @@ Route::group(['prefix' => 'admin'], function () {
 
             Route::get('detail/{id}', 'UserManagementController@detailUser')->name('adminGetDetailUser');
             // Route::post('updateDetail', 'UserManagementController@postDetailUser')->name('adminPostDetailUser');
+            Route::get('collect', 'UserManagementController@collect')->name("adminCollectUser");
         });
     });
 });
