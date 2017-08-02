@@ -47,6 +47,7 @@ class UserController extends Controller
             $numOfUse = Auth::user()->NOU;
             $numOfUse =$numOfUse + 1;
             $db = DB::table('users')->where('id',Auth::user()->id)->update(['NOU' => $numOfUse]);
+            return redirect()->intended('home');
         }
         else {
             $errors = new Messagebag(['errorLogin' => 'Email hoặc mật khẩu không đúng']);

@@ -31,7 +31,7 @@
                 </a>
               <ul class="treeview-menu " id= "list_menu">
                 <li id="_menu-qlus-ds"><a href="{{route('adminUserManagement')}}">Danh sách User</a></li>
-                <li id="_menu-qlus-tk"><a href="#">Thống kê</a></li>
+                <li id="_menu-qlus-ds"><a href="{{route('adminCollectUser')}}">Thong ke</a></li>
               </ul>
             </li>
         <!-- admin -->
