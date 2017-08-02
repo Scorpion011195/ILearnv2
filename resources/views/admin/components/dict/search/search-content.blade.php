@@ -20,6 +20,7 @@
                       </div>
                   @endif
                     <input class="form-control" type="text" placeholder="Nhập từ" name = "searchText" style = " padding-left: 100px" id="textSearch" value="@if(isset($word)) {{$word}}@endif"></span>
+                    @if(isset($word))
                     <select class="form-control" name="typeWord" id="_typeWord">
                       @foreach($typeWord as  $value)
                       @if(isset($RtypeWord) && $RtypeWord == $value->name_type_word)
@@ -31,7 +32,7 @@
                     </select>
                     <div class="input-group ">
                       <span class="input-group-addon">Ngôn ngữ:</span>
-                      <select class="form-control" name="languageFrom">
+                      <select class="form-control" name="languageFrom" id="_lang">
                         @foreach($Lg as $value)
                         @if($value->id == 1){
                           <option value="1">Anh-Việt</option>
@@ -42,6 +43,7 @@
                         @endforeach
                       </select>
                     </div>
+                    @endif
                     <button type="submit" class="btn btn-info" id="submitSearch">
                         <span class="glyphicon glyphicon-search"></span>
                     </button>

@@ -54,6 +54,10 @@ class UserManagementController extends Controller
         $id_role = $request->idRole;
         $username = $request->username;
         $idUser =$request->idUser;
+        if(Auth::user()->id == $idUser){
+             $dataResponse = ["data"=>false];
+        return json_encode($dataResponse);
+        }
         $data = User::find($idUser);
         $data->role_id = $id_role;
         $data->save();

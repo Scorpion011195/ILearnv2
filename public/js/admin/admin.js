@@ -1,21 +1,5 @@
 
 $(document).ready(function() {
-  	$(document).on('change','#_typeWord', function(evt){
-  		var typeWord = $("#_typeWord :selected").val();
-  		var _token = $('input[name=_token]').val();
-
-      $.ajax ({
-          url: 'adminSearch',
-          type: 'POST',
-          dataType: 'json',
-          data :{'typeWord':typeWord,'_token' : _token},
-
-          success: function(evt ){
-                  location.reload();
-          }
-   	  });
-    });
-
     $(document).on('click','.delete_', function(evt){
         var _element = $(this).closest('tr');
         var idWord = _element.find('._word-id').attr('data-id');
@@ -106,7 +90,64 @@ $(document).ready(function() {
 
        ajaxChangeStatus(id,Status, _token);
     });
-
+/*Fillter*/
+    $(document).on('change','.cbselect', function()
+    {
+      var value = $(this).val();
+      var _token = $('input[name=_token]').val();
+      $.ajax(
+      {
+        url: 'fillter',
+        type: 'POST',
+        data: {'value' : value, '_token':_token},
+        beforeSend:function()
+        {
+          $('#example_wrapper').html('Loading data on ....!');
+        },
+        success:function(data){
+          $('#example_wrapper').html(data);
+        },
+      });
+    });
+/*Search word by type*/
+  $(document).on('change','#_typeWord',function(){
+    var textSearch = $('#textSearch').val();
+    var value = $(this).val();
+    var _token = $('input[name=_token]').val();
+    $.ajax(
+    {
+      url : 'seachWord',
+      type : 'POST',
+      data : {'value' : value, '_token' :_token,'text' : textSearch},
+      beforeSend:function()
+      {
+        $("#example_wrapper").html('Đang tải dữ liệu');
+      },
+      success:function(data){
+         $("#example_wrapper").html(data);
+      }
+    });
+  });
+  /*Search word by Language*/
+   $(document).on('change','#_lang',function(){
+    var textSearch = $('#textSearch').val();
+    var type = $('#_typeWord').val();
+    var _token = $('input[name=_token]').val();
+    var lang = $(this).val();
+    $.ajax(
+    {
+      url : 'seachWordByLang',
+      type : 'POST',
+      data : {'type' : type, '_token' :_token,'text' : textSearch,'lang': lang},
+      beforeSend:function()
+      {
+        $("#example_wrapper").html('Đang tải dữ liệu');
+      },
+      success:function(data){
+         $("#example_wrapper").html(data);
+      }
+    });
+  });
     /* =============================================*/
 
     // DeleteWord
@@ -157,6 +198,8 @@ $(document).ready(function() {
             success : function(response){
               if(response['data']==true){
                 $.notify("Cập nhật quyền cho '" +userName+ "' thành công","success");
+              }else{
+                $.notify("Bạn không thể sửa đổi quyền của chính bạn","warn");
               }
             },
             error: function(xhr, error) {
@@ -204,6 +247,7 @@ $(document).ready(function() {
             }
       });
     }
+    /*Login sussess*/
 
     /*Pop hover*/
     $('[data-toggle="popover"]').popover();

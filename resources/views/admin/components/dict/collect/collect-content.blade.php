@@ -12,9 +12,6 @@
                            <option value="NO">Waitting</option>
                         </select>
                       </div>
-                      <button type="submit" class="btn btn-info">
-                          <span class="glyphicon glyphicon-search"></span>
-                      </button>
                     </div>
                 </form>
               </div>
@@ -59,7 +56,8 @@
                             @if(isset($data))
                             <?php $count =count($data) ?>
 
-                                @foreach($data as $value) 
+                                @foreach($data as $value)
+                                <?php $typeWord = DB::table('type_words')->where('id',$value->type_word_id)->value('name_type_word');?>
                                   <tr role="row" class="odd" id="_tr"> 
                                     <td class="text-center align--vertical-middle">{{$value->id}}</td>
                                     <td class="text-center align--vertical-middle">{{$value->from_text}}</td>
@@ -67,7 +65,7 @@
                                     <td class="text-center align--vertical-middle">@if($value->from_language_id !== 3 && $value->to_language_id !==1) Anh-Việt
                                     @else Việt-Anh @endif</td>
                                     <td class="text-center align--vertical-middle">{{$value->quanlity}}</td>
-                                    <td class="text-center align--vertical-middle">{{$value->type_word}}</td>
+                                    <td class="text-center align--vertical-middle">{{$typeWord}}</td>
                                     <td class="text-center align--vertical-middle">@if($value->isAvailable =="YES")Added @else Waitting @endif</td>
                                   </tr>
 

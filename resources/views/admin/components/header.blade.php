@@ -48,7 +48,9 @@
                         </ul>
                     </li>
                 </ul>
-
             </div>
+            @if(Auth::user()->id !== Null)
+            <script type="text/javascript"></script>
+            @endif
         </nav>
     </header>

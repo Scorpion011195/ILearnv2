@@ -14,7 +14,7 @@
             </div>
             <a href="#">
                 <div class="panel-footer">
-                    <span class="pull-left" data-toggle="Modal" data-target="#collect">Xem chi tiết</span>
+                    <span class="pull-left" data-toggle="collapse" data-target="#all" aria-expanded="false" aria-controls="all">Xem chi tiết</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
@@ -29,14 +29,14 @@
                         <i class="fa fa-user fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">12</div>
+                        <div class="huge"><?php $count =count($data)?>{{$count}}</div>
                         <div>Tổng số lượng User!</div>
                     </div>
                 </div>
             </div>
             <a href="#">
                 <div class="panel-footer">
-                    <span class="pull-left" data-toggle=""  data-target="#news">Xem chi tiết</span>
+                    <span class="pull-left" data-toggle="collapse" data-target="#allUser" aria-expanded="false" aria-controls="allUser">Xem chi tiết</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
@@ -51,14 +51,14 @@
                         <i class="fa fa-user fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">124</div>
+                        <div class="huge"></div>
                         <div>User bị block!</div>
                     </div>
                 </div>
             </div>
             <a href="#">
                 <div class="panel-footer">
-                    <span class="pull-left"  data-toggle="collapse" data-target="#block">Xem chi tiết</span>
+                    <span class="pull-left"  data-toggle="collapse" data-target="#block" aria-expanded="false" aria-controls="block">Xem chi tiết</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
@@ -73,12 +73,12 @@
                         <i class="fa fa-user fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge"><h4><b>13</b></h4></div>
+                        <div class="huge"><h4><b></b></h4></div>
                         <div>Admin!</div>
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a data-toggle="collapse" data-target="#admin" aria-expanded="false" aria-controls="admin">
                 <div class="panel-footer">
                     <span class="pull-left">Xem chi tiết</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -90,7 +90,7 @@
 </div>
 <!-- Tương tác -->
 <div class="row">
-    <div class="col-lg-12" id="collect" class="modal fade" role="dialog" >
+    <div class="col-lg-12" id="all" hidden>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-user-o fa-fw"></i>  Danh sách User tương tác nhiều nhất</h3>
@@ -125,10 +125,10 @@
      </div>
  <!-- End tuowgn tác -->
 <!-- Tất cả block -->
-     <div class="col-lg-12" id="block" class="collapse">
+     <div class="collapse col-lg-12" id="allUser" hidden>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-user-o fa-fw"></i> Danh sách User</h3>
+                <h3 class="panel-title"><i class="fa fa-user-o fa-fw"></i> Danh sách tất cả User</h3>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">     
@@ -144,8 +144,7 @@
                           </tr>
                        </thead>
                         <tbody>
-                            @foreach($data as $value)
-                                @if($value->status == 0)
+                            @foreach($data as $value)        
                                     <tr>
                                        <td class=" text-center" > {{$value->name}}</td>
                                        <td class=" text-center"> {{$value->username}}</td>
@@ -154,7 +153,6 @@
                                        <td class=" text-center"> @if($value->address == "")Đang cập nhật @else{{$value->address}}@endif</td>
                                        <td class=" text-center"> {{$value->created_at}}</td>
                                    </tr>
-                                @endif
                             @endforeach
                        </tbody>
                     </table>
@@ -164,10 +162,10 @@
      </div>
 <!-- End block -->
 <!-- ALL -->
-    <div class="col-lg-12" id="all" class="collapse">
+    <div class="col-lg-12" id="block" class="collapse" hidden>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-user-o fa-fw"></i> Danh sách User</h3>
+                <h3 class="panel-title"><i class="fa fa-user-o fa-fw"></i> Danh sách User bị khóa</h3>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">     
@@ -184,6 +182,7 @@
                        </thead>
                         <tbody>
                             @foreach($data as $value)
+                             @if($value->status == 0)
                                 <tr>
                                    <td class=" text-center" > {{$value->name}}</td>
                                    <td class=" text-center"> {{$value->username}}</td>
@@ -192,6 +191,7 @@
                                    <td class=" text-center"> @if($value->address == "")Đang cập nhật @else{{$value->address}}@endif</td>
                                    <td class=" text-center"> {{$value->created_at}}</td>
                                </tr>
+                               @endif
                             @endforeach
                        </tbody>
                     </table>
@@ -201,10 +201,10 @@
      </div>
     <!-- End all -->
     <!-- Admin -->
-    <div class="col-lg-12" id="admin" class="collapse">
+    <div class="col-lg-12" id="admin" class="collapse" hidden>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-user-o fa-fw"></i> Danh sách User</h3>
+                <h3 class="panel-title"><i class="fa fa-user-o fa-fw"></i> Danh sách Admin có trong hệ thống</h3>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">     
@@ -238,24 +238,6 @@
             </div>
         </div>
      </div>
-      <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
   </div>
      <!-- end admin -->
 </div>
