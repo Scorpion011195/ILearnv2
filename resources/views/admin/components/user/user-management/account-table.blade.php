@@ -40,18 +40,31 @@
                                 <td class="_user-id softing_1" data-id="{{ $id }}"> {{ $id }}</td>
                                 <td class="_user-name softing_1"> {{$value->username}}</td>
                                 <td class="softing_1" id ="{{$value->status}}">
-                                    <select class="form-control" id="sel1" value="">
-                                    @if( $value->status == 1) 
-                                        <option id="1" selected  >Hoạt động</option>
-                                         <option id="0" >Block</option>
-                                    @else($value->status = 0)
-                                        <option  id="0"selected ">Block</option>
-                                        <option id="1">Hoạt động</option>
-                                    @endif
-                                </select>
+                                  @if(Auth::user()->role_id !== 1)
+                                    <select class="form-control" id="sel1" value="" disabled>
+                                        @if( $value->status == 1) 
+                                            <option id="1" selected  >Hoạt động</option>
+                                             <option id="0" >Block</option>
+                                        @else($value->status = 0)
+                                            <option  id="0"selected ">Block</option>
+                                            <option id="1">Hoạt động</option>
+                                        @endif
+                                    </select>
+                                  @else
+                                      <select class="form-control" id="sel1" value="">
+                                        @if( $value->status == 1) 
+                                            <option id="1" selected  >Hoạt động</option>
+                                             <option id="0" >Block</option>
+                                        @else($value->status = 0)
+                                            <option  id="0"selected ">Block</option>
+                                            <option id="1">Hoạt động</option>
+                                        @endif
+                                      </select>
+                                 @endif
                                 </td>
                                 <td class="softing_1">
-                                    <select class="form-control" id="selRole">
+                                @if(Auth::user()->role_id !== 1)
+                                    <select class="form-control" id="selRole" disabled>
                                         @foreach($roleUser as $role)
                                             @if($value->role_id == $role->id)
                                                 <option id = "role"  value="{{$role->id}}" selected>{{$role->role}}</option>
@@ -60,6 +73,17 @@
                                             @endif
                                         @endforeach
                                     </select>
+                                @else
+                                 <select class="form-control" id="selRole">
+                                        @foreach($roleUser as $role)
+                                            @if($value->role_id == $role->id)
+                                                <option id = "role"  value="{{$role->id}}" selected>{{$role->role}}</option>
+                                            @else
+                                                <option id ="role" value="{{$role->id}}" >{{$role->role}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                @endif
                                 </td>
                                 <td class="softing_1"> {{$value->created_at}}</td>
                                 <td class="softing_1"> 
@@ -75,18 +99,31 @@
                                 <td class="_user-id softing_1" data-id="{{ $id }}"> {{ $id }}</td>
                                 <td class="_user-name softing_1"> {{$value->username}}</td>
                                 <td class="softing_1" id ="{{$value->status}}">
-                                    <select class="form-control" id="sel1" value="{{$value->status}}">
-                                    @if( $value->status == 1) 
-                                        <option selected>Hoạt động</option>
-                                         <option>Block</option>
-                                    @else($value->status = 0)
-                                        <option  >Block</option>
-                                         <option>Hoạt động</option>
-                                    @endif
-                                </select>
+                                  @if(Auth::user()->role_id !== 1)
+                                    <select class="form-control" id="sel1" value="" disabled>
+                                        @if( $value->status == 1) 
+                                            <option id="1" selected  >Hoạt động</option>
+                                             <option id="0" >Block</option>
+                                        @else($value->status = 0)
+                                            <option  id="0"selected ">Block</option>
+                                            <option id="1">Hoạt động</option>
+                                        @endif
+                                    </select>
+                                  @else
+                                      <select class="form-control" id="sel1" value="">
+                                        @if( $value->status == 1) 
+                                            <option id="1" selected  >Hoạt động</option>
+                                             <option id="0" >Block</option>
+                                        @else($value->status = 0)
+                                            <option  id="0"selected ">Block</option>
+                                            <option id="1">Hoạt động</option>
+                                        @endif
+                                      </select>
+                                 @endif
                                 </td>
                                 <td class="softing_1">
-                                    <select class="form-control" id="selRole">
+                                @if(Auth::user()->role_id !== 1)
+                                    <select class="form-control" id="selRole" disabled>
                                         @foreach($roleUser as $role)
                                             @if($value->role_id == $role->id)
                                                 <option id ="role" value="{{$role->id}}" selected>{{$role->role}}</option>
@@ -95,6 +132,17 @@
                                             @endif
                                         @endforeach
                                     </select>
+                                @else
+                                     <select class="form-control" id="selRole">
+                                        @foreach($roleUser as $role)
+                                            @if($value->role_id == $role->id)
+                                                <option id ="role" value="{{$role->id}}" selected>{{$role->role}}</option>
+                                            @else
+                                                <option id ="role" value="{{$role->id}}" >{{$role->role}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                @endif
                                 </td>
                                 <td class="softing_1"> {{$value->created_at}}</td>
                                 <td class="softing_1"> 

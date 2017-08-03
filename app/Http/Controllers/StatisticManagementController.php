@@ -71,7 +71,7 @@ class StatisticManagementController extends Controller
                 {
                     $Aval ="NO";
                 }
-                $data = DB::Table('statistic_words')->insert(['from_text' => $value->word,'to_text' => $value->mean,'from_language_id' => $value->from_language_id,'to_language_id' => $value->to_language_id,'type_word_id' => $value->type_word,'isAvailable' => $Aval]);
+                $data = DB::Table('statistic_words')->insert(['from_text' => $value->word,'to_text' => $value->mean,'from_language_id' => $value->from_language_id,'to_language_id' => $value->to_language_id,'type_word' => $value->type_word,'isAvailable' => $Aval]);
             }
         }
         return view('admin.pages.dict.collect')->with(['data'=>$dataChecker]);
@@ -140,7 +140,7 @@ class StatisticManagementController extends Controller
             {
             echo '<td class="text-center align--vertical-middle">'.'Added'.'</td>';
             }else {
-            echo '<td class="text-center align--vertical-middle">'.'Waitting'.'</td>';
+            echo '<td class="text-center align--vertical-middle">'.'<button class="form-control">Waitting</button'.'</td>';
             }    
         }
         echo '</tbody>

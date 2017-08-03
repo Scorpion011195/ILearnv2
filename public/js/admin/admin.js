@@ -148,6 +148,15 @@ $(document).ready(function() {
       }
     });
   });
+   /*Add wword after collecting*/
+   $(document).on('click','#_waitting',function(){
+      var _element = $(this).closest('tr');
+      var word = _element.find('._tdWord').text();
+      var mean = _element.find('._tdMean').text();
+      var lang = _element.find('._tdLang').text();
+      var type = _element.find('._tdType').text();
+      alert(type);
+   });
     /* =============================================*/
 
     // DeleteWord

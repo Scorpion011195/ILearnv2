@@ -101,6 +101,6 @@ class UserManagementController extends Controller
     }
     public function  collect(request $request){
         $data = DB::table('users')->orderBy('NOU', 'desc')->paginate(10);
-        return view('admin.pages.user.user-management.user-collect')->with(['data' =>$data]);
+        return view('admin.pages.user.user-management.user-collect')->with(['data' => $data]);
     }
 }

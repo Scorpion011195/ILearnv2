@@ -19,7 +19,7 @@
                           <p class="help-block" style="color: red"><span class="glyphicon glyphicon-warning-sign"></span> <strong>{!! $errors->first('searchText') !!}</strong></p>
                       </div>
                   @endif
-                    <input class="form-control" type="text" placeholder="Nhập từ" name = "searchText" style = " padding-left: 100px" id="textSearch" value="@if(isset($word)) {{$word}}@endif"></span>
+                    <input class="form-control" type="text" placeholder="Nhập từ" name = "searchText" style = " padding-left: 100px" id="textSearch" value="@if(isset($word)) {{$word}}@endif" required></span>
                     @if(isset($word))
                     <select class="form-control" name="typeWord" id="_typeWord">
                       @foreach($typeWord as  $value)

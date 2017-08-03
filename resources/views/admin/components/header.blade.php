@@ -32,7 +32,7 @@
                                 <img src="{{ asset('http://184.171.241.153/~pagc/wp-content/uploads/2015/04/Welcome-New-Members.jpg') }}" class="img-circle _tooltip-me" alt="User Image" id="img-profile">
                                 <p>
                                    <p>
-                                    {{ Session::get('user')->name }}
+                                    {{ Auth::user()->name}}
                                 </p>
                                 </p>
                             </li>

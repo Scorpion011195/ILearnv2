@@ -57,16 +57,15 @@
                             <?php $count =count($data) ?>
 
                                 @foreach($data as $value)
-                                <?php $typeWord = DB::table('type_words')->where('id',$value->type_word_id)->value('name_type_word');?>
                                   <tr role="row" class="odd" id="_tr"> 
                                     <td class="text-center align--vertical-middle">{{$value->id}}</td>
-                                    <td class="text-center align--vertical-middle">{{$value->from_text}}</td>
-                                    <td class="text-center align--vertical-middle">{{$value->to_text}}</td>
-                                    <td class="text-center align--vertical-middle">@if($value->from_language_id !== 3 && $value->to_language_id !==1) Anh-Việt
+                                    <td class="_tdWord text-center align--vertical-middle">{{$value->from_text}}</td>
+                                    <td class="_tdMean text-center align--vertical-middle">{{$value->to_text}}</td>
+                                    <td class="_tdLang text-center align--vertical-middle" value="{{$value->from_language_id}}">@if($value->from_language_id !== 3 && $value->to_language_id !==1) Anh-Việt
                                     @else Việt-Anh @endif</td>
                                     <td class="text-center align--vertical-middle">{{$value->quanlity}}</td>
-                                    <td class="text-center align--vertical-middle">{{$typeWord}}</td>
-                                    <td class="text-center align--vertical-middle">@if($value->isAvailable =="YES")Added @else Waitting @endif</td>
+                                    <td class="_tdType text-center align--vertical-middle">{{$value->type_word}}</td>
+                                    <td class="text-center align--vertical-middle">@if($value->isAvailable =="YES")Added @else <button class="form-control" id = "_waitting">Waitting</button> @endif</td>
                                   </tr>
 
                                 @endforeach
