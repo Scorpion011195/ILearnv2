@@ -44,9 +44,9 @@ class UserController extends Controller
         
         if(Auth()->attempt(['username' =>$username, 'password' =>$password ,'status' => 1, 'confirmed' =>1], $remember))
         {   
-            $numOfUse = Auth::user()->NOU;
+            $numOfUse = Auth::user()->number_of_use;
             $numOfUse =$numOfUse + 1;
-            $db = DB::table('users')->where('id',Auth::user()->id)->update(['NOU' => $numOfUse]);
+            $db = DB::table('users')->where('id',Auth::user()->id)->update(['number_of_use' => $numOfUse]);
             return redirect()->intended('home');
         }
         else {
