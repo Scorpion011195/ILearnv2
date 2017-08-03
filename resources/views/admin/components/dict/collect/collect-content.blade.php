@@ -64,7 +64,7 @@
                                     <td class="_tdLang text-center align--vertical-middle" value="{{$value->from_language_id}}">@if($value->from_language_id !== 3 && $value->to_language_id !==1) Anh-Việt
                                     @else Việt-Anh @endif</td>
                                     <td class="text-center align--vertical-middle">{{$value->quanlity}}</td>
-                                    <td class="_tdType text-center align--vertical-middle">{{$value->type_word}}</td>
+                                    <td class="_tdType text-center align--vertical-middle">{{$value->type_word_id}}</td>
                                     <td class="text-center align--vertical-middle">@if($value->isAvailable =="YES")Added @else <button class="form-control" id = "_waitting">Waitting</button> @endif</td>
                                   </tr>
 
