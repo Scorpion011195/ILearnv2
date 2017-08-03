@@ -153,11 +153,38 @@ $(document).ready(function() {
       var _element = $(this).closest('tr');
       var word = _element.find('._tdWord').text();
       var mean = _element.find('._tdMean').text();
-      var lang = _element.find('._tdLang').text();
+      var lang = _element.find('._tdLang').attr('data-id');
       var type = _element.find('._tdType').text();
-      alert(type);
+      var _token = $('input[name=_token]').val();
+      if (lang== 1) {
+        toLg = 3;             
+        } else{
+        toLg = 1;
+        }
+      $(this).confirmation({
+           title: 'Bạn có muốn thêm từ này vào lịch sử?',
+            onConfirm: function() {
+            ajaxAddWord(word,mean,lang,type,_element,_token);
+            },
+            onCancel: function() {
+            },
+       });
+       $(this).confirmation('show');
    });
     /* =============================================*/
+    function ajaxAddWord(word,mean,lang,type,_element,_token){
+      $.ajax({
+        url: 'addword',
+        method: 'POST',
+        data : {'fromText' : word, 'toText' : mean, 'fromLg' : lang,'toLg' : toLg,'typeWord' : type, '_token' : _token},
+        beforeSend:function()
+        {
+          $('#_waitting').addClass('loading');
+        },
+        success:function(data){
+        },
+      });
+    }
 
     // DeleteWord
     function ajaxDeleteWord(_element, idWord, _token, word){

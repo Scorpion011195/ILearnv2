@@ -96,6 +96,8 @@ class DictionaryManagementController extends Controller
               'ssToLang' =>$toLg,
               'ssType' =>$typeWord,
               ]);
+                  $dataResponse = ["data"=>true];
+    return json_encode($dataResponse);
             }
           }
         else
@@ -118,6 +120,8 @@ class DictionaryManagementController extends Controller
                     'ssToLang' =>$toLg,
                     'ssType' =>$typeWord,
                   ]);
+                      $dataResponse = ["data"=>true];
+    return json_encode($dataResponse);
               }else
               {
                 $mapping = DB::table('dictionarys')->where('word', $toText)
@@ -142,6 +146,8 @@ class DictionaryManagementController extends Controller
                 'ssToLang' =>$toLg,
                 'ssType' =>$typeWord
                 ]);
+                    $dataResponse = ["data"=>true];
+    return json_encode($dataResponse);
               }
             }
           else
@@ -166,6 +172,8 @@ class DictionaryManagementController extends Controller
                 'ssToLang' =>$toLg,
                 'ssType' =>$typeWord
               ]);
+                  $dataResponse = ["data"=>true];
+    return json_encode($dataResponse);
           }
           /*Peformance Test with 1000 record*/
           // for($i = 0; $i <1000; $i ++){

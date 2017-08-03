@@ -8,8 +8,8 @@
                       <div class="input-group ">
                         <span class="input-group-addon">Tình trạng</span>
                         <select class="cbselect form-control" name="obCollect">
-                           <option value="YES">Added</option>
-                           <option value="NO">Waitting</option>
+                           <option value="Added">Added</option>
+                           <option value="Waitting">Waitting</option>
                         </select>
                       </div>
                     </div>
@@ -57,15 +57,20 @@
                             <?php $count =count($data) ?>
 
                                 @foreach($data as $value)
+                                <?php $typeWord = DB::table('type_words')->where('id',$value->type_word_id)->value('name_type_word');
+                                    $lang = DB::table('languages')->where('id',$value->from_language_id)->value('name_language');?>
                                   <tr role="row" class="odd" id="_tr"> 
                                     <td class="text-center align--vertical-middle">{{$value->id}}</td>
                                     <td class="_tdWord text-center align--vertical-middle">{{$value->from_text}}</td>
                                     <td class="_tdMean text-center align--vertical-middle">{{$value->to_text}}</td>
-                                    <td class="_tdLang text-center align--vertical-middle" value="{{$value->from_language_id}}">@if($value->from_language_id !== 3 && $value->to_language_id !==1) Anh-Việt
-                                    @else Việt-Anh @endif</td>
+                                    @if($lang == 'Việt')
+                                    <td class="_tdLang text-center align--vertical-middle" value="{{$value->from_language_id}}" data-id = "{{$value->from_language_id}}">{{ $lang }}-Anh</td>
+                                    @else
+                                    <td class="_tdLang text-center align--vertical-middle" value="{{$value->from_language_id}}" data-id = "{{$value->from_language_id}}">{{ $lang }}-Việt</td>
+                                    @endif  
                                     <td class="text-center align--vertical-middle">{{$value->quanlity}}</td>
-                                    <td class="_tdType text-center align--vertical-middle">{{$value->type_word_id}}</td>
-                                    <td class="text-center align--vertical-middle">@if($value->isAvailable =="YES")Added @else <button class="form-control" id = "_waitting">Waitting</button> @endif</td>
+                                    <td class="_tdType text-center align--vertical-middle">{{$typeWord}}</td>
+                                    <td class="text-center align--vertical-middle" id= "abc">@if($value->isAvailable =="Added")Added @else <button class="form-control" id = "_waitting">Waitting</button> @endif</td>
                                   </tr>
 
                                 @endforeach

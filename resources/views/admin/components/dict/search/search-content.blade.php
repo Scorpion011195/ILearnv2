@@ -26,6 +26,7 @@
                       @if(isset($RtypeWord) && $RtypeWord == $value->name_type_word)
                         <option value="{!!$value->name_type_word!!}" selected>{!! $value->name_type_word !!}</option>
                       @else
+                      
                       <option value="{!!$value->name_type_word!!}">{!! $value->name_type_word !!}</option>
                       @endif
                       @endforeach
