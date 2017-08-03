@@ -114,7 +114,7 @@
                                    <td class=" text-center"> {{$value->username}}</td>
                                    <td class=" text-center"> {{$value->email}}</td>
                                    <td class=" text-center"> {{$value->phone}}</td>
-                                   <td class=" text-center"> {{$value->NOU}}</td>
+                                   <td class=" text-center"> {{$value->number_of_use}}</td>
                                </tr>
                             @endforeach
                        </tbody>
