@@ -5,7 +5,7 @@
 		<div class="col-md-3 il-profile-col-md-3">
 			<div class="profile-sidebar">
 				<div class="profile-userpic">
-					<img src="{{ asset('uploads/images/' . Auth::user()->image) }} " class="img-responsive" alt="" />
+					<img src="{{ asset('uploads/images/' . Auth::user()->image) }} " class="img-responsive"/>
 				</div>
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">
