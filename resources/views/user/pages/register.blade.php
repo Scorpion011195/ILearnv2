@@ -13,7 +13,7 @@
 	            		<div class="row">
 							<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
 								<fieldset class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
-									<input type="email" class="form-control " value="" name="email" placeholder="Email của bạn" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" minlength="6" maxlength="32">
+									<input type="email" class="form-control " value="{{old('email')}}" name="email" placeholder="Email của bạn" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" minlength="6" maxlength="32">
 									@if($errors->has('email'))
 										<div class="text-danger ng-hide">
 											<span><i class="fa fa-times text-danger"></i>{!! $errors->first('email') !!}</span>
