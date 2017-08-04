@@ -31,42 +31,43 @@ class UserController extends Controller
     // Get user login
     public function getLogin()
     {
-    	return view('user.pages.login');
+        return view('user.pages.login');
     }
 
     //Post user login
-    public function postLogin(LoginRequest $request)
+    public function postLogin(Request $request)
     {
 
-		$username = $request->input('name');
-		$password = $request->input('pass');
-		$remember = $request->has('remember');
-
-		if(Auth()->attempt(['username' =>$username, 'password' =>$password ,'status' => 1, 'confirmed' =>1], $remember))
-		{   
-            
-            Session::put('isStartNotification', true);
-                return redirect()->intended('home');
+        $username = $request->input('name');
+        $password = $request->input('pass');
+        $remember = $request->has('remember');
+        
+        if(Auth()->attempt(['username' =>$username, 'password' =>$password ,'status' => 1, 'confirmed' =>1], $remember))
+        {   
+            $numOfUse = Auth::user()->number_of_use;
+            $numOfUse =$numOfUse + 1;
+            $db = DB::table('users')->where('id',Auth::user()->id)->update(['number_of_use' => $numOfUse]);
+            return redirect()->intended('home');
         }
-		else {
-			$errors = new Messagebag(['errorLogin' => 'Email hoặc mật khẩu không đúng']);
-			return redirect()->back()->withInput()->withErrors($errors);
-		}
+        else {
+            $errors = new Messagebag(['errorLogin' => 'Email hoặc mật khẩu không đúng']);
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
     }
      //User logout
     public function logout()
     {
-    	Auth::logout();
-    	Session::forget('user');
+        Auth::logout();
+        Session::forget('user');
         Session::forget('isStartNotification');
-    	return redirect()->intended('home');
+        return redirect()->intended('home');
     }
 
     //User get Gegister
 
     public function getRegister()
     {
-    	return view('user.pages.register');
+        return view('user.pages.register');
     } 
 
     public function postRegister(RegisterRequest $request)

@@ -6,13 +6,13 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">
-            <b>Chỉnh sửa từ</b>
+            <b>Chỉnh sửa từ "@if(isset($word)){{$word}} @endif"</b>
           </h4>
         </div>
         <div class="modal-body">
           <form method="post" id="_form-update-word">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <label>Từ</label>
+            <label>Nghĩa</label>
             <span class="{{ $errors->has('_nghia') ? ' has-error' : '' }}">
               <input type="text" class="form-control" id="_mean" name="_nghia" value="" required maxlength="50">
             </span>

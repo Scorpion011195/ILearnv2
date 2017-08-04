@@ -88,7 +88,7 @@ class AdminController extends Controller
         $UserInfomation->phone =$phoneUser;
         $UserInfomation->address =$addressUser;
         $UserInfomation->date_of_birth =$dobUser;
-        $UserInfomation->password =bcrypt('$password');
+        $UserInfomation->password =bcrypt($password);
         $UserInfomation->update();
         $passwords = $password;
         $message = "Cập nhật thông tin thành công";

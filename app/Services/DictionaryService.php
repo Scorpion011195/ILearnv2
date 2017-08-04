@@ -13,6 +13,18 @@ class DictionaryService extends BaseService implements DictionaryRepository {
     {
         $this->model = $model;
     }
+    public function findWordInDB($word,$languageId)
+    {
+        $result = DB::table('dictionarys')->where('word', '=', $word)->where('language_id' ,'=',$languageId)->get();
+        $count = $result->count();
+        if($count > 0){
+            return true;
+        }
+        else{
+            // Word doesn't exist in from-table
+            return false;
+        }
+    }
 
     public function checkWordExist($word, $typeWord, $languageId)
     {

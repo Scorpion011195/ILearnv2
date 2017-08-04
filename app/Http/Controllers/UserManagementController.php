@@ -54,6 +54,10 @@ class UserManagementController extends Controller
         $id_role = $request->idRole;
         $username = $request->username;
         $idUser =$request->idUser;
+        if(Auth::user()->id == $idUser){
+             $dataResponse = ["data"=>false];
+        return json_encode($dataResponse);
+        }
         $data = User::find($idUser);
         $data->role_id = $id_role;
         $data->save();
@@ -95,6 +99,9 @@ class UserManagementController extends Controller
         $dataResponse = ["data"=>true];
         return json_encode($dataResponse);
     }
+    public function  collect(request $request){
 
-
+        $data = DB::table('users')->orderBy('number_of_use', 'desc')->paginate(10);
+        return view('admin.pages.user.user-management.user-collect')->with(['data' =>$data]);
+    }
 }

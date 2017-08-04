@@ -40,7 +40,6 @@ class StatisticManagement extends Command
     {
         // Thống kê
         $statistic = new StatisticManagementController;
-        $statistic->statisticAllUser();
 
         //\Log::info('Tick');
     }

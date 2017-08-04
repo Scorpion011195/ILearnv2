@@ -95,6 +95,9 @@ Route::group(['prefix' => 'admin'], function () {
         // Search word
             Route::GET('search','DictionaryManagementController@getSearch')->name('adminDisplay');
             Route::POST('search','DictionaryManagementController@search')->name('adminSearch');
+            Route::POST('seachWord','DictionaryManagementController@searchWithType');
+            Route::POST('seachWordByLang','DictionaryManagementController@searchWithLang');
+            
         // Delete Word
             Route::post('delete', 'DictionaryManagementController@deleteWord');
         // Update từ
@@ -102,9 +105,10 @@ Route::group(['prefix' => 'admin'], function () {
         // Upload file
             Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
             Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
-        // Collection
+        // Collection wword
+            Route::POST('collect/', 'StatisticManagementController@collectByOb')->name('adminDictCollectByOb');
             Route::get('collect', 'StatisticManagementController@displayStatisticalResult')->name('adminDictCollect');
-            Route::post('collect-added', 'StatisticManagementController@displayStatisticalResultByCondition')->name('adminDictCollectByCondition');
+            Route::post('fillter', 'StatisticManagementController@getResult');
         });
 
         // Thông tin cá nhân
@@ -128,6 +132,7 @@ Route::group(['prefix' => 'admin'], function () {
 
             Route::get('detail/{id}', 'UserManagementController@detailUser')->name('adminGetDetailUser');
             // Route::post('updateDetail', 'UserManagementController@postDetailUser')->name('adminPostDetailUser');
+            Route::get('collect', 'UserManagementController@collect')->name("adminCollectUser");
         });
     });
 });

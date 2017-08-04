@@ -26,4 +26,20 @@ class StatisticService extends BaseService  {
             
         }
     }
+    public function findIdUser($id)
+    {
+        $id = DB::table('statistic_words')
+        ->where('from_text', '=', $from)
+        ->where('to_text', '=', $to)
+        ->value('user_id');
+        $count = $id->count();
+        if($count > 0){
+            return true;
+        }
+        else{
+            // Word doesn't exist in from-table
+            return false;
+            
+        }
+    }
 }
