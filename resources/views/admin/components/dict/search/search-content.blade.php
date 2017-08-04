@@ -33,13 +33,13 @@
                       @endforeach
                     </select>
                     <div class="input-group ">
-                      <span class="input-group-addon">Ngôn ngữ:</span>
+                      <span class="input-group-addon">Ngôn ngữ của từ:</span>
                       <select class="form-control" name="languageFrom" id="_lang">
                         @foreach($Lg as $value)
                         @if($value->id == 1){
-                          <option value="1">Anh-Việt</option>
+                          <option value="1">Anh</option>
                         }
-                        <option value="3">Việt-Anh</option>
+                        <option value="3">Việt</option>
                         @endif
 
                         @endforeach
@@ -68,7 +68,13 @@
                                   aria-label="Browser: activate to sort column ascending">ID
                               </th>
                               <th class="text-center col--width3" aria-controls="example1" rowspan="1" colspan="1"
+                                  aria-label="Browser: activate to sort column ascending">Từ
+                              </th>
+                              <th class="text-center col--width3" aria-controls="example1" rowspan="1" colspan="1"
                                   aria-label="Browser: activate to sort column ascending">Nghĩa
+                              </th>
+                               <th class="text-center col--width3" aria-controls="example1" rowspan="1" colspan="1"
+                                  aria-label="Browser: activate to sort column ascending">Từ điển
                               </th>
                               <th class="text-center col--width4" aria-controls="example1" rowspan="1" colspan="1"
                                   aria-label="Platform(s): activate to sort column ascending">
@@ -85,17 +91,24 @@
                           </thead>
 
                           <tbody>
+
                                 @foreach($results as $key =>$value)
-                                <?php $count = count($results) ?>
+                                 @foreach($mean as $key =>$mean)
+                                <?php $count = count($results);
+                                $languageFrom = Db::table('languages')->where('id',$value->language_id)->value('name_language');
+                                $languageTo = Db::table('languages')->where('id',$mean->language_id)->value('name_language');  ?>
                                  <tr role="row" class="odd" id="_tr">
                                   <td class="_word-id text-center align--vertical-middle" data-id="{{$value->id}}">{{ $value->id }}</td>
                                   <td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">{{ $value->word }}</td>
+                                  <td class="_word text-center align--vertical-middle" id="">{{ $mean->word}}</td>
+                                  <td class="_word text-center align--vertical-middle" id="">{{$languageFrom}}  - {{ $languageTo}}</td>
                                   <td class="_pronoun text-center align--vertical-middle">{{ $value->pronounce }}</td>
                                   <td class="text-center align--vertical-middle">
                                   <a class="delete_"><i class="fa fa-trash"></i></a>
                                   <a  class="_update-word" style="padding-left: 5px"  data-toggle="modal" data-target="#myModal"><i class= "fa fa-pencil"></i></a>
                                   </td>
                                   </tr>
+                                  @endforeach
                                 @endforeach    
                           </tbody> 
                       </table>
@@ -106,7 +119,7 @@
                   <div class="col-sm-5">
                       <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
                       @if(isset($results))
-                      <p>Có <b style="color:red ">{{$results->total()}} kết quả </b> được tìm thấy</p>
+                      <p>Có <b style="color:red "><?php $a = count($mean) ?>{{$a}} kết quả </b> được tìm thấy</p>
                       @endif
                       </div>
                   </div>
