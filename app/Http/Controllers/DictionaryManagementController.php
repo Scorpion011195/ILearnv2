@@ -220,10 +220,17 @@ class DictionaryManagementController extends Controller
   }
   public function searchWithType(request $request){
     $textSeach = $request->text;
-    $result = DB::table('dictionarys')
+    if($request->value == ""){
+      $result = DB::table('dictionarys')
+           ->where ('word','like','%'.$textSeach.'%')
+            ->get();
+    }else{
+        $result = DB::table('dictionarys')
            ->where ('word','like','%'.$textSeach.'%')
            ->where ('type_word','=', $request->value)
             ->get();
+    }
+
     $count =count($result);
     if($count < 1){
       echo "<center><h4 style='color:red'>Từ chưa có trong hệ thống</h4></center>";
@@ -271,11 +278,18 @@ class DictionaryManagementController extends Controller
   }
   public function searchWithLang(request $request){
     $textSeach = $request->text;
-    $result = DB::table('dictionarys')
+    if($request->type == ""){
+      $result = DB::table('dictionarys')
            ->where ('word','like','%'.$textSeach.'%')
-           ->where ('type_word','=', $request->type)
            ->where('language_id' ,'=' ,$request->lang)
             ->get();
+    }else{
+      $result = DB::table('dictionarys')
+             ->where ('word','like','%'.$textSeach.'%')
+             ->where ('type_word','=', $request->type)
+             ->where('language_id' ,'=' ,$request->lang)
+              ->get();
+    }
     $count =count($result);
     if($count < 1){
       echo "<center><h4 style='color:red'>Từ chưa có trong hệ thống</h4></center>";

@@ -22,6 +22,7 @@
                     <input class="form-control" type="text" placeholder="Nhập từ" name = "searchText" style = " padding-left: 100px" id="textSearch" value="@if(isset($word)) {{$word}}@endif" required></span>
                     @if(isset($word))
                     <select class="form-control" name="typeWord" id="_typeWord">
+                    <option value="" selected>Chọn loại từ !</option>
                       @foreach($typeWord as  $value)
                       @if(isset($RtypeWord) && $RtypeWord == $value->name_type_word)
                         <option value="{!!$value->name_type_word!!}" selected>{!! $value->name_type_word !!}</option>

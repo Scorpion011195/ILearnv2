@@ -11,9 +11,9 @@ class UserManagementController extends Controller
 {
     function detailUser(request $request){
         $id =$request->id;
-        $data = DB::table('users')->where('id',$id)->get();
+        $data = DB::table('users')->where('id',$id)->first();
 
-        return view('admin.pages.user.user-management.detail-user')->with(['data'=>$data]);
+        return view('admin.pages.user.user-management.detail-user',['infomation'=>$data]);
     }
     public function getAccount(){
     	   $listUser = User::paginate(10);

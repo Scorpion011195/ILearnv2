@@ -138,4 +138,5 @@ Route::group(['prefix' => 'admin'], function () {
         });
     });
 });
+
 // END ADMIN
