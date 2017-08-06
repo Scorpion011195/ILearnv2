@@ -1,58 +1,68 @@
-    <div class="panel">
-        <div class="panel-body">
-            @if(session('alertUpdateDetailUser'))
-            <div>
-              <p class="alert--success"><span class="glyphicon glyphicon-ok"></span>   {!! session('alertUpdateDetailUser') !!}</p>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/admin/adminProfile.css')}}">
+<div class="container">
+<br>
+<br>
+  <div class="row" id="main">
+        <div class="col-md-4 well" id="leftPanel">
+            <div class="row">
+                <div class="col-md-10">
+                 <h3>Thông tin user : <b style="color:red">{{$infomation->username}}</b></h3>
+                  <div>
+                <img src="https://img.quantrimang.com/photos/image/2016/03/19/shortcut-chay-ung-dung-duoi-quyen-admin-0.jpg" alt="Texto Alternativo" class="img-circle img-thumbnail" >
+                @if(isset($infomation))
+                <h2>{{$infomation->name}}</h2>
+                <br>
+                Ngày tạo: {{$infomation->created_at}}
+                @endif
+              </div>
             </div>
-            @endif
-            @foreach ($data as $value)
-                <div class="row">
-                    <lable class="control-label col-sm-4 text-center-vertical">Email</lable>
-                    <div class="col-sm-8">
-                        <input type="text" name="profile-email" class="form-control" readonly value='{{$value->email}}'>
-                    </div>
-                </div>
-                <div class="row margin-top">
-                    <lable class="control-label col-sm-4 text-center-vertical">Tên</lable>
-                    <div class="col-sm-8">
-                        <input type="text" name="profile-name" maxlength="50" class="form-control" readonly value="{{$value->name}}">
-                    </div>
-                </div>
-                <div class="row margin-top">
-                    <lable class="control-label col-sm-4 text-center-vertical">Địa chỉ</lable>
-                    <div class="col-sm-8">
-                    @if(isset($value->address))
-                        <input type="text" name="profile-address" maxlength="100" class="form-control" readonly value="{{$value->address}}">
-                    @else
-                        <input type="text" name="profile-address" maxlength="100" class="form-control" readonly value="Đang cập nhật">
-                    @endif
-                    </div>
-
-                </div>
-                <div class="row margin-top">
-                    <lable class="control-label col-sm-4 text-center-vertical">Số điện thoại</lable>
-                    <div class="col-sm-8 ">
-                     @if(isset($value->phone))
-                        <input type="text" name="profile-phone" maxlength="11" class="form-control" value="{{$value->phone}}" readonly>
-                      @else
-                      <input type="text" name="profile-phone" maxlength="100" class="form-control" readonly value="Đang cập nhật">
-                    </div>
-                    @endif
-                </div>
-                <div class="row margin-top">
-                    <lable class="control-label col-sm-4 text-center-vertical">Ngày sinh</lable>
-                    <div class="col-sm-8">
-                      @if(isset($value->date_of_birth))
-                        <input type="text" name="profile-dob" class="form-control" readonly value="{{$value->date_of_birth}}">
-                      @else
-                      <input type="text" name="profile-dob" class="form-control" readonly value="Đang cập nhật">
-                      @endif
-                    </div>
-                </div>
-          <br>
-                <div class="row text-center">
-                    <a href="{{route('adminUserManagement')}}" title=""><input type="submit" class="btn btn-info margin-top text-center" value="Trở về"></a>
-                </div>
+            </div>
         </div>
-        @endforeach
-    </div>
+        <div class="col-md-6 well" id="rightPanel">
+            <div class="row">
+    <div class="col-md-12">
+     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+      <hr class="colorgraph">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group">
+              <input type="text" name="name" id="name" class="form-control input-lg" placeholder="Tên của bạn" tabindex="1" value="{{$infomation->name}}" disabled>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1" style="color:red"><i class="fa fa-phone" aria-hidden="true"></i></span>
+              <input type="text" name="phone" id="phone" class="form-control input-lg" placeholder="Số điện thoại " tabindex="2" value="@if(isset($infomation->phone)) {{$infomation->phone}} @else Đang cập nhật @endif" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4" value="{{$infomation->email}}" disabled>
+      </div>
+      <div class="form-group">
+      <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1" style="color:red"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+        <input type="text" name="address" id="address" class="form-control input-lg" placeholder="Địa chỉ" value="{{$infomation->address}}" tabindex="4" disabled>
+        </div>
+        @if ($errors->has('address'))
+                  <span style="color:red" class="glyphicon glyphicon-warning-sign help-block--color-apple-blossom"></span>   <strong style="color:red"class=" help-block--color-apple-blossom">{!! $errors->first('address') !!}</strong>
+            @endif
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1"><i class="fa fa-calendar"></i></span>
+              <input  class="form-control input-lg" placeholder="Ngày sinh" tabindex="5" value="{{$infomation->date_of_birth}}" disabled>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6"><a href="{{route('adminUserManagement')}}" title=""><button type="submit" class="btn btn-default btn-block btn-lg">Quay lại</button></a></div>
+      </div>
+      <hr class="colorgraph">
+  </div>
+</div>
+

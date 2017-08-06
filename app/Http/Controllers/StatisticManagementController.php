@@ -32,6 +32,8 @@ class StatisticManagementController extends Controller
         $dataChecker = DB::table('statistic_words')->get();
         $countChecker = count($dataChecker);
         $countDB = count($db);
+        $ldate = new DateTime('now');
+        
         foreach ($db as $value) 
         {
             $from  = $value->word;
@@ -42,6 +44,7 @@ class StatisticManagementController extends Controller
                 $checkWord = DB::table('word_users')
                     ->where('word',$value->word)
                     ->where('mean',$value->mean)
+                    ->where('created_at','!==',$ldate)
                     ->get();
                 $count = count($checkWord);
                 if($count >= 2 ){
@@ -58,22 +61,45 @@ class StatisticManagementController extends Controller
             }
             else
             {
-                $Available = DB::Table('dictionarys')
-                ->where('word',$value->word)
-                ->where('language_id',$value->to_language_id)
-                ->get();
-                $count = count($Available);
-                if($count > 0 )
-                {
-                    $Aval = "YES";
+                $checker = $this->statistic->chekWord($from,$value->to_language_id); 
+                if($checker == true){
+                    $Aval = "Added";
                 }
-                else
-                {
-                    $Aval ="NO";
+                else{
+                  $checker = $this->statistic->chekWord($from,$value->from_language_id);
+                  if($checker == true){
+                    $Aval = "Added";
+                  }
+                  else{
+                    $Aval = "Waitting";
+                  }
                 }
-                $data = DB::Table('statistic_words')->insert(['from_text' => $value->word,'to_text' => $value->mean,'from_language_id' => $value->from_language_id,'to_language_id' => $value->to_language_id,'type_word' => $value->type_word,'isAvailable' => $Aval]);
+
+                $typeWord = DB::table('type_words')->where('name_type_word', $value->type_word)->value('id');
+                $getType = $typeWord == $value->type_word;
+                $data = DB::Table('statistic_words')->insert(['from_text' => $value->word,'to_text' => $value->mean,'from_language_id' => $value->from_language_id,'to_language_id' => $value->to_language_id,'type_word_id' => $typeWord,'isAvailable' => $Aval,'created_at'=>$ldate ]);
             }
         }
+        /*Check isAvaliable of Word*/
+        $checkData = DB::table('dictionarys')->where('word',$value->word)->where('language_id',$value->from_language_id)->get();
+        if(count($checkData) > 0){
+            $numOfUses = DB::Table('statistic_words')
+                    ->where('from_text',$value->word)
+                    ->where('to_text',$value->mean)
+                    ->update(['isAvailable' => "Added"]);
+
+        }
+        else{
+            $checkData = DB::table('dictionarys')->where('word',$value->mean)->where('language_id',$value->to_language_id)->get();
+            if(count($checkData) > 0){
+                $numOfUses = DB::Table('statistic_words')
+                    ->where('from_text',$value->word)
+                    ->where('to_text',$value->mean)
+                    ->update(['isAvailable' => "Added"]);
+            }
+
+        }
+        /*End Check*/
         return view('admin.pages.dict.collect')->with(['data'=>$dataChecker]);
 
     }
@@ -125,6 +151,7 @@ class StatisticManagementController extends Controller
                             </thead>
                             <tbody>';
         foreach ($data as $value){
+            $typeWord = DB::table('type_words')->where('id',$value->type_word_id)->value('name_type_word');
             echo '<tr>';
             echo '<td class="text-center align--vertical-middle">'.$value->id.'</td>';
             echo '<td class="text-center align--vertical-middle">'.$value->from_text.'</td>';
@@ -135,8 +162,8 @@ class StatisticManagementController extends Controller
                echo '<td class="text-center align--vertical-middle">'.'Việt-Anh'.'</td>';
             }
             echo '<td class="text-center align--vertical-middle">'.$value->quanlity.'</td>';
-            echo '<td class="text-center align--vertical-middle">'.$value->type_word_id.'</td>';
-            if($value->isAvailable == "YES")
+            echo '<td class="text-center align--vertical-middle">'.$typeWord.'</td>';
+            if($value->isAvailable == "Added")
             {
             echo '<td class="text-center align--vertical-middle">'.'Added'.'</td>';
             }else {

@@ -26,6 +26,21 @@ class StatisticService extends BaseService  {
             
         }
     }
+    public function chekWord($word,$language_id){
+        $checker = DB::table('dictionarys')
+        ->where('word',$word)
+        ->where('language_id',$language_id)
+        ->get();
+         $count = $checker->count();
+        if($count > 0){
+            return true;
+        }
+        else{
+            // Word doesn't exist in from-table
+            return false;
+            
+        }
+    }
     public function findIdUser($id)
     {
         $id = DB::table('statistic_words')
@@ -42,4 +57,5 @@ class StatisticService extends BaseService  {
             
         }
     }
+
 }

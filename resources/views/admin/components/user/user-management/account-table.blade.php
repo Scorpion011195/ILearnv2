@@ -166,5 +166,5 @@
             <button class="form-control" data-toggle="popover" title="Quyền và tình trạng user" data-placement="top" data-content="Khi bạn muốn xóa hoặc chỉnh sửa user thì hãy cân nhắc thật kỹ. Vì nếu bạn xóa user thì mọi thông tin và lịch sử của user đó sẽ mất hoàn toàn !">Chú ý <b style="color:red"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></button>
         </div>
     </div>
-@if(isset($dataList)){!! $dataList->links() !!}@endif
-@if(isset($dataSearch)){!! $dataSearch->links() !!}@endif
+@if($count !== 0 && isset($dataList)){!! $dataList->links() !!}@endif
+@if($count !== 0 && isset($dataSearch)){!! $dataSearch->links() !!}@endif

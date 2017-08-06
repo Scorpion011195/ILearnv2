@@ -51,9 +51,9 @@ class AdminController extends Controller
         $check = ['username'=>$username,'password'=>$password,'status' => MyConstant::STATUS_USER['Hoạt động']];
 		if(Auth::attempt($check) && Auth::user()->role_id !=5){
              Session::put('user', Auth::user());
-             $errors = new MessageBag(['Đăng nhập thành công']);
         	return view('admin.layouts.ilearn');
-        }else{
+        }
+        else{
         	 $errors = new MessageBag(['errorLogin' => '<b>Username</b> hoặc <b>Password</b> không đúng!']);
             return redirect()->back()->withInput()->withErrors($errors);
         }

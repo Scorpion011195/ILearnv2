@@ -34,7 +34,7 @@
                             <span class="input-group-addon" id="basic-addon1" >
                                 <label class="control-label col-sm-4 text-center-vertical text-right">Ngày đăng ký</label>
                             </span>
-                            <input type="date" class="form-control" id="datepicker" placeholder="Input field" maxlength ="32" name="dateSearch">
+                            <input type="" class="form-control" id="datepicker" placeholder="" maxlength ="32" name="dateSearch">
                         </div>
                     </div>
                 <div class="col-sm-1">

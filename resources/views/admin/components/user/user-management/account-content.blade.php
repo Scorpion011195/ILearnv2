@@ -12,9 +12,9 @@
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a data-toggle="tab" href="#menu1">
                 <div class="panel-footer">
-                    <span class="pull-left" data-toggle="collapse" data-target="#all" aria-expanded="false" aria-controls="all">Xem chi tiết</span>
+                    <span class="pull-left">Xem chi tiết</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
@@ -34,9 +34,9 @@
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a data-toggle="tab" href="#menu2">
                 <div class="panel-footer">
-                    <span class="pull-left" data-toggle="collapse" data-target="#allUser" aria-expanded="false" aria-controls="allUser">Xem chi tiết</span>
+                    <span class="pull-left">Xem chi tiết</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
@@ -56,9 +56,9 @@
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a  data-toggle="tab" href="#menu3">
                 <div class="panel-footer">
-                    <span class="pull-left"  data-toggle="collapse" data-target="#block" aria-expanded="false" aria-controls="block">Xem chi tiết</span>
+                    <span class="pull-left" >Xem chi tiết</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            <a data-toggle="collapse" data-target="#admin" aria-expanded="false" aria-controls="admin">
+            <a data-toggle="tab" href="#menu4">
                 <div class="panel-footer">
                     <span class="pull-left">Xem chi tiết</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -90,7 +90,8 @@
 </div>
 <!-- Tương tác -->
 <div class="row">
-    <div class="col-lg-12" id="all" hidden>
+  <div class="tab-content">
+    <div class="tab-pane fade col-lg-12" id="menu1">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-user-o fa-fw"></i>  Danh sách User tương tác nhiều nhất</h3>
@@ -113,7 +114,7 @@
                                    <td class=" text-center" > {{$value->name}}</td>
                                    <td class=" text-center"> {{$value->username}}</td>
                                    <td class=" text-center"> {{$value->email}}</td>
-                                   <td class=" text-center"> {{$value->phone}}</td>
+                                    <td class=" text-center">  @if($value->phone == "")Đang cập nhật @else{{$value->phone}}@endif</td>
                                    <td class=" text-center"> {{$value->number_of_use}}</td>
                                </tr>
                             @endforeach
@@ -125,7 +126,7 @@
      </div>
  <!-- End tuowgn tác -->
 <!-- Tất cả block -->
-     <div class="collapse col-lg-12" id="allUser" hidden>
+     <div class="tab-pane fade col-lg-12" id="menu2">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-user-o fa-fw"></i> Danh sách tất cả User</h3>
@@ -162,7 +163,7 @@
      </div>
 <!-- End block -->
 <!-- ALL -->
-    <div class="col-lg-12" id="block" class="collapse" hidden>
+    <div class="tab-pane fade col-lg-12" id="menu3">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-user-o fa-fw"></i> Danh sách User bị khóa</h3>
@@ -201,7 +202,7 @@
      </div>
     <!-- End all -->
     <!-- Admin -->
-    <div class="col-lg-12" id="admin" class="collapse" hidden>
+    <div class="tab-pane fade col-lg-12" id="menu4">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-user-o fa-fw"></i> Danh sách Admin có trong hệ thống</h3>
@@ -239,6 +240,8 @@
         </div>
      </div>
   </div>
+</div>
+{{ $data->links() }}
      <!-- end admin -->
 </div>
 

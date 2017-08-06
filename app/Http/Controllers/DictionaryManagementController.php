@@ -96,6 +96,8 @@ class DictionaryManagementController extends Controller
               'ssToLang' =>$toLg,
               'ssType' =>$typeWord,
               ]);
+                  $dataResponse = ["data"=>true];
+    return json_encode($dataResponse);
             }
           }
         else
@@ -118,6 +120,8 @@ class DictionaryManagementController extends Controller
                     'ssToLang' =>$toLg,
                     'ssType' =>$typeWord,
                   ]);
+                      $dataResponse = ["data"=>true];
+    return json_encode($dataResponse);
               }else
               {
                 $mapping = DB::table('dictionarys')->where('word', $toText)
@@ -142,6 +146,8 @@ class DictionaryManagementController extends Controller
                 'ssToLang' =>$toLg,
                 'ssType' =>$typeWord
                 ]);
+                    $dataResponse = ["data"=>true];
+    return json_encode($dataResponse);
               }
             }
           else
@@ -166,6 +172,8 @@ class DictionaryManagementController extends Controller
                 'ssToLang' =>$toLg,
                 'ssType' =>$typeWord
               ]);
+                  $dataResponse = ["data"=>true];
+    return json_encode($dataResponse);
           }
           /*Peformance Test with 1000 record*/
           // for($i = 0; $i <1000; $i ++){
@@ -198,9 +206,19 @@ class DictionaryManagementController extends Controller
     if(isset($textSeach)){
 
        $result = DB::table('dictionarys')
-           ->where ('word','like','%'.$textSeach.'%')
+           ->where ('word','like', $textSeach.'%')
             ->paginate(10);
-        return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result,'word' =>$textSeach,'RtypeWord' => $typeWord,'lang' =>$languageFrom]);
+        $mappingId =  DB::table('dictionarys')
+           ->where ('word','like',$textSeach.'%')
+           ->value('mapping_id');
+
+           /*Nghia*/
+
+       $mean = DB::table('dictionarys')
+         ->where ('mapping_id','=',$mappingId)
+          ->paginate(10); 
+
+        return view('admin.pages.dict.search')->with (['typeWord' => $typeOfWord,'Lg'=> $lang,'results'=>$result,'word' =>$textSeach,'RtypeWord' => $typeWord,'lang' =>$languageFrom,'mean'=>$mean]);
     }
     else{
           return view('admin.pages.dict.search')->with
@@ -212,12 +230,40 @@ class DictionaryManagementController extends Controller
   }
   public function searchWithType(request $request){
     $textSeach = $request->text;
-    $result = DB::table('dictionarys')
+    if($request->value == ""){
+      $result = DB::table('dictionarys')
+           ->where ('word','like','%'.$textSeach.'%')
+            ->get();
+       $mappingId =  DB::table('dictionarys')
+           ->where ('word','like',$textSeach.'%')
+           ->value('mapping_id');
+
+           /*Nghia*/
+
+       $mean = DB::table('dictionarys')
+         ->where ('mapping_id','=',$mappingId)
+          ->paginate(10); 
+
+    }else{
+        $result = DB::table('dictionarys')
            ->where ('word','like','%'.$textSeach.'%')
            ->where ('type_word','=', $request->value)
             ->get();
+         $mappingId =  DB::table('dictionarys')
+         ->where ('word','like',$textSeach.'%')
+         ->where ('type_word','=', $request->value)
+         ->value('mapping_id');
+
+         /*Nghia*/
+         
+         $mean = DB::table('dictionarys')
+         ->where ('mapping_id','=',$mappingId)
+         ->paginate(10);
+
+    }
+
     $count =count($result);
-    if($count < 1){
+    if($count < 1 && count($mean) < 1){
       echo "<center><h4 style='color:red'>Từ chưa có trong hệ thống</h4></center>";
     }
     else{
@@ -231,8 +277,14 @@ class DictionaryManagementController extends Controller
                               <th class="text-center col--width05" aria-controls="example1" rowspan="1" colspan="1"
                                   aria-label="Browser: activate to sort column ascending">ID
                               </th>
+                               <th class="text-center col--width3" aria-controls="example1" rowspan="1" colspan="1"
+                                  aria-label="Browser: activate to sort column ascending">Từ
+                              </th>
                               <th class="text-center col--width3" aria-controls="example1" rowspan="1" colspan="1"
                                   aria-label="Browser: activate to sort column ascending">Nghĩa
+                              </th>
+                               <th class="text-center col--width3" aria-controls="example1" rowspan="1" colspan="1"
+                                  aria-label="Browser: activate to sort column ascending">Từ điển
                               </th>
                               <th class="text-center col--width4" aria-controls="example1" rowspan="1" colspan="1"
                                   aria-label="Platform(s): activate to sort column ascending">
@@ -248,10 +300,14 @@ class DictionaryManagementController extends Controller
 
                           <tbody>';
       foreach($result as $key =>$value){
-
-           echo '<tr role="row" class="odd" id="_tr">';
-          echo '<td class="_word-id text-center align--vertical-middle" data-id="'.$value->id.'">'. $value->id.'</td>';
-            echo '<td class="_word text-center align--vertical-middle" id="_td-word'.$value->id.'">'.$value->word.'</td>';
+        foreach($mean as $key =>$mean){
+          $languageFrom = Db::table('languages')->where('id',$value->language_id)->value('name_language');
+          $languageTo = Db::table('languages')->where('id',$mean->language_id)->value('name_language'); 
+            echo '<tr role="row" class="odd" id="_tr">';
+            echo '<td class="_word-id text-center align--vertical-middle" data-id="'.$value->id.'">'. $value->id.'</td>';
+            echo '<td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">'.$value->word.'</td>';
+            echo '<td class="_word text-center align--vertical-middle" id="">'.$mean->word.'</td>';
+            echo '<td class="_word text-center align--vertical-middle" id="">'.$languageFrom.'  - '. $languageTo.'</td>';
             echo '<td class="_pronoun text-center align--vertical-middle">'.$value->pronounce.'</td>';
             echo '<td class="text-center align--vertical-middle">
             <a class="delete_"><i class="fa fa-trash"></i></a>
@@ -259,17 +315,46 @@ class DictionaryManagementController extends Controller
             </td>
             </tr>';
           } 
+        }
     }
   }
   public function searchWithLang(request $request){
     $textSeach = $request->text;
-    $result = DB::table('dictionarys')
-           ->where ('word','like','%'.$textSeach.'%')
-           ->where ('type_word','=', $request->type)
+    if($request->type == ""){
+      $result = DB::table('dictionarys')
+           ->where ('word','like',$textSeach.'%')
            ->where('language_id' ,'=' ,$request->lang)
             ->get();
+      $mappingId =  DB::table('dictionarys')
+     ->where ('word','like',$textSeach.'%')
+      ->where('language_id' ,'=' ,$request->lang)
+     ->value('mapping_id');
+
+     /*Nghia*/
+     
+     $mean = DB::table('dictionarys')
+     ->where ('mapping_id','=',$mappingId)
+     ->paginate(10);
+    }else{
+      $result = DB::table('dictionarys')
+             ->where ('word','like',$textSeach.'%')
+             ->where ('type_word','=', $request->type)
+             ->where('language_id' ,'=' ,$request->lang)
+              ->get();
+      $mappingId =  DB::table('dictionarys')
+     ->where ('word','like',$textSeach.'%')
+     ->where ('type_word','=', $request->value)
+     ->where('language_id' ,'=' ,$request->lang)
+     ->value('mapping_id');
+
+     /*Nghia*/
+     
+     $mean = DB::table('dictionarys')
+     ->where ('mapping_id','=',$mappingId)
+     ->paginate(10);
+    }
     $count =count($result);
-    if($count < 1){
+    if($count < 1 && count($mean) < 1){
       echo "<center><h4 style='color:red'>Từ chưa có trong hệ thống</h4></center>";
     }
     else{
@@ -283,8 +368,14 @@ class DictionaryManagementController extends Controller
                               <th class="text-center col--width05" aria-controls="example1" rowspan="1" colspan="1"
                                   aria-label="Browser: activate to sort column ascending">ID
                               </th>
+                               <th class="text-center col--width3" aria-controls="example1" rowspan="1" colspan="1"
+                                  aria-label="Browser: activate to sort column ascending">Từ
+                              </th>
                               <th class="text-center col--width3" aria-controls="example1" rowspan="1" colspan="1"
                                   aria-label="Browser: activate to sort column ascending">Nghĩa
+                              </th>
+                               <th class="text-center col--width3" aria-controls="example1" rowspan="1" colspan="1"
+                                  aria-label="Browser: activate to sort column ascending">Từ điển
                               </th>
                               <th class="text-center col--width4" aria-controls="example1" rowspan="1" colspan="1"
                                   aria-label="Platform(s): activate to sort column ascending">
@@ -300,10 +391,14 @@ class DictionaryManagementController extends Controller
 
                           <tbody>';
       foreach($result as $key =>$value){
-
-           echo '<tr role="row" class="odd" id="_tr">';
-          echo '<td class="_word-id text-center align--vertical-middle" data-id="'.$value->id.'">'. $value->id.'</td>';
-            echo '<td class="_word text-center align--vertical-middle" id="_td-word'.$value->id.'">'.$value->word.'</td>';
+        foreach($mean as $key =>$mean){
+          $languageFrom = Db::table('languages')->where('id',$value->language_id)->value('name_language');
+          $languageTo = Db::table('languages')->where('id',$mean->language_id)->value('name_language'); 
+            echo '<tr role="row" class="odd" id="_tr">';
+            echo '<td class="_word-id text-center align--vertical-middle" data-id="'.$value->id.'">'. $value->id.'</td>';
+            echo '<td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">'.$value->word.'</td>';
+            echo '<td class="_word text-center align--vertical-middle" id="">'.$mean->word.'</td>';
+            echo '<td class="_word text-center align--vertical-middle" id="">'.$languageFrom.'  - '. $languageTo.'</td>';
             echo '<td class="_pronoun text-center align--vertical-middle">'.$value->pronounce.'</td>';
             echo '<td class="text-center align--vertical-middle">
             <a class="delete_"><i class="fa fa-trash"></i></a>
@@ -311,6 +406,7 @@ class DictionaryManagementController extends Controller
             </td>
             </tr>';
           } 
+        }
     }
   }
 
