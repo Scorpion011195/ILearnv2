@@ -15,9 +15,6 @@
 						{!! Auth::user()->name !!}
 					</div>
 				</div>
-				<div class="profile-userbuttons">
-					<button type="button" class="btn btn-success btn-sm">Active</button>
-				</div>
 				<div class="profile-usermenu">
 					<ul class="nav">
 						<li class="active">

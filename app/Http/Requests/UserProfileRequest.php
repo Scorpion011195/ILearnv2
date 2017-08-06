@@ -26,7 +26,7 @@ class UserProfileRequest extends FormRequest
         $currentDay = date('d-m-Y',strtotime("+1 day"));
         return [
             //
-        	'name' =>'min:6|max:100',
+        	'name' =>'nullable|min:6|max:100',
             'address' => 'nullable|min:3|max:100',
             'phone'=>'nullable|numeric|digits_between:9, 11',
             'image' => 'nullable|mimes:jpeg,jpg,png|max:1000',

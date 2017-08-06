@@ -20,9 +20,6 @@
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
                 <!-- SIDEBAR BUTTONS -->
-                <div class="profile-userbuttons">
-                    <button type="button" class="btn btn-success btn-sm">Active</button>
-                </div>
                 <!-- END SIDEBAR BUTTONS -->
                 <!-- SIDEBAR MENU -->
                 <div class="profile-usermenu">
@@ -63,7 +60,7 @@
                     <div class="form-group {{ $errors->has('passwordOld') ? 'has-error' : '' }}">
                         <label class="col-md-3 control-label">Mật khẩu cũ:</label>
                         <div class="col-md-8">
-                            <input class="form-control password" type="password" value="" name="passwordOld" required="" minlength="6" maxlength="32">
+                            <input class="form-control password" type="password" name="passwordOld" minlength="6" maxlength="32">
                             @if ($errors->has('passwordOld'))
                               <span class="help-block">
                                 <strong>{{ $errors->first('passwordOld') }}</strong>
@@ -74,7 +71,7 @@
                     <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                         <label class="col-md-3 control-label">Mật khẩu mới:</label>
                         <div class="col-md-8">
-                            <input class="form-control password" type="password" value="" name="password" required="" minlength="6" maxlength="32" >
+                            <input class="form-control password" type="password" value="" name="password" minlength="6" maxlength="32" >
                             @if ($errors->has('password'))
                               <span class="help-block">
                                 <strong>{{ $errors->first('password') }}</strong>
@@ -85,7 +82,7 @@
                     <div class="form-group {{ $errors->has('confirm_password') ? 'has-error' : '' }}">
                         <label class="col-md-3 control-label">Nhập lại mật khẩu:</label>
                         <div class="col-md-8">
-                            <input class="form-control password" type="password" value="" name="confirm_password" required="" minlength="6" maxlength="32">
+                            <input class="form-control password" type="password" name="confirm_password" minlength="6" maxlength="32">
                             @if ($errors->has('confirm_password'))
                               <span class="help-block">
                                 <strong>{{ $errors->first('confirm_password') }}</strong>
@@ -96,8 +93,8 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
                         <div class="col-md-8">
-                            <input type="submit" class="btn btn-primary" value="Save">
-                            <input type="reset" class="btn btn-default" value="Cancel">
+                            <input type="submit" class="btn btn-primary" value="Lưu">
+                            <input type="reset" class="btn btn-default" value="Hủy">
                         </div>
                     </div>
                 {!! Form::close()!!}

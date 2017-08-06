@@ -25,22 +25,19 @@ class ChangePassRequest extends FormRequest
     {
         return [
             //
-            'passwordOld' => 'required|min:6|max:32',
-            'password' =>'required|min:6|max:32',
-            'confirm_password' =>'required|same:password',
+            'passwordOld' => 'nullable|min:6|max:32',
+            'password' =>'nullable|min:6|max:32',
+            'confirm_password' =>'nullable|same:password',
         ];
     }
 
     public function messages()
     {
         return [
-        'passwordOld.required' => 'Vui lòng nhập lại mật khẩu cũ',
         'passwordOld.min' => 'Mật khẩu lớn hơn 6 kí tự',
         'passwordOld.max' => 'Mật khẩu nhỏ hơn 32 kí tự',
-        'password.required' => 'Bạn chưa nhập mật khẩu',
         'password.min' => 'Mật khẩu lớn hơn 6 kí tự',
         'password.max' => 'Mật khẩu nhỏ hơn 32 kí tự',
-        'confirm_password.required' => 'Nhập lại mật khẩu',
         'confirm_password.same' => 'Mật khẩu nhập lại chưa khớp',
         ];
     }
