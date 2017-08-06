@@ -1,24 +1,405 @@
+/*----------------CSS HEADER-------------*/
 body {
-	margin-top: 10px;
-}
-.container {
-	width: 70%;
-	background-color: red;
+    overflow-x: hidden;
 }
 .row {
 	background-color: blue;
 }
-.il-logo {
-	padding-left: 0px;
+.row.il-top-header{
+    font-size: 14px;
+    text-align: right;
+    padding: 10px 15px;
 }
-.il-logo-md {
-	width: 200px;
-	height: auto;
+.il-top-header a{
+    text-decoration: none;
+    display: inline-block;
 }
-.il-header {
-	padding-right: 0px;
+.panel-default {
+    margin-top: 15px;
+}
+/*----------------CSS MENU-------------*/
+.navbar-default{
+    background: transparent;
+    border: transparent;
+}
+.il-menu{
+    margin: 0;
+    padding: 30px 0 0;
+}
+.il-menu ul{
+    padding: 0;
+    margin: 0 -2px;
+}
+.il-menu ul li{
+    float: left;
+    list-style: none;
+    padding: 0 2px;
+}
+.il-menu ul li a{
+    display: block;
+    padding: 10px 15px;
+    background: #0984a7;
+    color: #fff;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    line-height: 10px;
+}
+.il-menu ul li.active a, .il-menu ul li a:hover, .il-menu ul li a:active{
+    background: #ffbd0a;
+    text-decoration: none;
+}
+.carousel-control.right,.carousel-control.left{
+    display: none;
+}
+.border-center{
+    background: #0984a7;
+    padding: 15px 0;
+    width: 100%;
+    position: relative;
+}
+.border-center::after{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    width: 100%;
+    height: 5px;
+    background: #f6fafb;
+}
+/*----------------CSS SEARCH-------------*/
+.il-search {
+    padding: 30px 15px;
+    position: inherit;
+}
+/*----------------CSS LOGIN-------------*/
+.il-login {
+    padding: 30px 15px;
+    position: inherit;
+}
+.il-title-login legend {
+    text-align: center;
+    color: #0984a7;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    border-bottom: none;
+    margin-bottom: -5px;
+}
+.il-title-login span {
+    font-family: 'Arial';
+    font-size: 15px;
+    line-height: 23px;
+    color: #111111;
+    text-align: center;
+    display: block;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 30px;
+}
+/*.form-group {
+    margin: 0;
+    padding: 0 0 8px;
+    border: 0;
+}*/
+.il-login .il-form-login .form-group input {
+    height: 45px;
+    padding: 0 20px;
+    color: #111111;
+    border-color: #ebebeb;
+    border-radius: 0px;
+    box-shadow: none;
+}
+.form-group .form-control {
+    display: block;
+    width: 100%;
+    min-height: 40px;
+    padding: .375rem .75rem;
+    font-size: 1em;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    margin: 0;
+}
+.form-group input, .form-group select {
+    height: 40px;
+}
+.button-50 {
+    font-size: 16px;
+    line-height: 25px;
+    width: 50%;
+}
+.btn-50-blue:hover {
+    background: #fff;
+    color: #13a6ef;
+    border: solid 1px #13a6ef;
+}
+/*----------------CSS REGISTER-------------*/
+.il-title-register legend {
+    text-align: center;
+    color: #0984a7;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    border-bottom: none;
+    margin-bottom: -5px;
+}
+.il-title-register span {
+    font-family: 'Arial';
+    font-size: 15px;
+    line-height: 23px;
+    color: #111111;
+    text-align: center;
+    display: block;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 30px;
+}
+.il-register {
+    padding: 30px 15px;
+    position: inherit;
+}
+.il-register .il-form-register .form-group input {
+    height: 45px;
+    padding: 0 20px;
+    color: #111111;
+    border-color: #ebebeb;
+    border-radius: 0px;
+    box-shadow: none;
+}
+/*----------------CSS RESULT-------------*/
+.il-result {
+    padding: 10px 15px;
+}
+.il-contents {
+    overflow: hidden;
+}
+.il-explain {
+    float: right;
+}
+.il-explain h5 {
+    color: #0984a7;
+    outline-color: red;
+}
+.il-word {
+    font-size: 18px;
+    height: 22px;
+    float: left;
+}
+.il-word span {
+    font-weight: bold;
+    text-decoration: underline;
+    color: Black;
+}
+.il-spelling {
+    padding-left: 5px;
+}
+.il-listen {
+    float: left;
+    padding-left: 5px;
+}
+.row .il-word-tile {
+    padding: 10px 15px;
+}
+.il-word-tile .il-category {
+    padding-left: 10px;
+    border-top: 1px solid #2469a2;
+    border-bottom: 1px solid #2469a2;
+    background-color: #b8dce6;
+    font-size: 14px;
+}
+.il-list {
+    padding-top: 10px;
+    line-height: 14px;
+}
+/*----------------CSS TRANSLATE TEXT-------------*/
+.il-translate-text {
+    padding: 10px 10px;
+    margin: auto;
+}
+.il-translate-title {
+    margin: inherit;
+    border-top: 1px solid #b8dce6 ;
+    border-bottom: 1px solid #b8dce6;
+    background-color: #29aae3;
+}
+.il-translate-title span{
+    line-height: 24px;
+    color: White;
+    font-weight: bold;
+    padding-left: 10px;
+    vertical-align: middle;
+}
+.il-translate-content {
+    height: 100px;
+}
+.il-translate-button {
+    text-align: center;
+}
+#list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+/*----------------CSS SETTING-------------*/
+.il-modal-set {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+/*----------------CSS HISTORY-------------*/
+.il-history {
+    padding-bottom: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+select#typeWord.form-control.type {
+    padding: 0px 18px;
+}
+select#lagPair.form-control {
+    padding: 0px 0px;
+    border-radius: 4px;
+}
+.il-language-padding-left{
+    padding-left: 10px;
+    padding-right: 23px;
+}
+.il-language-padding-right{
+    padding-right: 10px;
+}
+/*----------------CSS FOOTER-------------*/
+footer {
+    padding: 45px 15px;
+}
+.il-footer {
+    text-align: center;
+}
+.il-footer a {
+    text-decoration: none;
+}
+.il-footer a:hover {
+    color: #ffbd0a;
+}
+/*----------------CSS PROFILE-------------*/
+.il-profile {
+    padding-top: 10px;
+}
+.navbar-inverse {
+    background-color:  #0984a7;
+}
+.navbar-brand {
+    padding: 0px;
+}
+.il-column-left {
+    float: left;
+}
+body {
+  background: #F1F3FA;
+}
+/*Display message profile*/
+.il-message {
+    display: block;
+    margin-top: 7px;
+    margin-bottom: 10px;
+    color: #f02020;
+    text-align: center;
 }
 
+/* Profile container */
+.il-profile-col-md-3 {
+    padding-left: 0px;
+    
+}
+.il-profile-col-md-9 {
+    padding-right: 0px;
+}
+/* Profile sidebar */
+.profile-sidebar {
+  padding: 20px 0 10px 0;
+  background: #fff;
+}
+.profile-userpic {
+    position: relative;
+    overflow: hidden;
+}
+.profile-userpic:hover .description {
+    transform: none;
+    opacity: 1;
+    z-index: 1;
+}
+.description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    transition-property: opacity, transform;
+    transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(100%);
+    z-index: 0;
+    opacity: 0;
+}
+.description p {
+    display: block;
+    text-decoration: none;
+    color: #ea2a2a;
+    text-align: center;
+}
+.profile-userpic img {
+  float: none;
+  margin: 0 auto;
+  width: 50%;
+  height: 50%;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  border-radius: 50% !important;
+}
+
+.profile-usertitle {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-usertitle-name {
+  color: #5a7391;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.profile-usertitle-job {
+  text-transform: uppercase;
+  color: #5b9bd1;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.profile-userbuttons {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.profile-userbuttons .btn {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 15px;
+  margin-right: 5px;
+}
+
+.profile-userbuttons .btn:last-child {
+  margin-right: 0px;
+}
+    
+.profile-usermenu {
+  margin-top: 30px;
+}
+
+.profile-usermenu ul li {
+  border-bottom: 1px solid #f0f4f7;
+}
+
+<<<<<<< HEAD
 .il-header-right-top {
 	padding-right: 0px;
 	text-align: right;
@@ -94,4 +475,124 @@ body {
 	.container {
 		width: 95%;
 	}
+.profile-usermenu ul li:last-child {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li a {
+  color: #93a3b5;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.profile-usermenu ul li a i {
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.profile-usermenu ul li a:hover {
+  background-color: #fafcfd;
+  color: #5b9bd1;
+}
+
+.profile-usermenu ul li.active {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li.active a {
+  color: #5b9bd1;
+  background-color: #f6f9fb;
+  border-left: 2px solid #5b9bd1;
+  margin-left: -2px;
+}
+.il-change-pass {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+/* Profile Content */
+.profile-content {
+  padding: 20px;
+  background: #fff;
+  min-height: 460px;
+}
+/*CSS ERORS*/
+.il-alert {
+    padding-left: 0px;
+    color: red;
+    font-size: 14px;
+}
+.il-alert-result {
+    font-size: 20px;
+    color: #0984a7;
+    font-weight: bold;
+}
+.alert--fail {
+    color: red;
+    padding-top: 5px;
+}
+td tr a {
+    text-decoration: none;
+}
+.il-caption {
+    padding-left: 10px;
+    padding-top: 0px; 
+    padding-bottom: 0px;
+    color: #777;
+    text-align: left;
+}
+
+@media screen and (max-width: 240px) {
+    .il-menu {
+        width: 101%;
+        margin: 0;
+        padding: 30px 0px 0px;
+        float: left;
+        position: relative;
+    }
+    .il-menu ul li a {
+        line-height: 8px;
+        padding: 5px;
+        font-size: 10px;
+        display: block;
+        padding: 10px 6px;
+        background: #0984a7;
+        color: #fff;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+    .item img {
+        height: 45px !important;
+    }
+    .il-modal-set {
+    margin-left: 0px;
+    margin-right: 0px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .il-menu {
+        width: 101%;
+        margin: 0;
+        padding: 30px 0px 0px;
+        float: left;
+        position: relative;
+    }
+    .il-menu ul li a {
+        line-height: 10px;
+        padding: 5px;
+        font-size: 10px;
+        display: block;
+        padding: 10px 6px;
+        background: #0984a7;
+        color: #fff;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+    .item img {
+        height: 45px !important;
+    }
+    .il-modal-set {
+    margin-left: 0px;
+    margin-right: 0px;
+    }
 }
