@@ -27,9 +27,10 @@ class UserManagementController extends Controller
 
     	 $user = $request->nameSearch;
          $date = $request->dateSearch;
+         $datef = date_create($date);
+         $dateFm = date_format($datef,"Y-m-d");
     	 $role = DB::table('role_users')->get();
     	 $listUser = DB::table('users')->get();
-
     	 if($user == null && $date == null){
     	 	$message = "Vui lòng nhập từ hoặc chọn ngày để tìm kiếm";
             $count = 0;
@@ -40,14 +41,14 @@ class UserManagementController extends Controller
     	    	 $result = DB::table('users')->where ('username','like','%'.$user.'%')->paginate(10);
          	 }
          	 elseif($user == null && $date !== null){
-         	 	$result = DB::table('users')->where ('created_at','like',$date.'%')->paginate(10);
+         	 	$result = DB::table('users')->where ('created_at','like',$dateFm.'%')->paginate(10);
          	 }
          	 else{
          	 	$result = DB::table('users')->where ('username','like','%'.$user.'%')
-         	 								->where ('created_at','like',$date.'%')->paginate(10);
+         	 								->where ('created_at','like',$dateFm.'%')->paginate(10);
          	 }
              $count = (count($result));
-        	return view('admin.pages.user.user-management.user-management')->with(['dataSearch'=>$result,'roleUser'=> $role,'count'=>$count, 'user'=>$user,'date'=>$date]);
+        	return view('admin.pages.user.user-management.user-management')->with(['dataSearch'=>$result,'roleUser'=> $role,'count'=>$count, 'user'=>$user,'date'=>$dateFm]);
         }
     }
     public function changeRole(request $request){
