@@ -20,10 +20,10 @@ $(document).ready(function() {
     $(document).on('click','._update-word', function(evt){
         var _element = $(this).closest('tr');
         var idWord = _element.find('._word-id').attr('data-id');
-        var word = _element.find('._word').text();
+        var mean = _element.find('._mean').text();
         var pronoun = _element.find('._pronoun').text();
 
-        $('#_mean').val(word);
+        $('#_mean').val(mean);
         $('#_pronoun').val(pronoun);
         $('#_id-word-modal').val(idWord);
     });

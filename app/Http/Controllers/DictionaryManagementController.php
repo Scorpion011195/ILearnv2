@@ -301,17 +301,20 @@ class DictionaryManagementController extends Controller
         foreach($mean as $key =>$mean){
           $languageFrom = Db::table('languages')->where('id',$value->language_id)->value('name_language');
           $languageTo = Db::table('languages')->where('id',$mean->language_id)->value('name_language'); 
-            echo '<tr role="row" class="odd" id="_tr">';
-            echo '<td class=" _word-id text-center align--vertical-middle" data-id="'.$value->id.'">'. $value->id.'</td>';
-            echo '<td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">'.$value->word.'</td>';
-            echo '<td class="_word text-center align--vertical-middle" id="">'.$mean->word.'</td>';
-            echo '<td class="_word text-center align--vertical-middle" id="">'.$languageFrom.'  - '. $languageTo.'</td>';
-            echo '<td class="_pronoun text-center align--vertical-middle">'.$value->pronounce.'</td>';
-            echo '<td class="text-center align--vertical-middle">
-            <a class="delete_"><i class="fa fa-trash"></i></a>
-            <a  class="_update-word" style="padding-left: 5px"  data-toggle="modal" data-target="#myModal"><i class= "fa fa-pencil"></i></a>
-            </td>
-            </tr>';
+            if($value->language_id == $mean->language_id){
+                } else{
+                  echo '<tr role="row" class="odd" id="_tr">';
+                  echo '<td class=" _word-id text-center align--vertical-middle" data-id="'.$mean->id.'">'. $mean->id.'</td>';
+                  echo '<td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">'.$value->word.'</td>';
+                  echo '<td class="_mean text-center align--vertical-middle" id="">'.$mean->word.'</td>';
+                  echo '<td class="_lang text-center align--vertical-middle" id="">'.$languageFrom.'  - '. $languageTo.'</td>';
+                  echo '<td class="_pronoun text-center align--vertical-middle">'.$mean->pronounce.'</td>';
+                  echo '<td class="text-center align--vertical-middle">
+                  <a class="delete_"><i class="fa fa-trash"></i></a>
+                  <a  class="_update-word" style="padding-left: 5px"  data-toggle="modal" data-target="#myModal"><i class= "fa fa-pencil"></i></a>
+                  </td>
+                  </tr>';
+                }
           } 
         }
     }
@@ -389,20 +392,23 @@ class DictionaryManagementController extends Controller
                           <tbody>';
       foreach($result as $key =>$value){
         foreach($mean as $key =>$mean){
-          $languageFrom = Db::table('languages')->where('id',$value->language_id)->value('name_language');
-          $languageTo = Db::table('languages')->where('id',$mean->language_id)->value('name_language'); 
-            echo '<tr role="row" class="odd" id="_tr">';
-            echo '<td class=" _word-id text-center align--vertical-middle" data-id="'.$value->id.'">'. $value->id.'</td>';
-            echo '<td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">'.$value->word.'</td>';
-            echo '<td class="_word text-center align--vertical-middle" id="">'.$mean->word.'</td>';
-            echo '<td class="_word text-center align--vertical-middle" id="">'.$languageFrom.'  - '. $languageTo.'</td>';
-            echo '<td class="_pronoun text-center align--vertical-middle">'.$value->pronounce.'</td>';
-            echo '<td class="text-center align--vertical-middle">
-            <a class="delete_"><i class="fa fa-trash"></i></a>
-            <a  class="_update-word" style="padding-left: 5px"  data-toggle="modal" data-target="#myModal"><i class= "fa fa-pencil"></i></a>
-            </td>
-            </tr>';
+          if($value->language_id == $mean->language_id){
+          } else{
+            $languageFrom = Db::table('languages')->where('id',$value->language_id)->value('name_language');
+            $languageTo = Db::table('languages')->where('id',$mean->language_id)->value('name_language'); 
+              echo '<tr role="row" class="odd" id="_tr">';
+              echo '<td class=" _word-id text-center align--vertical-middle" data-id="'.$mean->id.'">'. $mean->id.'</td>';
+              echo '<td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">'.$value->word.'</td>';
+              echo '<td class="_mean text-center align--vertical-middle" id="">'.$mean->word.'</td>';
+              echo '<td class="_lang text-center align--vertical-middle" id="">'.$languageFrom.'  - '. $languageTo.'</td>';
+              echo '<td class="_pronoun text-center align--vertical-middle">'.$mean->pronounce.'</td>';
+              echo '<td class="text-center align--vertical-middle">
+              <a class="delete_"><i class="fa fa-trash"></i></a>
+              <a  class="_update-word" style="padding-left: 5px"  data-toggle="modal" data-target="#myModal"><i class= "fa fa-pencil"></i></a>
+              </td>
+              </tr>';
           } 
+        }
         }
     }
   }
@@ -423,7 +429,6 @@ class DictionaryManagementController extends Controller
     $idWord = $request->idWord;
     $updateWord = $request->updateWord;
     $updatePronoun = $request->updatePronoun;
-
     $update = Dictionary::find($idWord);
     $update->word = $updateWord;
     $update->pronounce = $updatePronoun;
