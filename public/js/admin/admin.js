@@ -162,9 +162,14 @@ $(document).ready(function() {
         toLg = 1;
         }
       $(this).confirmation({
-           title: 'Bạn có muốn thêm từ này vào lịch sử?',
+           title: 'Bạn có muốn thêm từ này vào từ điển ?',
             onConfirm: function() {
+           if(word == mean ){
+            $.notify("Từ với nghĩa không được giống nhau","warn");
+              }
+              else{
             ajaxAddWord(word,mean,lang,type,_element,_token);
+          }
             },
             onCancel: function() {
             },
@@ -179,9 +184,11 @@ $(document).ready(function() {
         data : {'fromText' : word, 'toText' : mean, 'fromLg' : lang,'toLg' : toLg,'typeWord' : type, '_token' : _token},
         beforeSend:function()
         {
-          $('#_waitting').addClass('loading');
+            $('#_waitting').addClass('loading');
+
         },
         success:function(data){
+          $.notify('Đã thêm thành công từ ' + word + ' và nghĩa '+mean+' vào hệ thống',"success");
         },
       });
     }
@@ -196,7 +203,7 @@ $(document).ready(function() {
             success : function(response){
                 if(response['data'] == true){
                    _element.remove();
-                   $.notify("Xóa thành công từ ' "+word+"' ra khỏi hệ thống!", "success");
+                   $.notify("Xóa thành công ra khỏi hệ thống!", "success");
                 }else{
                   s.notify("vui lòng thử lại","warn");
                 }
