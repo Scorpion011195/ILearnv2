@@ -206,10 +206,10 @@ class DictionaryManagementController extends Controller
     if(isset($textSeach)){
 
        $result = DB::table('dictionarys')
-           ->where ('word','like', $textSeach.'%')
+           ->where ('word','=', $textSeach)
             ->paginate(10);
         $mappingId =  DB::table('dictionarys')
-           ->where ('word','like',$textSeach.'%')
+           ->where ('word','=',$textSeach)
            ->value('mapping_id');
 
            /*Nghia*/
@@ -232,33 +232,32 @@ class DictionaryManagementController extends Controller
     $textSeach = $request->text;
     if($request->value == ""){
       $result = DB::table('dictionarys')
-           ->where ('word','like','%'.$textSeach.'%')
+           ->where ('word','=',$textSeach)
             ->get();
        $mappingId =  DB::table('dictionarys')
-           ->where ('word','like',$textSeach.'%')
+           ->where ('word','=',$textSeach)
            ->value('mapping_id');
-
            /*Nghia*/
-
        $mean = DB::table('dictionarys')
          ->where ('mapping_id','=',$mappingId)
           ->paginate(10); 
 
-    }else{
-        $result = DB::table('dictionarys')
-           ->where ('word','like','%'.$textSeach.'%')
-           ->where ('type_word','=', $request->value)
-            ->get();
-         $mappingId =  DB::table('dictionarys')
-         ->where ('word','like',$textSeach.'%')
-         ->where ('type_word','=', $request->value)
-         ->value('mapping_id');
+    }else
+    {
+     $result = DB::table('dictionarys')
+             ->where ('word','=',$textSeach)
+             ->where ('type_word','=', $request->value)
+              ->get();
+      $mappingId =  DB::table('dictionarys')
+     ->where ('word','=',$textSeach)
+     ->where ('type_word','=', $request->value)
+     ->value('mapping_id');
 
-         /*Nghia*/
-         
-         $mean = DB::table('dictionarys')
-         ->where ('mapping_id','=',$mappingId)
-         ->paginate(10);
+     /*Nghia*/
+     
+     $mean = DB::table('dictionarys')
+     ->where ('mapping_id','=',$mappingId)
+     ->paginate(10);
 
     }
 
@@ -297,23 +296,25 @@ class DictionaryManagementController extends Controller
                                 </th>
                           </tr>
                           </thead>
-
                           <tbody>';
       foreach($result as $key =>$value){
         foreach($mean as $key =>$mean){
           $languageFrom = Db::table('languages')->where('id',$value->language_id)->value('name_language');
           $languageTo = Db::table('languages')->where('id',$mean->language_id)->value('name_language'); 
-            echo '<tr role="row" class="odd" id="_tr">';
-            echo '<td class="_word-id text-center align--vertical-middle" data-id="'.$value->id.'">'. $value->id.'</td>';
-            echo '<td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">'.$value->word.'</td>';
-            echo '<td class="_word text-center align--vertical-middle" id="">'.$mean->word.'</td>';
-            echo '<td class="_word text-center align--vertical-middle" id="">'.$languageFrom.'  - '. $languageTo.'</td>';
-            echo '<td class="_pronoun text-center align--vertical-middle">'.$value->pronounce.'</td>';
-            echo '<td class="text-center align--vertical-middle">
-            <a class="delete_"><i class="fa fa-trash"></i></a>
-            <a  class="_update-word" style="padding-left: 5px"  data-toggle="modal" data-target="#myModal"><i class= "fa fa-pencil"></i></a>
-            </td>
-            </tr>';
+            if($value->language_id == $mean->language_id){
+                } else{
+                  echo '<tr role="row" class="odd" id="_tr">';
+                  echo '<td class=" _word-id text-center align--vertical-middle" data-id="'.$mean->id.'">'. $mean->id.'</td>';
+                  echo '<td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">'.$value->word.'</td>';
+                  echo '<td class="_mean text-center align--vertical-middle" id="">'.$mean->word.'</td>';
+                  echo '<td class="_lang text-center align--vertical-middle" id="">'.$languageFrom.'  - '. $languageTo.'</td>';
+                  echo '<td class="_pronoun text-center align--vertical-middle">'.$mean->pronounce.'</td>';
+                  echo '<td class="text-center align--vertical-middle">
+                  <a class="delete_"><i class="fa fa-trash"></i></a>
+                  <a  class="_update-word" style="padding-left: 5px"  data-toggle="modal" data-target="#myModal"><i class= "fa fa-pencil"></i></a>
+                  </td>
+                  </tr>';
+                }
           } 
         }
     }
@@ -322,11 +323,11 @@ class DictionaryManagementController extends Controller
     $textSeach = $request->text;
     if($request->type == ""){
       $result = DB::table('dictionarys')
-           ->where ('word','like',$textSeach.'%')
+           ->where ('word','=',$textSeach)
            ->where('language_id' ,'=' ,$request->lang)
             ->get();
       $mappingId =  DB::table('dictionarys')
-     ->where ('word','like',$textSeach.'%')
+     ->where ('word','=',$textSeach)
       ->where('language_id' ,'=' ,$request->lang)
      ->value('mapping_id');
 
@@ -337,12 +338,12 @@ class DictionaryManagementController extends Controller
      ->paginate(10);
     }else{
       $result = DB::table('dictionarys')
-             ->where ('word','like',$textSeach.'%')
+             ->where ('word','=',$textSeach)
              ->where ('type_word','=', $request->type)
              ->where('language_id' ,'=' ,$request->lang)
               ->get();
       $mappingId =  DB::table('dictionarys')
-     ->where ('word','like',$textSeach.'%')
+     ->where ('word','=',$textSeach)
      ->where ('type_word','=', $request->value)
      ->where('language_id' ,'=' ,$request->lang)
      ->value('mapping_id');
@@ -388,24 +389,26 @@ class DictionaryManagementController extends Controller
                                 </th>
                           </tr>
                           </thead>
-
                           <tbody>';
       foreach($result as $key =>$value){
         foreach($mean as $key =>$mean){
-          $languageFrom = Db::table('languages')->where('id',$value->language_id)->value('name_language');
-          $languageTo = Db::table('languages')->where('id',$mean->language_id)->value('name_language'); 
-            echo '<tr role="row" class="odd" id="_tr">';
-            echo '<td class="_word-id text-center align--vertical-middle" data-id="'.$value->id.'">'. $value->id.'</td>';
-            echo '<td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">'.$value->word.'</td>';
-            echo '<td class="_word text-center align--vertical-middle" id="">'.$mean->word.'</td>';
-            echo '<td class="_word text-center align--vertical-middle" id="">'.$languageFrom.'  - '. $languageTo.'</td>';
-            echo '<td class="_pronoun text-center align--vertical-middle">'.$value->pronounce.'</td>';
-            echo '<td class="text-center align--vertical-middle">
-            <a class="delete_"><i class="fa fa-trash"></i></a>
-            <a  class="_update-word" style="padding-left: 5px"  data-toggle="modal" data-target="#myModal"><i class= "fa fa-pencil"></i></a>
-            </td>
-            </tr>';
+          if($value->language_id == $mean->language_id){
+          } else{
+            $languageFrom = Db::table('languages')->where('id',$value->language_id)->value('name_language');
+            $languageTo = Db::table('languages')->where('id',$mean->language_id)->value('name_language'); 
+              echo '<tr role="row" class="odd" id="_tr">';
+              echo '<td class=" _word-id text-center align--vertical-middle" data-id="'.$mean->id.'">'. $mean->id.'</td>';
+              echo '<td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">'.$value->word.'</td>';
+              echo '<td class="_mean text-center align--vertical-middle" id="">'.$mean->word.'</td>';
+              echo '<td class="_lang text-center align--vertical-middle" id="">'.$languageFrom.'  - '. $languageTo.'</td>';
+              echo '<td class="_pronoun text-center align--vertical-middle">'.$mean->pronounce.'</td>';
+              echo '<td class="text-center align--vertical-middle">
+              <a class="delete_"><i class="fa fa-trash"></i></a>
+              <a  class="_update-word" style="padding-left: 5px"  data-toggle="modal" data-target="#myModal"><i class= "fa fa-pencil"></i></a>
+              </td>
+              </tr>';
           } 
+        }
         }
     }
   }
@@ -426,7 +429,6 @@ class DictionaryManagementController extends Controller
     $idWord = $request->idWord;
     $updateWord = $request->updateWord;
     $updatePronoun = $request->updatePronoun;
-
     $update = Dictionary::find($idWord);
     $update->word = $updateWord;
     $update->pronounce = $updatePronoun;

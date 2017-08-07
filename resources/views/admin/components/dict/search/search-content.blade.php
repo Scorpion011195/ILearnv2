@@ -93,21 +93,26 @@
                           <tbody>
 
                                 @foreach($results as $key =>$value)
-                                 @foreach($mean as $key =>$mean)
-                                <?php $count = count($results);
-                                $languageFrom = Db::table('languages')->where('id',$value->language_id)->value('name_language');
-                                $languageTo = Db::table('languages')->where('id',$mean->language_id)->value('name_language');  ?>
-                                 <tr role="row" class="odd" id="_tr">
-                                  <td class="_word-id text-center align--vertical-middle" data-id="{{$value->id}}">{{ $value->id }}</td>
-                                  <td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">{{ $value->word }}</td>
-                                  <td class="_word text-center align--vertical-middle" id="">{{ $mean->word}}</td>
-                                  <td class="_word text-center align--vertical-middle" id="">{{$languageFrom}}  - {{ $languageTo}}</td>
-                                  <td class="_pronoun text-center align--vertical-middle">{{ $value->pronounce }}</td>
-                                  <td class="text-center align--vertical-middle">
-                                  <a class="delete_"><i class="fa fa-trash"></i></a>
-                                  <a  class="_update-word" style="padding-left: 5px"  data-toggle="modal" data-target="#myModal"><i class= "fa fa-pencil"></i></a>
-                                  </td>
-                                  </tr>
+                                 @foreach($mean as $key =>$means)
+                                  @if($value->language_id == $means->language_id)
+                                    
+                                  @else
+
+                                    <?php $count = count($results);
+                                    $languageFrom = Db::table('languages')->where('id',$value->language_id)->value('name_language');
+                                    $languageTo = Db::table('languages')->where('id',$means->language_id)->value('name_language');  ?>
+                                     <tr role="row" class="odd" id="_tr">
+                                        <td class="_word-id text-center align--vertical-middle" data-id="{{$means->id}}">{{ $means->id }}</td>
+                                        <td class="_word text-center align--vertical-middle" id="_td-word{!! $value->id !!}">{{ $value->word }}</td>
+                                        <td class="_mean text-center align--vertical-middle" id="">{{ $means->word}}</td>
+                                        <td class="_lang text-center align--vertical-middle" id="">{{$languageFrom}}  - {{ $languageTo}}</td>
+                                        <td class="_pronoun text-center align--vertical-middle">{{ $means->pronounce }}</td>
+                                        <td class="text-center align--vertical-middle">
+                                        <a class="delete_"><i class="fa fa-trash"></i></a>
+                                        <a  class="_update-word" style="padding-left: 5px"  data-toggle="modal" data-target="#myModal"><i class= "fa fa-pencil"></i></a>
+                                        </td>
+                                      </tr>
+                                   @endif
                                   @endforeach
                                 @endforeach    
                           </tbody> 
