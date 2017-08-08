@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
         return [
             //
             'name'=> 'required|min:6|max:32|alpha_dash',
-            'pass'=> 'required|min:6|max:100',
+            'pass'=> 'required|min:6|max:100'
         ];
     }
 
@@ -33,14 +33,13 @@ class LoginRequest extends FormRequest
     {
         return [
 
-            'name.required' => 'Trường username là bắt buộc',
-            'name.required' => 'Trường username là bắt buộc',
+            'name.required' => 'Tên đăng nhập là bắt buộc',
             'name.min' => 'Tên đăng nhập lớn hơn 6 kí tự',
             'name.max' =>'Tên đăng nhập nhỏ hơn 6 kí tự',
             'name.alpha_dash' => 'Chỉ nhập các kí tự là: chữ, số, "-", "_"',
             'pass.required' => 'Mật khẩu là bắt buộc',
             'pass.min' => 'Mật khẩu lớn hơn 6 kí tự',
-            'pass.max' => 'Mật khẩu nhỏ hơn 100 kí tự',
+            'pass.max' => 'Mật khẩu nhỏ hơn 100 kí tự'
         ];
     }
 }

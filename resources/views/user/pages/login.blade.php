@@ -13,18 +13,19 @@
 	            		<div class="row">
 							<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
 								<fieldset class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-									<input type="text" class="form-control form-control-lg" value="" name="name" maxlength="32" minlength="6"  placeholder="Tên đăng nhập của bạn" required="" value="{{ old('name')}}">
+									<input type="text" class="form-control form-control-lg" value="{{ old('name')}}" name="name" maxlength="32" minlength="6"  placeholder="Tên đăng nhập của bạn" required="">
 									@if($errors->has('name'))
 										<div class="text-danger ng-hide">
-											<span><i class="fa fa-times text-danger"></i>{!! $errors->first('name') !!}</span>
+											<span><i class=" text-danger"></i>{!! $errors->first('name') !!}</span>
 										</div>
 									@endif
 								</fieldset>
+
 								<fieldset class="form-group {{ $errors->has('pass') ? 'has-error' : ''}}">
-									<input type="password" class="form-control form-control-lg" value="" maxlength="100" minlength="6" name="pass" placeholder="Mật khẩu của bạn" required="">
+									<input type="password" class="form-control form-control-lg" value="{{ old('pass')}}" maxlength="100" minlength="6" name="pass" placeholder="Mật khẩu của bạn" required="">
 									@if($errors->has('pass'))
 										<div class="text-danger ng-hide">
-											<span> <i class="fa fa-times text-danger"></i>{!! $errors->first('pass')!!}</span>
+											<span> <i class=" text-danger"></i>{!! $errors->first('pass')!!}</span>
 										</div>
 									@endif
 								</fieldset>

@@ -28,7 +28,7 @@ class RegisterRequest extends FormRequest
             'email' => 'required|min:6|max:32|email|unique:users,email',
             'password' =>'required|min:6|max:32',
             'confirm-password' =>'required|same:password',
-            'username' => 'min:6|max:32|alpha_dash|required|unique:users,username'
+            'username' => 'required|min:6|max:32|alpha_dash|unique:users,username'
         ];
     }
 
@@ -37,7 +37,7 @@ class RegisterRequest extends FormRequest
         return [
         'email.required' => 'Trường email là bắt buộc',
         'email.min' => 'Trường email không hợp lệ',
-        'email.max' => 'Trường email không hợp lê',
+        'email.max' => 'Trường email không hợp lệ',
         'email.email' => 'Bạn chưa nhập đúng định dạng email',
         'email.unique' => 'Email này đã tồn tại',
         'password.required' => 'Mật khẩu là bắt buộc',
@@ -45,7 +45,7 @@ class RegisterRequest extends FormRequest
         'password.max' => 'Mật khẩu nhỏ hơn 32 kí tự',
         'confirm-password.required' => 'Nhập lại mật khẩu',
         'confirm-password.same' => 'Mật khẩu nhập lại chưa khớp',
-        'username.unique' => 'username này đã tồn tại',
+        'username.unique' => 'Tên đăng nhập này đã tồn tại',
         'username.required' => 'Tên đăng nhập là bắt buộc',
         'username.min' => 'Tên đăng nhập lớn hơn 6 kí tự',
         'username.max' => 'Tên đăng nhập nhỏ hơn 32 kí tự',

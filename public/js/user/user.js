@@ -157,7 +157,7 @@ $(document).ready(function(){
                 if(response['data']==true){
                     // Delete rows
                     _this.closest('tr').remove();
-                    $.notify('Đã xóa từ "'+word+'" với nghĩa "'+mean+'" ra khỏi lịch sử', "success");
+                    $.notify('Đã xóa từ "'+word+'" với nghĩa "'+mean+'" ra khỏi Danh sách từ', "success");
                 }
             },
             error: function(xhr, error) {

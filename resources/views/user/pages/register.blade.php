@@ -13,26 +13,26 @@
 	            		<div class="row">
 							<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
 								<fieldset class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
-									<input type="email" class="form-control " value="" name="email" placeholder="Email của bạn" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" minlength="6" maxlength="32">
+									<input type="email" class="form-control " value="{{old('email')}}" name="email" placeholder="Email của bạn" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" minlength="6" maxlength="32">
 									@if($errors->has('email'))
 										<div class="text-danger ng-hide">
-											<span><i class="fa fa-times text-danger"></i>{!! $errors->first('email') !!}</span>
+											<span><i class=" text-danger"></i>{!! $errors->first('email') !!}</span>
 										</div>
 									@endif
 								</fieldset>
 								<fieldset class="form-group {{ $errors->has('username') ? ' has-error' : '' }}">
-									<input type="text" class="form-control " value="" name="username" maxlength="32" minlength="6"  placeholder="Tên đăng nhập của bạn" required="">
+									<input type="text" class="form-control " value="{{ old ('username')}}" name="username" maxlength="32" minlength="6"  placeholder="Tên đăng nhập của bạn" required="">
 									@if($errors->has('username'))
 										<div class="text-danger ng-hide">
-											<span><i class="fa fa-times text-danger"></i>{!! $errors->first('username') !!}</span>
+											<span><i class=" text-danger"></i>{!! $errors->first('username') !!}</span>
 										</div>
 									@endif
 								</fieldset>
 								<fieldset class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
-									<input type="password" class="form-control " value="" maxlength="100" minlength="6" name="password" placeholder="Mật khẩu của bạn" required="">
+									<input type="password" class="form-control " value="{{ old('password')}}" maxlength="100" minlength="6" name="password" placeholder="Mật khẩu của bạn" required="">
 									@if($errors->has('password'))
 										<div class="text-danger ng-hide">
-											<span><i class="fa fa-times text-danger"></i>{!! $errors->first('password') !!}</span>
+											<span><i class="text-danger"></i>{!! $errors->first('password') !!}</span>
 										</div>
 									@endif
 								</fieldset>
@@ -40,7 +40,7 @@
 									<input type="password" class="form-control " value="" maxlength="100s" minlength="6" name="confirm-password" placeholder="Nhập lại mật khẩu của bạn" required="">
 									@if($errors->has('confirm-password'))
 										<div class="text-danger ng-hide">
-											<span><i class="fa fa-times text-danger"></i>{!! $errors->first('confirm-password') !!}</span>
+											<span><i class="text-danger"></i>{!! $errors->first('confirm-password') !!}</span>
 										</div>
 									@endif
 								</fieldset>

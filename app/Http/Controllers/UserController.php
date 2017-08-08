@@ -35,7 +35,7 @@ class UserController extends Controller
     }
 
     //Post user login
-    public function postLogin(Request $request)
+    public function postLogin(LoginRequest $request)
     {
 
         $username = $request->input('name');

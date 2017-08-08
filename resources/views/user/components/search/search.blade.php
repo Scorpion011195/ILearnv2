@@ -6,7 +6,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-6 col-xs-12 col-sm-4">
                 <div class="input-group {{ $errors->has('search') ? 'has-error' : '' }}">
-                  <input name="search" type="text" id="txtSearch" class="form-control"  value = "@if(isset($inputText)){{$inputText}} @endif" placeholder="Nhập từ bạn muốn tra" maxlength="50" required="">
+                  <input name="search" type="text" id="txtSearch" class="form-control"  value = "@if(isset($inputText)){{$inputText}} @endif" placeholder="Nhập từ bạn muốn tra" required="">
                     <span class="input-group-btn">
                       <button type="submit" value="Search" class="btn btn-danger" type="button">Tra từ&nbsp;</button>
                     </span>
