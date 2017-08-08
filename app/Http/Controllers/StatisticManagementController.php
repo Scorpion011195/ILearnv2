@@ -44,15 +44,14 @@ class StatisticManagementController extends Controller
                 $checkWord = DB::table('word_users')
                     ->where('word',$value->word)
                     ->where('mean',$value->mean)
-                    ->where('created_at','!==',$ldate)
                     ->get();
                 $count = count($checkWord);
-                if($count >= 2 ){
+                if($count > 0){
                     $quanlity = DB::Table('statistic_words')
                     ->where('from_text',$value->word)
                     ->where('to_text',$value->mean)
                     ->value('quanlity');
-                $quanlity = $quanlity + 1;
+                $quanlity = $count;
                 $numOfUses = DB::Table('statistic_words')
                     ->where('from_text',$value->word)
                     ->where('to_text',$value->mean)
@@ -80,27 +79,29 @@ class StatisticManagementController extends Controller
                 $data = DB::Table('statistic_words')->insert(['from_text' => $value->word,'to_text' => $value->mean,'from_language_id' => $value->from_language_id,'to_language_id' => $value->to_language_id,'type_word_id' => $typeWord,'isAvailable' => $Aval,'created_at'=>$ldate ]);
             }
         }
-        /*Check isAvaliable of Word*/
-        $checkData = DB::table('dictionarys')->where('word',$value->word)->where('language_id',$value->from_language_id)->get();
-        if(count($checkData) > 0){
-            $numOfUses = DB::Table('statistic_words')
-                    ->where('from_text',$value->word)
-                    ->where('to_text',$value->mean)
-                    ->update(['isAvailable' => "Added"]);
-
-        }
-        else{
-            $checkData = DB::table('dictionarys')->where('word',$value->mean)->where('language_id',$value->to_language_id)->get();
+        if(isset($value)){
+            /*Check isAvaliable of Word*/
+            $checkData = DB::table('dictionarys')->where('word',$value->word)->where('language_id',$value->from_language_id)->get();
             if(count($checkData) > 0){
                 $numOfUses = DB::Table('statistic_words')
-                    ->where('from_text',$value->word)
-                    ->where('to_text',$value->mean)
-                    ->update(['isAvailable' => "Added"]);
-            }
+                        ->where('from_text',$value->word)
+                        ->where('to_text',$value->mean)
+                        ->update(['isAvailable' => "Added"]);
 
-        }
-        /*End Check*/
-        return view('admin.pages.dict.collect')->with(['data'=>$dataChecker]);
+            }
+            else{
+                $checkData = DB::table('dictionarys')->where('word',$value->mean)->where('language_id',$value->to_language_id)->get();
+                if(count($checkData) > 0){
+                    $numOfUses = DB::Table('statistic_words')
+                        ->where('from_text',$value->word)
+                        ->where('to_text',$value->mean)
+                        ->update(['isAvailable' => "Added"]);
+                }
+
+            }
+        }   
+            /*End Check*/
+            return view('admin.pages.dict.collect')->with(['data'=>$dataChecker]);
 
     }
 

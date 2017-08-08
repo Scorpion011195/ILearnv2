@@ -242,7 +242,7 @@ $(document).ready(function() {
               if(response['data']==true){
                 $.notify("Cập nhật quyền cho '" +userName+ "' thành công","success");
               }else{
-                $.notify("Bạn không thể sửa đổi quyền của chính bạn","warn");
+                $.notify("Bạn không thể sửa đổi quyền, vui lòng thử lại !","warn");
               }
             },
             error: function(xhr, error) {
@@ -261,7 +261,7 @@ $(document).ready(function() {
               if(response['data']==true){
                  $.notify("Cập nhật trạng thái thành công","success");
               }else{
-                $.notify("Bạn không thể khóa chính bạn","warn");
+                $.notify("Bạn không thể sửa đổi tình trạng của User, vui lòng thử lại !","warn");
               }
             },
             error: function(xhr, error) {
@@ -282,7 +282,7 @@ $(document).ready(function() {
                $.notify("Bạn đã xóa thành công","success");
               }
               else{
-                $.notify( "Bạn không thể xóa chính bạn","warn");
+                $.notify( "Bạn không thể user !","warn");
               }
             },
             error: function(xhr, error) {

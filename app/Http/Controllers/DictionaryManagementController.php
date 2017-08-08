@@ -55,10 +55,15 @@ class DictionaryManagementController extends Controller
                 ]);
     }
     else{
+
         $result = $this->dictService->findWordInDB($fromText,$fromLg);
+        /*Kiểm tra từ */
         if($result > 0)
+
           {
-            $result = $this->dictService->findWordInDB($toText,$toLg);
+           
+          $result = $this->dictService->findWordInDB($toText,$toLg);
+          /*Nêu từ tồn tại tiếp tục kiểm tra nghĩa*/
             if($result > 0 )
             {
               return view('admin.pages.dict.create')->with
@@ -72,8 +77,11 @@ class DictionaryManagementController extends Controller
                   'ssFromLang' =>$fromLg,
                   'ssToLang' =>$toLg,
                 ]);
-            }else
+            }
+            /*Nếu nghĩa tồn tại => return view*/
+            else
             {
+              /*Nếu nghĩa không tồn tại thì add nghĩa của từ kia vào*/
               $mapping = DB::table('dictionarys')->where('word', $fromText)
                                                 ->where('language_id',$fromLg)
                                                 ->value('mapping_id');
@@ -84,6 +92,7 @@ class DictionaryManagementController extends Controller
               $dict->mapping_id = $mappingId;
               $dict->pronounce = $pronoun;
               $dict->save();
+              /*Return ra view*/
               return view('admin.pages.dict.create')->with
               ([
               'languages'=> $lang,
@@ -97,16 +106,16 @@ class DictionaryManagementController extends Controller
               'ssType' =>$typeWord,
               ]);
                   $dataResponse = ["data"=>true];
-    return json_encode($dataResponse);
+                  return json_encode($dataResponse);
             }
           }
         else
         {
-      // Tìm kiếm và kiểm trá nghĩa xem có tồn tại hay không
-          $result = $this->dictService->findWordInDB($toText,$fromLg);
+      // Tìm kiếm và kiểm tra nghĩa xem có tồn tại hay không
+          $result = $this->dictService->findWordInDB($toText,$toLg);
           if($result > 0)
             {
-              $result = $this->dictService->findWordInDB($fromText,$toLg);
+              $result = $this->dictService->findWordInDB($fromText,$fromLg);
               if($result > 0 )
               {
                 return view('admin.pages.dict.create')->with
@@ -138,7 +147,7 @@ class DictionaryManagementController extends Controller
                 ([
                 'languages'=> $lang,
                 'typeWord'=> $typeOfWord,
-                'message' => 'Đã thêm từ '.$fromText.' thành công',
+                'message' => 'Đã thêm từ '.$fromText.' của nghĩa '.$toText.' thành công',
                 'to' =>$toText,
                 'from' =>$fromText,
                 'pronoun' =>$pronoun,
@@ -175,11 +184,6 @@ class DictionaryManagementController extends Controller
                   $dataResponse = ["data"=>true];
                   return json_encode($dataResponse);
             }
-          /*Peformance Test with 1000 record*/
-          // for($i = 0; $i <1000; $i ++){
-          //    $data = array('mapping_id'=>$mappingId, 'word'=> md5($fromText), 'language_id' => $fromLg,'type_word' => md5($typeWord),'pronounce' => md5($pronoun));
-          //     DB::table('dictionarys')->insert($data);
-          //   }
         }
       }
   }

@@ -1,6 +1,6 @@
 @if(isset($date) && !isset($user))<p>Tìm kiếm user đăng ký vào ngày :  <b style="color:red"> {{$date}} @endif </b></p>
 @if(isset($user) && !isset($date)) <p>Tìm kiếm user với từ khóa là :  <b style="color:red"> {{$user}} @endif</b></p>
-@if(isset($user) && isset($date)) <p>Tìm kiếm user với tài khoản là:<b style="color:red"> {{$user}}  </b> và ngày là : <b style="color:red"> {{$date}}@endif</b></p>
+@if(isset($user) && isset($date)) <p>Tìm kiếm user với từ khóa là:<b style="color:red"> {{$user}}  </b> và ngày là : <b style="color:red"> {{$date}}@endif</b></p>
     <!-- /.box-header -->
         <div id="example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
             <div class="row">
@@ -35,6 +35,7 @@
                     <tbody>     
                     @if(isset($dataSearch))
                         @foreach($dataSearch as $value)
+                        <input type="hidden" name="" class= "_roleId" value = "{{Auth::user()->role_i}}" hidden>
                         <?php $id = $value->id ?>
                             <tr role="row" class="odd text-center">
                                 <td class="_user-id softing_1" data-id="{{ $id }}"> {{ $id }}</td>

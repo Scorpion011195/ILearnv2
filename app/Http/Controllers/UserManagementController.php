@@ -55,7 +55,7 @@ class UserManagementController extends Controller
         $id_role = $request->idRole;
         $username = $request->username;
         $idUser =$request->idUser;
-        if(Auth::user()->id == $idUser){
+        if(Auth::user()->id == $idUser || Auth::user()->role_id !== 1){
              $dataResponse = ["data"=>false];
         return json_encode($dataResponse);
         }
@@ -77,7 +77,7 @@ class UserManagementController extends Controller
              $statusData = 1;
         }
         $data = User::find($idUser);
-        if($idUser == Auth::id()){
+        if(Auth::user()->id == $idUser || Auth::user()->role_id !== 1){
             $dataResponse = ["data"=>false];
             return json_encode($dataResponse);
         }
@@ -90,7 +90,7 @@ class UserManagementController extends Controller
 
         $idUser =$request->idUser;
         $delete = User::find($idUser);
-        if($idUser == Auth::id()){
+        if($idUser == Auth::id() || Auth::user()->role_id !== 1){
 
         $dataResponse = ["data"=>false];
         return json_encode($dataResponse);

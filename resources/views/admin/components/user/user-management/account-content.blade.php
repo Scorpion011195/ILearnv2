@@ -192,6 +192,7 @@
                                    <td class=" text-center"> @if($value->address == "")Đang cập nhật @else{{$value->address}}@endif</td>
                                    <td class=" text-center"> {{$value->created_at}}</td>
                                </tr>
+                              @else
                                @endif
                             @endforeach
                        </tbody>
