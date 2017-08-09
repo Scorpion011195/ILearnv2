@@ -102,7 +102,7 @@ $(document).ready(function() {
         data: {'value' : value, '_token':_token},
         beforeSend:function()
         {
-          $('#example_wrapper').html('Loading data on ....!');
+          $('#example_wrapper').html('Đang tải dữ liệu !');
         },
         success:function(data){
           $('#example_wrapper').html(data);

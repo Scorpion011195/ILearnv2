@@ -89,11 +89,12 @@ class UserManagementController extends Controller
     public function deleteUser(request $request){
 
         $idUser =$request->idUser;
+        $role = DB::table('users')->where('id',$idUser)->value('role_id');
         $delete = User::find($idUser);
-        if($idUser == Auth::id() || Auth::user()->role_id !== 1){
-
-        $dataResponse = ["data"=>false];
-        return json_encode($dataResponse);
+        if($idUser == Auth::id() || Auth::user()->role_id !== 2 &&  Auth::user()->role_id !== 1 || $role == 1){
+            
+            $dataResponse = ["data"=>false];
+            return json_encode($dataResponse);
 
         }
         $delete->delete();
