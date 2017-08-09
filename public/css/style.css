@@ -462,7 +462,12 @@ td tr a {
     color: #777;
     text-align: left;
 }
-
+/*#typeWord {
+    width: 50px;
+} 
+#width_tmp_select{
+  display : none;
+} */
 @media screen and (max-width: 240px) {
     .il-menu {
         width: 101%;

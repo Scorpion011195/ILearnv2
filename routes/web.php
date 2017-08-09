@@ -19,7 +19,7 @@ Route::get('logout', ['as'=>'logout', 'uses' => 'UserController@logout']);
 Route::get('user/pages/verifyEmail/{confirmationCode}','UserController@confirm'
 )->name('confirm');
 
-Route::get('test', 'WordUserController@test');
+Route::get('test/{type}', 'WordUserController@getTypeWordFromLanguage');
 
 // Link for User search Word
 Route::get('home', ['as' => 'home', 'uses' => 'DictionaryController@getSearchDictionary']);
