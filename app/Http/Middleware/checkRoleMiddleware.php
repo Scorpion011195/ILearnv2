@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Session;
 
-class AdminLoginMiddleware
+class CheckRoleMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,13 +15,8 @@ class AdminLoginMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Session::has('user'))
-        {
-            return $next($request);
-        }
-        else
-        {
-            return redirect()->route('adminGetLogin');
-        }
+
+    if($request->has('user'))
+        return $next($request);
     }
 }

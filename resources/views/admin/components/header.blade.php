@@ -27,7 +27,8 @@
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="{{ asset('http://184.171.241.153/~pagc/wp-content/uploads/2015/04/Welcome-New-Members.jpg') }}" class="img-circle _tooltip-me" alt="User Image" id="img-profile">
+                            <?php $img = Auth::user()->image; ?>
+                                <img src='{{ asset("img/$img")}}' class="img-circle" height="200px"  class="img-circle _tooltip-me">
                                 <p>
                                    <p>
                                     {{ Auth::user()->name}}

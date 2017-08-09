@@ -8,8 +8,9 @@
                 <div class="col-md-10">
                  <h3>Thông tin user : <b style="color:red">{{$infomation->username}}</b></h3>
                   <div>
-                <img src="https://img.quantrimang.com/photos/image/2016/03/19/shortcut-chay-ung-dung-duoi-quyen-admin-0.jpg" alt="Texto Alternativo" class="img-circle img-thumbnail" >
+                
                 @if(isset($infomation))
+                <img src='{{ asset("img/$infomation->image")}}' class="img-circle" height="200px">
                 <h2>{{$infomation->name}}</h2>
                 <br>
                 Ngày tạo: {{$infomation->created_at}}
@@ -46,9 +47,6 @@
               <span class="input-group-addon" id="basic-addon1" style="color:red"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
         <input type="text" name="address" id="address" class="form-control input-lg" placeholder="Địa chỉ" value="{{$infomation->address}}" tabindex="4" disabled>
         </div>
-        @if ($errors->has('address'))
-                  <span style="color:red" class="glyphicon glyphicon-warning-sign help-block--color-apple-blossom"></span>   <strong style="color:red"class=" help-block--color-apple-blossom">{!! $errors->first('address') !!}</strong>
-            @endif
       </div>
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6">

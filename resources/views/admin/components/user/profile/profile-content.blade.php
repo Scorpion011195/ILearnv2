@@ -8,7 +8,7 @@
                 <div class="col-md-10">
                  <h3>Chỉnh sửa thông tin !</h3>
                   <div>
-                <img src="https://img.quantrimang.com/photos/image/2016/03/19/shortcut-chay-ung-dung-duoi-quyen-admin-0.jpg" alt="Texto Alternativo" class="img-circle img-thumbnail" >
+                <img src='{{ asset("img/$infomation->image")}}' class="img-circle" height="200px">
                 @if(isset($infomation))
                 <h2>{{$infomation->name}}</h2>
                 <br>

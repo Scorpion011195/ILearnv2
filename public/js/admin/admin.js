@@ -282,7 +282,7 @@ $(document).ready(function() {
                $.notify("Bạn đã xóa thành công","success");
               }
               else{
-                $.notify( "Bạn không thể user !","warn");
+                $.notify( "Bạn không thể xóa user !","warn");
               }
             },
             error: function(xhr, error) {
