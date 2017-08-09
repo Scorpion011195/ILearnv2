@@ -29,7 +29,7 @@ class StatisticManagementController extends Controller
     // Display result after statistic
     public function displayStatisticalResult(){
         $db = DB::table('word_users')->get();
-        $dataChecker = DB::table('statistic_words')->get();
+        $dataChecker = DB::table('statistic_words')->orderBy('quanlity', 'desc')->paginate(10);
         $countChecker = count($dataChecker);
         $countDB = count($db);
         $ldate = new DateTime('now');
