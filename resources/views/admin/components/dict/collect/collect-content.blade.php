@@ -57,7 +57,7 @@
                             <?php $count =count($data) ?>
 
                                 @foreach($data as $value)
-                                <?php $typeWord = DB::table('type_words')->where('id',$value->type_word_id)->value('name_type_word');
+                                <?php 
                                     $lang = DB::table('languages')->where('id',$value->from_language_id)->value('name_language');?>
                                   <tr role="row" class="odd" id="_tr"> 
                                     <td class="text-center align--vertical-middle">{{$value->id}}</td>
@@ -69,7 +69,7 @@
                                     <td class="_tdLang text-center align--vertical-middle" value="{{$value->from_language_id}}" data-id = "{{$value->from_language_id}}">{{ $lang }}-Việt</td>
                                     @endif  
                                     <td class="text-center align--vertical-middle">{{$value->quanlity}}</td>
-                                    <td class="_tdType text-center align--vertical-middle">{{$typeWord}}</td>
+                                    <td class="_tdType text-center align--vertical-middle">{{$value->type_word}}</td>
                                     <td class="text-center align--vertical-middle" id= "abc">@if($value->isAvailable =="Added")Added @else <button class="form-control" id = "_waitting">Waitting</button> @endif</td>
                                   </tr>
 

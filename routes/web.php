@@ -80,63 +80,123 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/', 'AdminController@postLogin')->name('adminPostLogin');
     // Đăng xuất
     Route::get('logout', 'AdminController@logout')->name('adminLogout');
-    // Trang chủ
-    Route::group(['middleware' =>'AdminLogin'],function(){
+    
+        Route::group(['middleware' =>'AdminLogin'],function(){
+            // Trang chủ
+            Route::get('/',function(){
+              return view('admin.layouts.ilearn');
+            })->name('home');
+            // Thông tin cá nhân
+            Route::group(['prefix' => 'profile'], function () {
+                Route::get('/', 'AdminController@getProfile')->name('adminProfile');
 
-        Route::get('/',function(){
-            return view('admin.layouts.ilearn');
+                Route::post('/', 'AdminController@updateProfile')->name('updateProfile');
+            });
+   // ============================ ROLE OF ADMIN & SUPERADMIN====================================
+            Route::group(['middleware'=>'AdminRole'],function(){
+
+                /*Quản lý từ điển*/
+                Route::group(['prefix' => 'dict'], function () {
+                //  add word
+                    Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
+                    Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
+                    Route::POST('addword', 'DictionaryManagementController@getAddWord');
+
+                // Search word
+                    Route::GET('search','DictionaryManagementController@getSearch')->name('adminDisplay');
+                    Route::POST('search','DictionaryManagementController@search')->name('adminSearch');
+                    Route::POST('seachWord','DictionaryManagementController@searchWithType');
+                    Route::POST('seachWordByLang','DictionaryManagementController@searchWithLang');
+                    
+                // Delete Word
+                    Route::post('delete', 'DictionaryManagementController@deleteWord');
+                // Update từ
+                    Route::post('update', 'DictionaryManagementController@updateWord');
+                // Upload file
+                    Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
+                    Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
+                // Collection wword
+                    Route::POST('collect/', 'StatisticManagementController@collectByOb')->name('adminDictCollectByOb');
+                    Route::get('collect', 'StatisticManagementController@displayStatisticalResult')->name('adminDictCollect');
+                    Route::post('fillter', 'StatisticManagementController@getResult');
+                });
+            /*Quản lý user*/
+            Route::group(['prefix' => 'account'], function () {
+            // Admin Seach user
+                Route::get('get', 'UserManagementController@getAccount')->name('adminUserManagement');
+                Route::get('search', 'UserManagementController@searchUser')->name('adminSearchUser');
+            // Change Status
+                Route::post('status', 'UserManagementController@changeStatus');
+            // Chang role
+                Route::post('role', 'UserManagementController@changeRole');
+            // Delete user
+                Route::post('deleteUser', 'UserManagementController@deleteUser');
+
+                Route::get('detail/{id}', 'UserManagementController@detailUser')->name('adminGetDetailUser');
+                // Route::post('updateDetail', 'UserManagementController@postDetailUser')->name('adminPostDetailUser');
+                Route::get('collect', 'UserManagementController@collect')->name("adminCollectUser");
+            });
+        });
+    });
+    /*=================================END ADMIN & SUPERADMIN ROLE =================================*/
+    /*++++++++++++++++++++++++++++++++++++EDITOR ROLE ++++++++++++++++++++++++++++++++++++++++++++++*/
+     Route::group(['middleware'=>'EditorRole'],function(){
+            /*Quản lý từ điển*/
+            Route::group(['prefix' => 'dict'], function () {
+            //  add word
+                Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
+                Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
+                Route::POST('addword', 'DictionaryManagementController@getAddWord');
+
+            // Search word
+                Route::GET('search','DictionaryManagementController@getSearch')->name('adminDisplay');
+                Route::POST('search','DictionaryManagementController@search')->name('adminSearch');
+                Route::POST('seachWord','DictionaryManagementController@searchWithType');
+                Route::POST('seachWordByLang','DictionaryManagementController@searchWithLang');
+                
+            // Delete Word
+                Route::post('delete', 'DictionaryManagementController@deleteWord');
+            // Update từ
+                Route::post('update', 'DictionaryManagementController@updateWord');
+            // Upload file
+                Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
+                Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
+            // Collection wword
+                Route::POST('collect/', 'StatisticManagementController@collectByOb')->name('adminDictCollectByOb');
+                Route::get('collect', 'StatisticManagementController@displayStatisticalResult')->name('adminDictCollect');
+                Route::post('fillter', 'StatisticManagementController@getResult');
+            });
+        });
+        Route::group(['middleware'=>'ContributorRole'],function(){
+            Route::group(['prefix' => 'dict'], function () {
+            //  add word
+                Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
+                Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
+                Route::POST('addword', 'DictionaryManagementController@getAddWord');
+
+            // Search word
+                Route::GET('search','DictionaryManagementController@getSearch')->name('adminDisplay');
+                Route::POST('search','DictionaryManagementController@search')->name('adminSearch');
+                Route::POST('seachWord','DictionaryManagementController@searchWithType');
+                Route::POST('seachWordByLang','DictionaryManagementController@searchWithLang');
+                
+            // Delete Word
+                Route::post('delete', 'DictionaryManagementController@deleteWord');
+            // Update từ
+                Route::post('update', 'DictionaryManagementController@updateWord');
+            // Collection wword
+                Route::POST('collect/', 'StatisticManagementController@collectByOb')->name('adminDictCollectByOb');
+                Route::get('collect', 'StatisticManagementController@displayStatisticalResult')->name('adminDictCollect');
+                Route::post('fillter', 'StatisticManagementController@getResult');
+            });
         });
 
-        /*Quản lý từ điển*/
-        Route::group(['prefix' => 'dict'], function () {
-        //  add word
-            Route::GET('get', 'DictionaryManagementController@home')->name('getAddWord');
-            Route::POST('add', 'DictionaryManagementController@getAddWord')->name('adminAdd');
-            Route::POST('addword', 'DictionaryManagementController@getAddWord');
-
-        // Search word
-            Route::GET('search','DictionaryManagementController@getSearch')->name('adminDisplay');
-            Route::POST('search','DictionaryManagementController@search')->name('adminSearch');
-            Route::POST('seachWord','DictionaryManagementController@searchWithType');
-            Route::POST('seachWordByLang','DictionaryManagementController@searchWithLang');
-            
-        // Delete Word
-            Route::post('delete', 'DictionaryManagementController@deleteWord');
-        // Update từ
-            Route::post('update', 'DictionaryManagementController@updateWord');
-        // Upload file
-            Route::GET('upload','DictionaryManagementController@upload')->name('adminUpload');
-            Route::POST('postUpload', 'AdminCrawlerController@postUploadWords')->name('adminPostUpload');
-        // Collection wword
-            Route::POST('collect/', 'StatisticManagementController@collectByOb')->name('adminDictCollectByOb');
-            Route::get('collect', 'StatisticManagementController@displayStatisticalResult')->name('adminDictCollect');
-            Route::post('fillter', 'StatisticManagementController@getResult');
-        });
-
-        // Thông tin cá nhân
+         // Thông tin cá nhân
         Route::group(['prefix' => 'profile'], function () {
             Route::get('/', 'AdminController@getProfile')->name('adminProfile');
 
             Route::post('/', 'AdminController@updateProfile')->name('updateProfile');
         });
-
-        /*Quản lý user*/
-        Route::group(['prefix' => 'account'], function () {
-        // Admin Seach user
-            Route::get('get', 'UserManagementController@getAccount')->name('adminUserManagement');
-            Route::get('search', 'UserManagementController@searchUser')->name('adminSearchUser');
-        // Change Status
-            Route::post('status', 'UserManagementController@changeStatus');
-        // Chang role
-            Route::post('role', 'UserManagementController@changeRole');
-        // Delete user
-            Route::post('deleteUser', 'UserManagementController@deleteUser');
-
-            Route::get('detail/{id}', 'UserManagementController@detailUser')->name('adminGetDetailUser');
-            // Route::post('updateDetail', 'UserManagementController@postDetailUser')->name('adminPostDetailUser');
-            Route::get('collect', 'UserManagementController@collect')->name("adminCollectUser");
-        });
-    });
 });
 
 // END ADMIN
