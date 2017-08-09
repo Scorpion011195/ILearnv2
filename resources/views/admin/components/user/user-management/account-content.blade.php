@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?php $count =count($data)?>{{$count}}</div>
-                        <div>Tổng số lượng User!</div>
+                        <div> Danh sách tất cả User !</div>
                     </div>
                 </div>
             </div>
@@ -136,12 +136,13 @@
                     <table class="table">
                         <thead>
                           <tr>
-                            <th class="text-center">Tên user</th>
+                           <th colspan="" rowspan="" headers="" scope="">Tên</th>
                             <th class="text-center">Tên đăng nhập</th>
                             <th class=" text-center">Email</th>
                             <th class=" text-center">Số điện thoại</th>
                             <th class=" text-center">Địa chỉ</th>
-                            <th class=" text-center">Ngày tạo</th>
+                            <th class=" text-center">Tình trạng</th>
+                             <th class=" text-center">Ngày tạo</th>
                           </tr>
                        </thead>
                         <tbody>
@@ -152,6 +153,7 @@
                                        <td class=" text-center">  @if($value->email == "")Đang cập nhật @else{{$value->email}}@endif</td>
                                        <td class=" text-center">  @if($value->phone == "")Đang cập nhật @else{{$value->phone}}@endif</td>
                                        <td class=" text-center"> @if($value->address == "")Đang cập nhật @else{{$value->address}}@endif</td>
+                                      <td class=" text-center"> @if($value->confirmed == 1) Đã xác minh @else Chưa xác minh @endif</td>
                                        <td class=" text-center"> {{$value->created_at}}</td>
                                    </tr>
                             @endforeach
