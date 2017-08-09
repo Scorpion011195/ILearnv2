@@ -81,12 +81,11 @@
                                   Phát âm
                               </th>
                               <!-- If not contributor -->
-                              @if((Auth::user()->role_id != 4))
                                 <th class="text-center col--width1" aria-controls="example1" rowspan="1" colspan="1"
                                   aria-label="Engine version: activate to sort column ascending">
                                   Hành động
                                 </th>
-                              @endif
+
                           </tr>
                           </thead>
 
@@ -121,16 +120,6 @@
               </div>
             @if(isset($results)){!! $results->links() !!}@endif
               <div class="row">
-                  <div class="col-sm-5">
-                      <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
-                      @if(isset($results))
-                      <p>Có <b style="color:red "><?php $a = count($mean) ?>{{$a}} kết quả </b> được tìm thấy</p>
-                      @endif
-                      </div>
-                  </div>
-                  <div class="col-sm-7">
-                  <a href="" title=""></a>
-                  </div>
               </div>
           </div>
           <!-- /.Table -->
