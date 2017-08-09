@@ -75,7 +75,7 @@ class StatisticManagementController extends Controller
                 }
 
                 $typeWord = DB::table('type_words')->where('name_type_word', $value->type_word)->value('id');
-                $getType = $typeWord == $value->type_word;
+                
                 $data = DB::Table('statistic_words')->insert(['from_text' => $value->word,'to_text' => $value->mean,'from_language_id' => $value->from_language_id,'to_language_id' => $value->to_language_id,'type_word_id' => $typeWord,'isAvailable' => $Aval,'created_at'=>$ldate ]);
             }
         }
