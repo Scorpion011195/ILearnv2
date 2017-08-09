@@ -4,18 +4,17 @@
             <div class="col-sm-12 ">
                 <center><b><h2>Thêm vào danh sách từ</h2></b></center>
             </div>
-            <div class="col-md-2"></div>
-            <div class="col-sm-8 panel panel-default">
+            <div class="col-sm-12 panel panel-default">
                 <div class="form-inline panel-body">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="row il-history">
-                        <div class="col-sm-6 il-language-padding-left">
+                        <div class="col-sm-8 il-language-padding-left">
                             <div class="row il-history">
                                 <select class="form-control" name="lagPair" id="lagPair">
                                 @foreach ($language as $languageOut)
                                     @foreach ($language as $languageIn)
                                         @if ($languageOut->name_language != $languageIn->name_language) 
-                                            <option name = "{!! $languageIn->id !!}{!! $languageOut->id !!}" value = "{!! $languageIn->id !!}{!! $languageOut->id !!}"
+                                            <option value = "{!! $languageIn->id !!}_{!! $languageOut->id !!}"
                                             @if(isset($oldLangPair)&&$oldLangPair==$languageIn->id.$languageOut->id)
                                                  selected
                                             @endif
@@ -26,10 +25,13 @@
                                 </select>
                                 <select class="form-control type" id="typeWord">
                                     @foreach($typeWordName as $typeWord)
-                                        <option value="{!! $typeWord->name_type_word !!}" selected>{!! $typeWord->name_type_word !!}
+                                        <option value="{!! $typeWord->language_id !!}" selected>{!! $typeWord->type_word !!}
                                         </option>
                                     @endforeach
                                  </select>
+                               <!--  <select id="width_tmp_select">
+                                    <option id="width_tmp_option"></option>
+                                </select> -->
                             </div>
                             <div class="row il-history">
                                 <div class="input-group {{$errors->has('fromText') ? 'has-error' : ''}}">
@@ -44,7 +46,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-sm-6 il-language-padding-right">
+                        <div class="col-sm-4 il-language-padding-right">
                             <div class="row il-history">
                                 <button type="submit" class="btn btn-success ilearn-background-color" id ="btnAddHistory">
                                 <span class="glyphicon glyphicon-upload"></span>Thêm

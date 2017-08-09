@@ -20,7 +20,7 @@ class CreateStatisticWordsTable extends Migration
             $table->string('from_text',1000);
             $table->string('to_text',1000);
             $table->integer('quanlity');
-            $table->integer('type_word_id');
+            $table->integer('type_word');
             $table->string('isAvailable',50);
             $table->timestamps();
         });

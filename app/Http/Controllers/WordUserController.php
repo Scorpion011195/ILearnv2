@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\WordUserService;
+use App\Services\WordUserService; 
 use App\Http\Request\WordUserUpdateRequest;
 use DB;
 use Auth;
@@ -20,7 +20,7 @@ class WordUserController extends Controller
     {
         $user_id = Auth::user()->id;
         $language = $this->wordUserService->getLanguages();
-        $typeWordName = $this->wordUserService->getTypeWord();
+        $typeWordName = $this->wordUserService->getTypeWord(); 
         $getWordToUser = $this->wordUserService->getWordUser($user_id);
         $getTypeReminder = $this->wordUserService->getTypeReminder();
         $getTimeReminder = $this->wordUserService->getTimeReminder();
@@ -192,5 +192,14 @@ class WordUserController extends Controller
             }
         }
         return true;
+    }
+
+    public function getTypeWordFromLanguage($type){
+        $html = '';  
+        $result = $this->wordUserService->getTypeWordByType(explode('_', $type)[1]);  // get các loại từ với type ni ra
+            foreach ($result as $value) {
+                $html .= '<option value="'. $value->type_word.'">'. $value->type_word.'</option>';
+            }
+        echo $html;
     }
 }

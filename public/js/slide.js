@@ -22,8 +22,20 @@ $(document).ready(function () {
                 
     $('#datepicker').datepicker({
         format: "yyyy/mm/dd"
-    });  
+    }); 
 
 });
+
+///// 
+$(document).ready(function(){
+	$('#lagPair').change(function(){
+		var lagPair = $(this).val();
+		$.get('/test/' + lagPair, function(data){
+			$('#typeWord').html(data);
+		});
+	});
+});
+
+
 
 
