@@ -78,7 +78,7 @@
       </div>
       <hr class="colorgraph">
       <div class="row">
-        <div class="col-xs-12 col-md-6"></div>
+        <div class="col-xs-12 col-md-6"><a href="{{route('home')}}" title=""><h4 style="float: center">Quay lại trang chủ</h4></a></div>
         <div class="col-xs-12 col-md-6"><button type="submit" class="btn btn-success btn-block btn-lg">Lưu</button></div>
       </div>
     </form>

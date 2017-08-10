@@ -1,9 +1,6 @@
 <?php
-
 namespace App\Http\Requests;
-
 use Illuminate\Foundation\Http\FormRequest;
-
 class AdminGetProfileRequest extends FormRequest
 {
     /**
@@ -15,7 +12,6 @@ class AdminGetProfileRequest extends FormRequest
     {   
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,10 +21,9 @@ class AdminGetProfileRequest extends FormRequest
     {
         return [
             'name' => 'required|min:4|max:50',
-            'password'=>'max:50'
+            'password'=>'required|max:50'
         ];
     }
-
      public function messages()
     {
         return [
@@ -37,6 +32,7 @@ class AdminGetProfileRequest extends FormRequest
             'name.min' => 'Tên phải có từ 4 kí tự',
             'name.max' => 'Tên phải nhỏ hơn 32 kí tự',
             'password.max' =>'Mật khẩu không quá 50 ký tự',
+             'password.required' =>'Mật khẩu là bắt buộc',
         ];
     }
 }
