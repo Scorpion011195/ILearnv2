@@ -196,9 +196,9 @@ class WordUserController extends Controller
 
     public function getTypeWordFromLanguage($type){
         $html = '';  
-        $result = $this->wordUserService->getTypeWordByType(explode('_', $type)[1]);  // get các loại từ với type ni ra
+        $result = $this->wordUserService->getTypeWordByType(explode('_', $type)[1]);
             foreach ($result as $value) {
-                $html .= '<option value="'. $value->type_word.'">'. $value->type_word.'</option>';
+                $html .= '<option value="'. $value->name_type_word.'">'. $value->name_type_word.'</option>';
             }
         echo $html;
     }

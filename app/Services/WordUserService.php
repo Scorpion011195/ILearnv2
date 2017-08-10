@@ -18,12 +18,12 @@ class WordUserService extends BaseService implements WordUserRepository {
 
     public function getTypeWord()
     {
-    	   return DB::table('dictionarys')->distinct()->select('type_word', 'language_id')->groupBy('type_word')->get();  
+    	   return DB::table('type_words')->distinct()->select('name_type_word', 'language_id')->groupBy('name_type_word')->get();  
     }
 
     public function getTypeWordByType($type)
     {
-        return DB::table('dictionarys')->distinct()->select('type_word', 'language_id')->where('language_id', '=',  $type)->groupBy('type_word')->get();    
+        return DB::table('type_words')->distinct()->select('name_type_word', 'language_id')->where('language_id', '=',  $type)->groupBy('name_type_word')->get();    
     }
 
     public function getWordUser($user_id)
