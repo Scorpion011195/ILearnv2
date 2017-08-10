@@ -76,7 +76,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->username = $request->username;
         $user->password = \Hash::make($request->password);
-        $user->status = MyConstant::STATUS_USER['Hoạt động'];
+        $user->status = MyConstant::STATUS_USER['Bị khóa'];
         $user->role_id = MyConstant::ROLE_USER['user'];
         $user->confirmation_code = str_random(30);
         $user->save();
@@ -106,6 +106,7 @@ class UserController extends Controller
             return redirect('home')->with('status','Bạn chưa xác nhận, vui lòng thử lại');
         }
         $user->confirmed = 1;
+        $user->status = MyConstant::STATUS_USER['Hoạt động'];
         $user->confirmation_code = $confirmation_code;
         $user->save();
         return redirect('home')->with('status','Chúc mừng bạn đã đăng kí thành công');
