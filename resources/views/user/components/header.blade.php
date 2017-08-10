@@ -8,7 +8,7 @@
 	@endif
 </div>
 <div class="row il-bottom-header">
-	<div class="col-md-3 col-xs-4 il-logo"><a href="#"><img src="{{ asset('img/logo.png')}}" alt="il-logo" class="img-responsive il-logo"></a></div>
+	<div class="col-md-3 col-xs-4 il-logo"><a href="{{url('home')}}"><img src="{{ asset('img/logo.png')}}" alt="il-logo" class="img-responsive il-logo"></a></div>
 	<div class="col-md-9 col-xs-8 il-bottom-banner">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 		    <!-- Indicators -->
