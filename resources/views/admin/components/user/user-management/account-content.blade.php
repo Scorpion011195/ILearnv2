@@ -98,7 +98,8 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">     
-                    <table class="table">
+                    <table id="example1" class="table table-bordered table-striped dataTable" role="grid"
+                               aria-describedby="example1_info">
                         <thead>
                           <tr>
                             <th class="text-center">Tên user</th>
@@ -133,7 +134,8 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">     
-                    <table class="table">
+                    <table id="example1" class="table table-bordered table-striped dataTable" role="grid"
+                               aria-describedby="example1_info">
                         <thead>
                           <tr>
                            <th colspan="" rowspan="" headers="" scope="">Tên</th>
@@ -172,7 +174,8 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">     
-                    <table class="table">
+                    <table id="example1" class="table table-bordered table-striped dataTable" role="grid"
+                               aria-describedby="example1_info">
                         <thead>
                           <tr>
                             <th class="text-center">Tên user</th>
@@ -212,7 +215,8 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">     
-                    <table class="table">
+                    <table id="example1" class="table table-bordered table-striped dataTable" role="grid"
+                               aria-describedby="example1_info">
                         <thead>
                           <tr>
                             <th class="text-center">Tên user</th>
