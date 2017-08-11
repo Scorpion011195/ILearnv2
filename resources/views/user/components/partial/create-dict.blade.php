@@ -4,11 +4,12 @@
             <div class="col-sm-12 ">
                 <center><b><h2>Thêm vào danh sách từ</h2></b></center>
             </div>
-            <div class="col-sm-12 panel panel-default">
+            <div class="col-md-2"></div>
+            <div class="col-sm-8 panel panel-default">
                 <div class="form-inline panel-body">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="row il-history">
-                        <div class="col-sm-8 il-language-padding-left">
+                        <div class="col-sm-6 il-language-padding-left">
                             <div class="row il-history">
                                 <select class="form-control" name="lagPair" id="lagPair">
                                 @foreach ($language as $languageOut)
@@ -46,7 +47,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-sm-4 il-language-padding-right">
+                        <div class="col-sm-6 il-language-padding-right">
                             <div class="row il-history">
                                 <button type="submit" class="btn btn-success ilearn-background-color" id ="btnAddHistory">
                                 <span class="glyphicon glyphicon-upload"></span>Thêm
