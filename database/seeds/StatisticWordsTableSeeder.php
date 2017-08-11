@@ -12,7 +12,7 @@ class StatisticWordsTableSeeder extends Seeder
     public function run()
     {
         DB::table('statistic_words')->insert([
-            ['id'=>1,'from_language_id'=>1,'to_language_id'=>2,'from_text'=>'hello','to_text'=>'xin chào','quanlity'=>0,'type_word'=>'Danh từ','isAvailable'=>'YES']
+            ['id'=>1,'from_language_id'=>1,'to_language_id'=>2,'from_text'=>'hello','to_text'=>'xin chào','quanlity'=>0,'type_word'=>'Danh từ','isAvailable'=>'Added']
         ]);
     }
 }
