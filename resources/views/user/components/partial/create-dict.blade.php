@@ -30,9 +30,6 @@
                                         </option>
                                     @endforeach
                                  </select>
-                               <!--  <select id="width_tmp_select">
-                                    <option id="width_tmp_option"></option>
-                                </select> -->
                             </div>
                             <div class="row il-history">
                                 <div class="input-group {{$errors->has('fromText') ? 'has-error' : ''}}">
