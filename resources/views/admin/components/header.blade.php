@@ -22,13 +22,16 @@
                     <li class="dropdown user user-menu">
                         <!-- Menu Toggle Button -->
                         <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="">{{ Session::get('user')->username }}</span>
+                            <span class=""> {{ Auth::user()->username }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
                             <?php $img = Auth::user()->image; ?>
-                                <img src='{{ asset("img/$img")}}' class="img-circle" height="200px"  class="img-circle _tooltip-me">
+                                @if(isset(Auth::user()->image)) <img src='{{ asset("img/$img")}}' class="img-circle" height="200px"  class="img-circle _tooltip-me">
+                                @else
+                                <img src='{{ asset("https://success.salesforce.com/resource/1502064000000/sharedlayout/img/new-user-image-default.png")}}' class="img-circle" height="200px"  class="img-circle _tooltip-me">
+                                @endif
                                 <p>
                                    <p>
                                     {{ Auth::user()->name}}
