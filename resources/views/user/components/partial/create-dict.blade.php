@@ -26,7 +26,7 @@
                                 </select>
                                 <select class="form-control type" id="typeWord">
                                     @foreach($typeWordName as $typeWord)
-                                        <option value="{!! $typeWord->language_id !!}" selected>{!! $typeWord->name_type_word !!}
+                                        <option value="{!! $typeWord->name_type_word !!}" selected>{!! $typeWord->name_type_word !!}
                                         </option>
                                     @endforeach
                                  </select>
