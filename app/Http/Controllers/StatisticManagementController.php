@@ -184,7 +184,7 @@ class StatisticManagementController extends Controller
                 </div>';
         }
         else{
-            echo "<center><h4 style='color:red'>Không có từ với tình trạng <b>".$request->value." </b></h4></center>";
+            echo "<center><h4 style='color:red'>Không có dữ liệu với tình trạng <b>".$request->value." </b></h4></center>";
         }
     }
 }
