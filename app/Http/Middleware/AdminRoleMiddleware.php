@@ -15,7 +15,7 @@ class AdminRoleMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2){
+        if( isset(Auth::user()->role_id) &&Auth::user()->role_id == 1 || isset(Auth::user()->role_id) && Auth::user()->role_id == 2){
             return $next($request);
         }
         else{
